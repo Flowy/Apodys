@@ -29,5 +29,6 @@ public class Main {
         System.out.println(test3.format(formatter));
         System.out.println(test3.plus(3L, ChronoUnit.HOURS).format(formatter));
 
+        System.out.println(ZoneId.getAvailableZoneIds());
     }
 }

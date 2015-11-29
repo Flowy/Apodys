@@ -4,10 +4,10 @@ import java.time.ZonedDateTime;
 
 public class Smena implements PolozkaPlanu {
 
-    private ZonedDateTime zaciatok;
-    private ZonedDateTime koniec;
-    private TypPolozkyPlanu typ;
-    private Zamestnanec zamestnanec;
+    ZonedDateTime zaciatok;
+    ZonedDateTime koniec;
+    TypPolozkyPlanu typ;
+    Zamestnanec zamestnanec;
 
     public Smena(ZonedDateTime zaciatok, ZonedDateTime koniec, TypPolozkyPlanu typ) {
         this.zaciatok = zaciatok;
@@ -24,8 +24,6 @@ public class Smena implements PolozkaPlanu {
     public ZonedDateTime zaciatok() {
         return zaciatok;
     }
-
-
 
     @Override
     public ZonedDateTime koniec() {

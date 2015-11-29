@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class PlanSmien {
-    private List<PolozkaPlanu> polozky;
+    List<PolozkaPlanu> polozky;
 
     public enum Zoradenie {
         VYKONAVATEL(new PoradiePodlaVykonavatela()),
