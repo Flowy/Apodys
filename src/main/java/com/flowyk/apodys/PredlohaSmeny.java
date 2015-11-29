@@ -4,7 +4,7 @@ import java.time.*;
 import java.util.Objects;
 
 public class PredlohaSmeny {
-    TypJednotkyPlanu typ;
+    TypPolozkyPlanu typ;
     LocalTime startTime;
     LocalTime endTime;
     Period endDay;

@@ -2,11 +2,11 @@ package com.flowyk.apodys;
 
 import java.util.Objects;
 
-public class TypJednotkyPlanu {
+public class TypPolozkyPlanu {
 
     private String typ;
 
-    public TypJednotkyPlanu(String typ) {
+    public TypPolozkyPlanu(String typ) {
         this.typ = Objects.requireNonNull(typ);
     }
 
@@ -19,7 +19,7 @@ public class TypJednotkyPlanu {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TypJednotkyPlanu that = (TypJednotkyPlanu) o;
+        TypPolozkyPlanu that = (TypPolozkyPlanu) o;
 
         return typ.equals(that.typ);
 
@@ -32,7 +32,7 @@ public class TypJednotkyPlanu {
 
     @Override
     public String toString() {
-        return "TypJednotkyPlanu{" +
+        return "TypPolozkyPlanu{" +
                 "typ='" + typ + '\'' +
                 '}';
     }

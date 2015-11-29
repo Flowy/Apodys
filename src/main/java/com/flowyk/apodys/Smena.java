@@ -2,21 +2,21 @@ package com.flowyk.apodys;
 
 import java.time.ZonedDateTime;
 
-public class Smena implements JednotkaPlanu {
+public class Smena implements PolozkaPlanu {
 
     private ZonedDateTime zaciatok;
     private ZonedDateTime koniec;
-    private TypJednotkyPlanu typ;
+    private TypPolozkyPlanu typ;
     private Zamestnanec zamestnanec;
 
-    public Smena(ZonedDateTime zaciatok, ZonedDateTime koniec, TypJednotkyPlanu typ) {
+    public Smena(ZonedDateTime zaciatok, ZonedDateTime koniec, TypPolozkyPlanu typ) {
         this.zaciatok = zaciatok;
         this.koniec = koniec;
         this.typ = typ;
     }
 
     @Override
-    public TypJednotkyPlanu typ() {
+    public TypPolozkyPlanu typ() {
         return typ;
     }
 
