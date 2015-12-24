@@ -9,13 +9,11 @@ import java.util.List;
 
 public class PredlohaSmienPreObdobie {
     List<PredlohaSmenyPreObdobie> supisPredloh;
+    Period dlzkaObdobia;
 
-    public PredlohaSmienPreObdobie() {
-        this.supisPredloh = new ArrayList<>();
-    }
-
-    PredlohaSmienPreObdobie(List<PredlohaSmenyPreObdobie> supis) {
+    public PredlohaSmienPreObdobie(List<PredlohaSmenyPreObdobie> supis, Period dlzkaObdobia) {
         this.supisPredloh = supis;
+        this.dlzkaObdobia = dlzkaObdobia;
     }
 
     public List<Smena> vygenerujOd(LocalDate datum, ZoneId zona) {
@@ -24,6 +22,10 @@ public class PredlohaSmienPreObdobie {
             vysledok.add(predloha.vygenerujOd(datum, zona));
         }
         return vysledok;
+    }
+
+    public Period dlzkaObdobia() {
+        return dlzkaObdobia;
     }
 
     public static class PredlohaSmenyPreObdobie extends PredlohaSmeny {

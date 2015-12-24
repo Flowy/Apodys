@@ -32,8 +32,8 @@ public class TypPolozkyPlanu {
 
     @Override
     public String toString() {
-        return "TypPolozkyPlanu{" +
-                "typ='" + typ + '\'' +
+        return "Typ{" +
+                "'" + typ + '\'' +
                 '}';
     }
 }

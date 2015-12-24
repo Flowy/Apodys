@@ -16,6 +16,7 @@ public class TestovacieData {
     PredlohaSmeny predlohaN2P;
     ZoneId testovanaZona;
     PredlohaSmienPreObdobie tyzdennyPlan;
+    List<Zamestnanec> zamestnanci;
 
     TestovacieData() {
         predlohaR2P = new PredlohaSmeny(new TypPolozkyPlanu("R2P"), LocalTime.of(6, 0), LocalTime.of(18, 0));
@@ -25,6 +26,8 @@ public class TestovacieData {
         testovanaZona = ZoneId.of("Europe/Bratislava");
 
         initTyzdennyPlan();
+        zamestnanci = new ArrayList<>();
+        initZamestnanci(zamestnanci);
     }
 
     private void initTyzdennyPlan() {
@@ -39,7 +42,7 @@ public class TestovacieData {
             startDay = startDay.plus(Period.ofDays(1));
         }
         Assert.assertEquals("Tyzdenny plan by mal mat 40 zaznamov", 40L, supis.size());
-        tyzdennyPlan = new PredlohaSmienPreObdobie(supis);
+        tyzdennyPlan = new PredlohaSmienPreObdobie(supis, Period.ofDays(7));
     }
 
 
@@ -58,6 +61,13 @@ public class TestovacieData {
         supis.add(new PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie(predlohaP1C, startDay));
         supis.add(new PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie(predlohaN2P, startDay));
         supis.add(new PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie(predlohaN2P, startDay));
+    }
+
+    private void initZamestnanci(List<Zamestnanec> zamestnanci) {
+        zamestnanci.add(new Zamestnanec("papaSmurf", "flowyk+testPapaSmurf@gmail.com"));
+        zamestnanci.add(new Zamestnanec("darthVader", "flowyk+testDdarthVader@gmail.com"));
+        zamestnanci.add(new Zamestnanec("alf", "flowyk+testAlf@gmail.com"));
+//        zamestnanci.add(new )
     }
 
 }

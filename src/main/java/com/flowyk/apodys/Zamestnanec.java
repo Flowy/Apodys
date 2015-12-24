@@ -4,6 +4,11 @@ public class Zamestnanec implements Comparable<Zamestnanec> {
     private String name;
     private String email;
 
+    public Zamestnanec(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
     @Override
     public int compareTo(Zamestnanec o) {
         return name.compareTo(o.name);
@@ -23,5 +28,10 @@ public class Zamestnanec implements Comparable<Zamestnanec> {
     @Override
     public int hashCode() {
         return name.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

@@ -1,6 +1,8 @@
 package com.flowyk.apodys;
 
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class Smena implements PolozkaPlanu {
 
@@ -45,5 +47,16 @@ public class Smena implements PolozkaPlanu {
 
     public void setZamestnanec(Zamestnanec zamestnanec) {
         this.zamestnanec = zamestnanec;
+    }
+
+    @Override
+    public String toString() {
+        DateTimeFormatter dateTime = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        return "Smena{" +
+                "zaciatok=" + zaciatok.format(dateTime) +
+                ", koniec=" + koniec.format(dateTime) +
+                ", typ=" + typ +
+                ", zamestnanec=" + zamestnanec +
+                '}';
     }
 }

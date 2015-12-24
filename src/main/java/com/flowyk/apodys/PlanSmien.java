@@ -55,4 +55,11 @@ public class PlanSmien {
             return result;
         }
     }
+
+    @Override
+    public String toString() {
+        return "PlanSmien{" +
+                polozky +
+                '}';
+    }
 }
