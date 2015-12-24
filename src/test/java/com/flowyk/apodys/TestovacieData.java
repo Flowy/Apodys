@@ -64,9 +64,14 @@ public class TestovacieData {
     }
 
     private void initZamestnanci(List<Zamestnanec> zamestnanci) {
-        zamestnanci.add(new Zamestnanec("papaSmurf", "flowyk+testPapaSmurf@gmail.com"));
-        zamestnanci.add(new Zamestnanec("darthVader", "flowyk+testDdarthVader@gmail.com"));
-        zamestnanci.add(new Zamestnanec("alf", "flowyk+testAlf@gmail.com"));
+        zamestnanci.add(new Zamestnanec("Papa Smurf", "flowyk+testPapaSmurf@gmail.com"));
+        zamestnanci.add(new Zamestnanec("Gargamel", "flowyk+testGargamel@gmail.com"));
+        zamestnanci.add(new Zamestnanec("Darth Vader", "flowyk+testDdarthVader@gmail.com"));
+        zamestnanci.add(new Zamestnanec("Alf", "flowyk+testAlf@gmail.com"));
+        zamestnanci.add(new Zamestnanec("Tinky-Winky", "flowyk+testTinkyWinky@gmail.com"));
+        zamestnanci.add(new Zamestnanec("Elmo", "flowyk+testElmo@gmail.com"));
+        zamestnanci.add(new Zamestnanec("Cookie Monster", "flowyk+testCookieMonster@gmail.com"));
+
 //        zamestnanci.add(new )
     }
 
