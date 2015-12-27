@@ -1,5 +1,6 @@
 package com.flowyk.apodys;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -31,11 +32,37 @@ public class PlanSmien {
         polozky.add(polozka);
     }
 
+    public List<PolozkaPlanu> zoznamPoloziek() {
+        return Collections.unmodifiableList(polozky);
+    }
+
     public PlanSmien zoraditPodla(Zoradenie zoradenie) {
         List<PolozkaPlanu> zoradenePolozky = new ArrayList<>(polozky.size());
         Collections.copy(zoradenePolozky, polozky);
         Collections.sort(zoradenePolozky, zoradenie.comparator);
         return new PlanSmien(zoradenePolozky);
+    }
+
+    public static PlanSmien preObdobie(PlanSmien plan, ZonedDateTime zaciatok, ZonedDateTime koniec) {
+        PlanSmien result = new PlanSmien();
+        for (PolozkaPlanu polozka: plan.polozky) {
+            boolean startsInSpan = polozka.zaciatok().isAfter(zaciatok) && polozka.zaciatok().isBefore(koniec);
+            boolean endsInSpan = polozka.koniec().isAfter(zaciatok) && polozka.koniec().isBefore(koniec);
+            if (startsInSpan || endsInSpan) {
+                result.pridatPolozku(polozka);
+            }
+        }
+        return result;
+    }
+
+    public static PlanSmien preZamestnanca(PlanSmien plan, Zamestnanec zamestnanec) {
+        PlanSmien result = new PlanSmien();
+        for (PolozkaPlanu polozka: plan.polozky) {
+            if (zamestnanec.equals(polozka.vykonavatel())) {
+                result.pridatPolozku(polozka);
+            }
+        }
+        return result;
     }
 
     private static class PoradiePodlaVykonavatela implements Comparator<PolozkaPlanu> {

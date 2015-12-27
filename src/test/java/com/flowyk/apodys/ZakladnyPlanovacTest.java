@@ -7,7 +7,7 @@ import java.time.ZonedDateTime;
 
 import static org.junit.Assert.*;
 
-public class PlanovacTest {
+public class ZakladnyPlanovacTest {
 
     TestovacieData td;
 
@@ -18,7 +18,7 @@ public class PlanovacTest {
 
     @Test
     public void testNaplanuj() throws Exception {
-        Planovac planovac = new Planovac(td.zamestnanci, td.tyzdennyPlan);
+        Planovac planovac = new ZakladnyPlanovac(td.zamestnanci, td.tyzdennyPlan);
         PlanSmien planSmien = planovac.naplanuj(
                 ZonedDateTime.of(2015, 11, 30, 0, 0, 0, 0, td.testovanaZona),
                 ZonedDateTime.of(2015, 12, 27, 0, 0, 0, 0, td.testovanaZona));

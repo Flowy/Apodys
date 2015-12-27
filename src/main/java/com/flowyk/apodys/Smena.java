@@ -1,5 +1,6 @@
 package com.flowyk.apodys;
 
+import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -10,11 +11,20 @@ public class Smena implements PolozkaPlanu {
     ZonedDateTime koniec;
     TypPolozkyPlanu typ;
     Zamestnanec zamestnanec;
+    Duration countedDuration;
 
     public Smena(ZonedDateTime zaciatok, ZonedDateTime koniec, TypPolozkyPlanu typ) {
         this.zaciatok = zaciatok;
         this.koniec = koniec;
         this.typ = typ;
+        this.countedDuration = Duration.between(zaciatok, koniec);
+    }
+
+    public Smena(ZonedDateTime zaciatok, ZonedDateTime koniec, TypPolozkyPlanu typ, Duration countedDuration) {
+        this.zaciatok = zaciatok;
+        this.koniec = koniec;
+        this.typ = typ;
+        this.countedDuration = countedDuration;
     }
 
     @Override
@@ -35,6 +45,11 @@ public class Smena implements PolozkaPlanu {
     @Override
     public Zamestnanec vykonavatel() {
         return zamestnanec;
+    }
+
+    @Override
+    public Duration countedDuration() {
+        return countedDuration;
     }
 
     public void setZaciatok(ZonedDateTime zaciatok) {

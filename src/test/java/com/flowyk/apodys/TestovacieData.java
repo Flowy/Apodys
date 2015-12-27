@@ -2,32 +2,39 @@ package com.flowyk.apodys;
 
 import org.junit.Assert;
 
-import java.time.LocalTime;
-import java.time.Period;
-import java.time.ZoneId;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TestovacieData {
 
-    PredlohaSmeny predlohaR2P;
-    PredlohaSmeny predlohaP1C;
-    PredlohaSmeny predlohaO75;
-    PredlohaSmeny predlohaN2P;
-    ZoneId testovanaZona;
-    PredlohaSmienPreObdobie tyzdennyPlan;
-    List<Zamestnanec> zamestnanci;
+    public PredlohaSmeny predlohaR2P;
+    public PredlohaSmeny predlohaP1C;
+    public PredlohaSmeny predlohaO75;
+    public PredlohaSmeny predlohaN2P;
+    public ZoneId testovanaZona;
+    public PredlohaSmienPreObdobie tyzdennyPlan;
+    public List<Zamestnanec> zamestnanci;
 
-    TestovacieData() {
-        predlohaR2P = new PredlohaSmeny(new TypPolozkyPlanu("R2P"), LocalTime.of(6, 0), LocalTime.of(18, 0));
-        predlohaP1C = new PredlohaSmeny(new TypPolozkyPlanu("P1C"), LocalTime.of(9, 0), LocalTime.of(21, 0));
-        predlohaO75 = new PredlohaSmeny(new TypPolozkyPlanu("07,5"), LocalTime.of(14, 0), LocalTime.of(22, 0));
-        predlohaN2P = new PredlohaSmeny(new TypPolozkyPlanu("N2P"), LocalTime.of(18, 0), LocalTime.of(6, 0), Period.ofDays(1));
+    public TestovacieData() {
+        predlohaR2P = new PredlohaSmeny(new TypPolozkyPlanu("R2P"), LocalTime.of(6, 0), LocalTime.of(18, 0), Duration.ofHours(12L));
+        predlohaP1C = new PredlohaSmeny(new TypPolozkyPlanu("P1C"), LocalTime.of(9, 0), LocalTime.of(21, 0), Duration.ofHours(12L));
+        predlohaO75 = new PredlohaSmeny(new TypPolozkyPlanu("07,5"), LocalTime.of(14, 0), LocalTime.of(22, 0), Duration.ofHours(8L));
+        predlohaN2P = new PredlohaSmeny(new TypPolozkyPlanu("N2P"), LocalTime.of(18, 0), LocalTime.of(6, 0), Period.ofDays(1), Duration.ofHours(12L));
         testovanaZona = ZoneId.of("Europe/Bratislava");
 
         initTyzdennyPlan();
         zamestnanci = new ArrayList<>();
         initZamestnanci(zamestnanci);
+    }
+
+
+    public Smena smena(long hours) {
+        ZonedDateTime zaciatok = ZonedDateTime.of(2015, 11, 29, 0, 0, 0, 0, testovanaZona);
+        return new Smena(
+                zaciatok,
+                zaciatok.plusHours(hours),
+                new TypPolozkyPlanu("test"));
     }
 
     private void initTyzdennyPlan() {

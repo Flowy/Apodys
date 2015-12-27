@@ -1,5 +1,6 @@
 package com.flowyk.apodys;
 
+import java.time.Duration;
 import java.time.ZonedDateTime;
 
 public interface PolozkaPlanu {
@@ -7,4 +8,5 @@ public interface PolozkaPlanu {
     ZonedDateTime zaciatok();
     ZonedDateTime koniec();
     Zamestnanec vykonavatel();
+    Duration countedDuration();
 }
