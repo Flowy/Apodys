@@ -1,13 +1,11 @@
-package com.flowyk.apodys.pravidlo;
+package com.flowyk.apodys.planovanie.pravidlo;
 
 import com.flowyk.apodys.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.Period;
-import java.time.ZonedDateTime;
 
 import static org.junit.Assert.*;
 

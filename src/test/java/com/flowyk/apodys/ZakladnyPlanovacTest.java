@@ -1,5 +1,7 @@
 package com.flowyk.apodys;
 
+import com.flowyk.apodys.planovanie.Planovac;
+import com.flowyk.apodys.planovanie.ZakladnyPlanovac;
 import org.junit.Before;
 import org.junit.Test;
 

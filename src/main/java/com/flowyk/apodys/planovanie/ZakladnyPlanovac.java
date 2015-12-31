@@ -1,4 +1,9 @@
-package com.flowyk.apodys;
+package com.flowyk.apodys.planovanie;
+
+import com.flowyk.apodys.PlanSmien;
+import com.flowyk.apodys.PolozkaPlanu;
+import com.flowyk.apodys.PredlohaSmienPreObdobie;
+import com.flowyk.apodys.Zamestnanec;
 
 import java.time.ZonedDateTime;
 import java.util.Iterator;

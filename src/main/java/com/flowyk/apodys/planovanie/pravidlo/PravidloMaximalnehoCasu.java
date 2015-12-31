@@ -1,4 +1,4 @@
-package com.flowyk.apodys.pravidlo;
+package com.flowyk.apodys.planovanie.pravidlo;
 
 import com.flowyk.apodys.PlanSmien;
 import com.flowyk.apodys.PolozkaPlanu;
@@ -6,7 +6,6 @@ import com.flowyk.apodys.PolozkaPlanu;
 import java.time.Duration;
 import java.time.Period;
 import java.time.ZonedDateTime;
-import java.util.Iterator;
 
 public class PravidloMaximalnehoCasu implements PravidloPlanovaniaSmien {
 

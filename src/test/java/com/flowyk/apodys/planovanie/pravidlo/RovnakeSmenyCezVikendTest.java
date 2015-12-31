@@ -1,4 +1,4 @@
-package com.flowyk.apodys.pravidlo;
+package com.flowyk.apodys.planovanie.pravidlo;
 
 import com.flowyk.apodys.PlanSmien;
 import com.flowyk.apodys.PolozkaPlanu;

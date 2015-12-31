@@ -1,4 +1,6 @@
-package com.flowyk.apodys;
+package com.flowyk.apodys.planovanie;
+
+import com.flowyk.apodys.PlanSmien;
 
 import java.time.ZonedDateTime;
 

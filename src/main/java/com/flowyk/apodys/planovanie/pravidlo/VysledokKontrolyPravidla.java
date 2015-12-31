@@ -1,4 +1,4 @@
-package com.flowyk.apodys.pravidlo;
+package com.flowyk.apodys.planovanie.pravidlo;
 
 public class VysledokKontrolyPravidla {
 
