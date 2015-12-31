@@ -43,9 +43,9 @@ public class PlanSmien {
         return new PlanSmien(zoradenePolozky);
     }
 
-    public static PlanSmien preObdobie(PlanSmien plan, ZonedDateTime zaciatok, ZonedDateTime koniec) {
+    public PlanSmien preObdobie(ZonedDateTime zaciatok, ZonedDateTime koniec) {
         PlanSmien result = new PlanSmien();
-        for (PolozkaPlanu polozka: plan.polozky) {
+        for (PolozkaPlanu polozka: this.polozky) {
             boolean startsInSpan = polozka.zaciatok().isAfter(zaciatok) && polozka.zaciatok().isBefore(koniec);
             boolean endsInSpan = polozka.koniec().isAfter(zaciatok) && polozka.koniec().isBefore(koniec);
             if (startsInSpan || endsInSpan) {
@@ -55,9 +55,9 @@ public class PlanSmien {
         return result;
     }
 
-    public static PlanSmien preZamestnanca(PlanSmien plan, Zamestnanec zamestnanec) {
+    public PlanSmien preZamestnanca(Zamestnanec zamestnanec) {
         PlanSmien result = new PlanSmien();
-        for (PolozkaPlanu polozka: plan.polozky) {
+        for (PolozkaPlanu polozka: this.polozky) {
             if (zamestnanec.equals(polozka.vykonavatel())) {
                 result.pridatPolozku(polozka);
             }

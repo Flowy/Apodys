@@ -32,9 +32,9 @@ public class ZakladnyPlanovac implements Planovac {
         return planSmien;
     }
 
-    void spracujSmeny(PlanSmien planSmien, List<Smena> smeny) {
+    void spracujSmeny(PlanSmien planSmien, List<PolozkaPlanu> smeny) {
         Iterator<Zamestnanec> zamestnanci = null;
-        for (Smena smena: smeny) {
+        for (PolozkaPlanu smena: smeny) {
             if (zamestnanci == null || !zamestnanci.hasNext()) {
                 zamestnanci = zamestnanecList.iterator();
             }

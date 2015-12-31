@@ -13,9 +13,6 @@ public class PredlohaSmeny {
 
     /**
      * startTime and endTime are in same day
-     * @param typ
-     * @param startTime
-     * @param endTime
      * @param countedDuration stable duration for this when making statistics
      */
     public PredlohaSmeny(TypPolozkyPlanu typ, LocalTime startTime, LocalTime endTime, Duration countedDuration) {
@@ -34,9 +31,9 @@ public class PredlohaSmeny {
         this.countedDuration = countedDuration;
     }
 
-    public Smena vygenerujOd(LocalDate datum, ZoneId zona) {
+    public PolozkaPlanu vygenerujOd(LocalDate datum, ZoneId zona) {
         ZonedDateTime zaciatok = ZonedDateTime.of(datum, startTime, zona);
-        return new Smena(
+        return new PolozkaPlanu(
                 Objects.requireNonNull(zaciatok),
                 zaciatok.plus(timeSpan).with(endTime),
                 typ,

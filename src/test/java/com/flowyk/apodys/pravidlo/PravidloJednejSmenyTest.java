@@ -1,7 +1,7 @@
 package com.flowyk.apodys.pravidlo;
 
 import com.flowyk.apodys.PlanSmien;
-import com.flowyk.apodys.Smena;
+import com.flowyk.apodys.PolozkaPlanu;
 import com.flowyk.apodys.TestovacieData;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +25,7 @@ public class PravidloJednejSmenyTest {
     @Test
     public void porusenie() {
         PlanSmien plan = new PlanSmien();
-        Smena smena = td.predlohaR2P.vygenerujOd(LocalDate.of(2015, 12, 1), td.testovanaZona);
+        PolozkaPlanu smena = td.predlohaR2P.vygenerujOd(LocalDate.of(2015, 12, 1), td.testovanaZona);
         smena.setZamestnanec(td.zamestnanci.get(0));
         plan.pridatPolozku(smena);
 
@@ -37,11 +37,11 @@ public class PravidloJednejSmenyTest {
     @Test
     public void pass() {
         PlanSmien plan = new PlanSmien();
-        Smena smena = td.predlohaR2P.vygenerujOd(LocalDate.of(2015, 12, 1), td.testovanaZona);
+        PolozkaPlanu smena = td.predlohaR2P.vygenerujOd(LocalDate.of(2015, 12, 1), td.testovanaZona);
         smena.setZamestnanec(td.zamestnanci.get(0));
         plan.pridatPolozku(smena);
 
-        Smena test = td.predlohaR2P.vygenerujOd(LocalDate.of(2015, 12, 2), td.testovanaZona);
+        PolozkaPlanu test = td.predlohaR2P.vygenerujOd(LocalDate.of(2015, 12, 2), td.testovanaZona);
         test.setZamestnanec(td.zamestnanci.get(0));
         PravidloPlanovaniaSmien pravidlo = new PravidloJednejSmeny();
         VysledokKontrolyPravidla vysledok = pravidlo.over(plan, test);

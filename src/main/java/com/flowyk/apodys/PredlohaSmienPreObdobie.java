@@ -16,8 +16,8 @@ public class PredlohaSmienPreObdobie {
         this.dlzkaObdobia = dlzkaObdobia;
     }
 
-    public List<Smena> vygenerujOd(LocalDate datum, ZoneId zona) {
-        List<Smena> vysledok = new ArrayList<>(supisPredloh.size());
+    public List<PolozkaPlanu> vygenerujOd(LocalDate datum, ZoneId zona) {
+        List<PolozkaPlanu> vysledok = new ArrayList<>(supisPredloh.size());
         for (PredlohaSmenyPreObdobie predloha: supisPredloh) {
             vysledok.add(predloha.vygenerujOd(datum, zona));
         }
@@ -37,7 +37,7 @@ public class PredlohaSmienPreObdobie {
         }
 
         @Override
-        public Smena vygenerujOd(LocalDate datum, ZoneId zona) {
+        public PolozkaPlanu vygenerujOd(LocalDate datum, ZoneId zona) {
             LocalDate posunutyDatum = datum.plus(startDay);
             return super.vygenerujOd(posunutyDatum, zona);
         }

@@ -1,9 +1,6 @@
 package com.flowyk.apodys.pravidlo;
 
-import com.flowyk.apodys.PlanSmien;
-import com.flowyk.apodys.Smena;
-import com.flowyk.apodys.TestovacieData;
-import com.flowyk.apodys.TypPolozkyPlanu;
+import com.flowyk.apodys.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,11 +23,11 @@ public class PravidloMaximalnehoCasuTest {
     @Test
     public void prekrocenie() throws Exception {
         PlanSmien plan = new PlanSmien();
-        Smena smena = td.smena(48L);
+        PolozkaPlanu smena = td.smena(48L);
         smena.setZamestnanec(td.zamestnanci.get(0));
         plan.pridatPolozku(smena);
         //nova smena
-        Smena test = td.predlohaR2P.vygenerujOd(smena.koniec().toLocalDate().plusDays(1L), td.testovanaZona);
+        PolozkaPlanu test = td.predlohaR2P.vygenerujOd(smena.koniec().toLocalDate().plusDays(1L), td.testovanaZona);
         test.setZamestnanec(td.zamestnanci.get(0));
 
         PravidloPlanovaniaSmien pravidlo = new PravidloMaximalnehoCasu(Duration.ofHours(55L), Period.ofDays(7));
@@ -41,11 +38,11 @@ public class PravidloMaximalnehoCasuTest {
     @Test
     public void splnenie() throws Exception {
         PlanSmien plan = new PlanSmien();
-        Smena smena = td.smena(43L);
+        PolozkaPlanu smena = td.smena(43L);
         smena.setZamestnanec(td.zamestnanci.get(0));
         plan.pridatPolozku(smena);
 
-        Smena test = td.predlohaR2P.vygenerujOd(smena.koniec().toLocalDate().plusDays(1L), td.testovanaZona);
+        PolozkaPlanu test = td.predlohaR2P.vygenerujOd(smena.koniec().toLocalDate().plusDays(1L), td.testovanaZona);
         test.setZamestnanec(td.zamestnanci.get(0));
 
         PravidloPlanovaniaSmien pravidlo = new PravidloMaximalnehoCasu(Duration.ofHours(55L), Period.ofDays(7));

@@ -24,8 +24,8 @@ public class PravidloMaximalnehoCasu implements PravidloPlanovaniaSmien {
     public VysledokKontrolyPravidla over(PlanSmien naplanovaneSmeny, PolozkaPlanu test) {
         ZonedDateTime zaciatokSkumanehoObdobia = test.zaciatok().minus(skumaneObdobie);
         ZonedDateTime koniecSkumanehoObdobia = test.zaciatok();
-        PlanSmien skumaneSmeny = PlanSmien.preZamestnanca(naplanovaneSmeny, test.vykonavatel());
-        skumaneSmeny = PlanSmien.preObdobie(skumaneSmeny, zaciatokSkumanehoObdobia, koniecSkumanehoObdobia);
+        PlanSmien skumaneSmeny = naplanovaneSmeny.preZamestnanca(test.vykonavatel());
+        skumaneSmeny = skumaneSmeny.preObdobie(zaciatokSkumanehoObdobia, koniecSkumanehoObdobia);
         Duration totalDuration = Duration.ZERO;
         for (PolozkaPlanu smena: skumaneSmeny.zoznamPoloziek()) {
             ZonedDateTime startTime = smena.zaciatok().isBefore(zaciatokSkumanehoObdobia) ? zaciatokSkumanehoObdobia : smena.zaciatok();

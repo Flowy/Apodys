@@ -29,9 +29,9 @@ public class TestovacieData {
     }
 
 
-    public Smena smena(long hours) {
+    public PolozkaPlanu smena(long hours) {
         ZonedDateTime zaciatok = ZonedDateTime.of(2015, 11, 29, 0, 0, 0, 0, testovanaZona);
-        return new Smena(
+        return new PolozkaPlanu(
                 zaciatok,
                 zaciatok.plusHours(hours),
                 new TypPolozkyPlanu("test"));
