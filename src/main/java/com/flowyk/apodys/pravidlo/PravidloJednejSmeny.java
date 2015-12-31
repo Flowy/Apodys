@@ -15,9 +15,9 @@ public class PravidloJednejSmeny implements PravidloPlanovaniaSmien {
     public VysledokKontrolyPravidla over(PlanSmien naplanovaneSmeny, PolozkaPlanu test) {
         for (PolozkaPlanu current: naplanovaneSmeny) {
             if (test.rovnakyVykonavatel(current) && test.prekryva(current)) {
-                return new VysledokKontrolyPravidla(true);
+                return VysledokKontrolyPravidla.BROKEN;
             }
         }
-        return new VysledokKontrolyPravidla(false);
+        return VysledokKontrolyPravidla.OK;
     }
 }

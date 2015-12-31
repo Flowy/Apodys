@@ -33,6 +33,10 @@ public class PravidloMaximalnehoCasu implements PravidloPlanovaniaSmien {
             totalDuration = totalDuration.plus(Duration.between(startTime, endTime));
         }
         totalDuration = totalDuration.plus(test.countedDuration());
-        return new VysledokKontrolyPravidla(totalDuration.compareTo(maximalnyCas) > 0);
+        if (totalDuration.compareTo(maximalnyCas) > 0) {
+            return VysledokKontrolyPravidla.BROKEN;
+        } else {
+            return VysledokKontrolyPravidla.OK;
+        }
     }
 }

@@ -20,9 +20,9 @@ public class PravidloVolnoPoSmene implements PravidloPlanovaniaSmien {
     public VysledokKontrolyPravidla over(PlanSmien naplanovaneSmeny, PolozkaPlanu test) {
         PlanSmien skumanyPlan = naplanovaneSmeny.preZamestnanca(test.vykonavatel()).preObdobie(test.zaciatok().minus(dlzkaVolna), test.zaciatok());
         if (skumanyPlan.trvaniePoloziek(typSmeny).isZero()) {
-            return new VysledokKontrolyPravidla(false);
+            return VysledokKontrolyPravidla.OK;
         } else {
-            return new VysledokKontrolyPravidla(true);
+            return VysledokKontrolyPravidla.BROKEN;
         }
     }
 }

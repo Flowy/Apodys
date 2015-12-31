@@ -31,8 +31,7 @@ public class PravidloMaximalnehoCasuTest {
         test.setZamestnanec(td.zamestnanci.get(0));
 
         PravidloPlanovaniaSmien pravidlo = new PravidloMaximalnehoCasu(Duration.ofHours(55L), Period.ofDays(7));
-        VysledokKontrolyPravidla vysledok = pravidlo.over(plan, test);
-        assertTrue(vysledok.isBroken());
+        assertEquals(VysledokKontrolyPravidla.BROKEN, pravidlo.over(plan, test));
     }
 
     @Test
@@ -46,7 +45,6 @@ public class PravidloMaximalnehoCasuTest {
         test.setZamestnanec(td.zamestnanci.get(0));
 
         PravidloPlanovaniaSmien pravidlo = new PravidloMaximalnehoCasu(Duration.ofHours(55L), Period.ofDays(7));
-        VysledokKontrolyPravidla vysledok = pravidlo.over(plan, test);
-        assertFalse(vysledok.isBroken());
+        assertEquals(VysledokKontrolyPravidla.OK, pravidlo.over(plan, test));
     }
 }

@@ -5,8 +5,6 @@ import com.flowyk.apodys.PolozkaPlanu;
 import com.flowyk.apodys.TypPolozkyPlanu;
 
 import java.time.Duration;
-import java.time.ZonedDateTime;
-import java.util.Iterator;
 import java.util.Objects;
 
 public class PravidloVolnoPoDvochSmenach implements PravidloPlanovaniaSmien {
@@ -35,9 +33,9 @@ public class PravidloVolnoPoDvochSmenach implements PravidloPlanovaniaSmien {
             firstMatched = current.typ().equals(typPrvejSmeny);
         }
         if (poslednaZhoda != null && dlzkaVolna.compareTo(Duration.between(poslednaZhoda.koniec(), test.zaciatok())) >= 0) {
-            return new VysledokKontrolyPravidla(true);
+            return VysledokKontrolyPravidla.BROKEN;
         } else {
-            return new VysledokKontrolyPravidla(false);
+            return VysledokKontrolyPravidla.OK;
         }
     }
 }

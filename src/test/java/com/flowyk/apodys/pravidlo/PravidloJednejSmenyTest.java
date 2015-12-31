@@ -29,9 +29,7 @@ public class PravidloJednejSmenyTest {
         smena.setZamestnanec(td.zamestnanci.get(0));
         plan.pridatPolozku(smena);
 
-        PravidloPlanovaniaSmien pravidlo = new PravidloJednejSmeny();
-        VysledokKontrolyPravidla vysledok = pravidlo.over(plan, smena);
-        assertTrue(vysledok.isBroken());
+        assertEquals(VysledokKontrolyPravidla.BROKEN, new PravidloJednejSmeny().over(plan, smena));
     }
 
     @Test
@@ -43,9 +41,7 @@ public class PravidloJednejSmenyTest {
 
         PolozkaPlanu test = td.predlohaR2P.vygenerujOd(LocalDate.of(2015, 12, 2), td.testovanaZona);
         test.setZamestnanec(td.zamestnanci.get(0));
-        PravidloPlanovaniaSmien pravidlo = new PravidloJednejSmeny();
-        VysledokKontrolyPravidla vysledok = pravidlo.over(plan, test);
-        assertFalse(vysledok.isBroken());
+        assertEquals(VysledokKontrolyPravidla.OK, new PravidloJednejSmeny().over(plan, test));
     }
 
 }
