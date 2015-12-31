@@ -3,6 +3,7 @@ package com.flowyk.apodys.pravidlo;
 import com.flowyk.apodys.PlanSmien;
 import com.flowyk.apodys.PolozkaPlanu;
 
+import java.util.Iterator;
 import java.util.Objects;
 
 public class PravidloJednejSmeny implements PravidloPlanovaniaSmien {
@@ -12,8 +13,8 @@ public class PravidloJednejSmeny implements PravidloPlanovaniaSmien {
      */
     @Override
     public VysledokKontrolyPravidla over(PlanSmien naplanovaneSmeny, PolozkaPlanu test) {
-        for (PolozkaPlanu polozka : naplanovaneSmeny.zoznamPoloziek()) {
-            if (test.rovnakyVykonavatel(polozka) && test.prekryva(polozka)) {
+        for (PolozkaPlanu current: naplanovaneSmeny) {
+            if (test.rovnakyVykonavatel(current) && test.prekryva(current)) {
                 return new VysledokKontrolyPravidla(true);
             }
         }

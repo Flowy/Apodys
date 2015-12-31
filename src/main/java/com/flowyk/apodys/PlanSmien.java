@@ -1,12 +1,11 @@
 package com.flowyk.apodys;
 
+import java.time.Duration;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.function.Consumer;
 
-public class PlanSmien {
+public class PlanSmien implements Iterable<PolozkaPlanu> {
     List<PolozkaPlanu> polozky;
 
     public enum Zoradenie {
@@ -25,15 +24,21 @@ public class PlanSmien {
     }
 
     PlanSmien(List<PolozkaPlanu> polozky) {
-        this.polozky = polozky;
+        this.polozky = Objects.requireNonNull(polozky);
     }
 
     public void pridatPolozku(PolozkaPlanu polozka) {
         polozky.add(polozka);
     }
 
-    public List<PolozkaPlanu> zoznamPoloziek() {
-        return Collections.unmodifiableList(polozky);
+    public Duration trvaniePoloziek(TypPolozkyPlanu typ) {
+        Duration result = Duration.ZERO;
+        for (PolozkaPlanu polozka: polozky) {
+            if (polozka.typ().equals(typ)) {
+                result = result.plus(polozka.countedDuration());
+            }
+        }
+        return result;
     }
 
     public PlanSmien zoraditPodla(Zoradenie zoradenie) {
@@ -63,6 +68,16 @@ public class PlanSmien {
         return result;
     }
 
+    public PlanSmien preTyp(TypPolozkyPlanu typ) {
+        PlanSmien result = new PlanSmien();
+        for (PolozkaPlanu polozka: this.polozky) {
+            if (polozka.typ().equals(typ)) {
+                result.pridatPolozku(polozka);
+            }
+        }
+        return result;
+    }
+
     private static class PoradiePodlaVykonavatela implements Comparator<PolozkaPlanu> {
         @Override
         public int compare(PolozkaPlanu o1, PolozkaPlanu o2) {
@@ -86,5 +101,20 @@ public class PlanSmien {
         return "PlanSmien{" +
                 polozky +
                 '}';
+    }
+
+    @Override
+    public Iterator<PolozkaPlanu> iterator() {
+        return polozky.iterator();
+    }
+
+    @Override
+    public void forEach(Consumer<? super PolozkaPlanu> action) {
+        polozky.forEach(action);
+    }
+
+    @Override
+    public Spliterator<PolozkaPlanu> spliterator() {
+        return polozky.spliterator();
     }
 }

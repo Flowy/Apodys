@@ -6,6 +6,7 @@ import com.flowyk.apodys.PolozkaPlanu;
 import java.time.Duration;
 import java.time.Period;
 import java.time.ZonedDateTime;
+import java.util.Iterator;
 
 public class PravidloMaximalnehoCasu implements PravidloPlanovaniaSmien {
 
@@ -24,15 +25,14 @@ public class PravidloMaximalnehoCasu implements PravidloPlanovaniaSmien {
     public VysledokKontrolyPravidla over(PlanSmien naplanovaneSmeny, PolozkaPlanu test) {
         ZonedDateTime zaciatokSkumanehoObdobia = test.zaciatok().minus(skumaneObdobie);
         ZonedDateTime koniecSkumanehoObdobia = test.zaciatok();
-        PlanSmien skumaneSmeny = naplanovaneSmeny.preZamestnanca(test.vykonavatel());
-        skumaneSmeny = skumaneSmeny.preObdobie(zaciatokSkumanehoObdobia, koniecSkumanehoObdobia);
+        PlanSmien skumanyPlan = naplanovaneSmeny.preZamestnanca(test.vykonavatel()).preObdobie(zaciatokSkumanehoObdobia, koniecSkumanehoObdobia);
         Duration totalDuration = Duration.ZERO;
-        for (PolozkaPlanu smena: skumaneSmeny.zoznamPoloziek()) {
+        for (PolozkaPlanu smena: skumanyPlan) {
             ZonedDateTime startTime = smena.zaciatok().isBefore(zaciatokSkumanehoObdobia) ? zaciatokSkumanehoObdobia : smena.zaciatok();
             ZonedDateTime endTime = smena.koniec().isAfter(koniecSkumanehoObdobia) ? koniecSkumanehoObdobia : smena.koniec();
             totalDuration = totalDuration.plus(Duration.between(startTime, endTime));
         }
-        totalDuration = totalDuration.plus(Duration.between(test.zaciatok(), test.koniec()));
+        totalDuration = totalDuration.plus(test.countedDuration());
         return new VysledokKontrolyPravidla(totalDuration.compareTo(maximalnyCas) > 0);
     }
 }
