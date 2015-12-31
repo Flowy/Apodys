@@ -62,9 +62,13 @@ public class PolozkaPlanu {
 
 
     public boolean prekryva(PolozkaPlanu origin) {
-        return startsIn(origin, this) ||
-                endsIn(origin, this) ||
-                isOver(origin, this);
+        return prekryva(origin.zaciatok(), origin.koniec());
+    }
+
+    public boolean prekryva(ZonedDateTime zaciatok, ZonedDateTime koniec) {
+        return startsIn(zaciatok, koniec) ||
+                endsIn(zaciatok, koniec) ||
+                isOver(zaciatok, koniec);
     }
 
     public boolean rovnakyVykonavatel(PolozkaPlanu origin) {
@@ -74,22 +78,22 @@ public class PolozkaPlanu {
     /**
      * starts after/at start and starts before end
      */
-    private boolean startsIn(PolozkaPlanu origin, PolozkaPlanu test) {
-        return !test.zaciatok().isBefore(origin.zaciatok()) && test.zaciatok().isBefore(origin.koniec());
+    private boolean startsIn(ZonedDateTime start, ZonedDateTime end) {
+        return !this.zaciatok().isBefore(start) && this.zaciatok().isBefore(end);
     }
 
     /**
      * ends after start and before/at end
      */
-    private boolean endsIn(PolozkaPlanu origin, PolozkaPlanu test) {
-        return test.koniec().isAfter(origin.zaciatok()) && !test.koniec().isAfter(origin.koniec());
+    private boolean endsIn(ZonedDateTime start, ZonedDateTime end) {
+        return this.koniec().isAfter(start) && !this.koniec().isAfter(end);
     }
 
     /**
      * starts before start and after end
      */
-    private boolean isOver(PolozkaPlanu origin, PolozkaPlanu test) {
-        return test.zaciatok().isBefore(origin.zaciatok()) && test.koniec().isAfter(origin.koniec());
+    private boolean isOver(ZonedDateTime start, ZonedDateTime end) {
+        return this.zaciatok().isBefore(start) && this.koniec().isAfter(end);
     }
 
     @Override

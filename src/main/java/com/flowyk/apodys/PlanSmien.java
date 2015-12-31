@@ -46,9 +46,7 @@ public class PlanSmien {
     public PlanSmien preObdobie(ZonedDateTime zaciatok, ZonedDateTime koniec) {
         PlanSmien result = new PlanSmien();
         for (PolozkaPlanu polozka: this.polozky) {
-            boolean startsInSpan = polozka.zaciatok().isAfter(zaciatok) && polozka.zaciatok().isBefore(koniec);
-            boolean endsInSpan = polozka.koniec().isAfter(zaciatok) && polozka.koniec().isBefore(koniec);
-            if (startsInSpan || endsInSpan) {
+            if (polozka.prekryva(zaciatok, koniec)) {
                 result.pridatPolozku(polozka);
             }
         }
