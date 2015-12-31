@@ -20,7 +20,7 @@ public class RovnakeSmenyCezVikendTest {
     }
 
     @Test
-    public void nedelaInaAkoSobota() throws Exception {
+    public void nedelaInaSmena() throws Exception {
         PlanSmien plan = new PlanSmien();
 
         PolozkaPlanu sobota = td.predlohaR2P.vygenerujOd(LocalDate.of(2015, 12, 5), td.testovanaZona);
@@ -55,6 +55,20 @@ public class RovnakeSmenyCezVikendTest {
         nedela.setZamestnanec(td.zamestnanci.get(0));
 
         assertEquals(VysledokKontrolyPravidla.OK, new RovnakeSmenyCezVikend().over(plan, nedela));
+    }
+
+    @Test
+    public void nedelaInyZamestnanec() {
+        PlanSmien plan = new PlanSmien();
+
+        PolozkaPlanu sobota = td.predlohaR2P.vygenerujOd(LocalDate.of(2015, 12, 5), td.testovanaZona);
+        sobota.setZamestnanec(td.zamestnanci.get(0));
+        plan.pridatPolozku(sobota);
+
+        PolozkaPlanu nedela = td.predlohaR2P.vygenerujOd(LocalDate.of(2015, 12, 6), td.testovanaZona);
+        nedela.setZamestnanec(td.zamestnanci.get(1));
+
+        assertEquals(VysledokKontrolyPravidla.BROKEN, new RovnakeSmenyCezVikend().over(plan, nedela));
     }
 
 }

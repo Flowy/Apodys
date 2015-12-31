@@ -75,6 +75,10 @@ public class PolozkaPlanu {
         return Objects.equals(origin.vykonavatel(), this.vykonavatel());
     }
 
+    public boolean rovnakyTyp(PolozkaPlanu origin) {
+        return Objects.equals(origin != null ? origin.typ() : null, this.typ());
+    }
+
     /**
      * starts after/at start and starts before end
      */
