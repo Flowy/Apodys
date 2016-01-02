@@ -20,6 +20,39 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>com.zenjava</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>8.2.0</version>
+                <configuration>
+
+                    <!-- executable JAR file is built by default (not optional at this stage) -->
+                    <mainClass>com.flowyk.apodys.ui.UserInterface</mainClass>
+
+                    <!-- optionally override settings (such as jar file name, html file, etc) -->
+                    <!--<jarFileName>my-example-app.jar</jarFileName>-->
+
+                    <!-- optionally sign the jar file if security is needed -->
+                    <!--
+                        to create keystore use command line:
+                            keytool -genkey -alias example-user -keystore keystore.jks
+                    -->
+                    <!--<signJar>-->
+                        <!--<alias>example-user</alias>-->
+                        <!--<storePassword>example-password</storePassword>-->
+                    <!--</signJar>-->
+
+                    <!-- optionally build webstart bundle -->
+                    <!--<webstart>-->
+                        <!--<requiresAllPermissions>true</requiresAllPermissions>-->
+                    <!--</webstart>-->
+
+                    <!-- optionally build native installers -->
+                    <!--<nativeInstallers/>-->
+
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
