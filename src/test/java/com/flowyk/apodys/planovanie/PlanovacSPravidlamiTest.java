@@ -38,7 +38,7 @@ public class PlanovacSPravidlamiTest {
 
         PlanSmien planSmien = planovac.naplanuj(
                 LocalDate.of(2015, 11, 30),
-                LocalDate.of(2016, 12, 27),
+                LocalDate.of(2015, 12, 27),
                 td.testovanaZona);
         for (PolozkaPlanu polozka: planSmien) {
             assertNotNull(polozka.vykonavatel());

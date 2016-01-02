@@ -28,7 +28,7 @@
                 <configuration>
 
                     <!-- executable JAR file is built by default (not optional at this stage) -->
-                    <mainClass>com.flowyk.apodys.ui.UserInterface</mainClass>
+                    <mainClass>com.flowyk.apodys.ui.UIStart</mainClass>
 
                     <!-- optionally override settings (such as jar file name, html file, etc) -->
                     <!--<jarFileName>my-example-app.jar</jarFileName>-->
@@ -49,7 +49,7 @@
                     <!--</webstart>-->
 
                     <!-- optionally build native installers -->
-                    <!--<nativeInstallers/>-->
+                    <nativeInstallers/>
 
                 </configuration>
             </plugin>
