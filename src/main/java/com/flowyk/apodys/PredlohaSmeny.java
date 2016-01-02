@@ -16,19 +16,22 @@ public class PredlohaSmeny {
      * @param countedDuration stable duration for this when making statistics
      */
     public PredlohaSmeny(TypPolozkyPlanu typ, LocalTime startTime, LocalTime endTime, Duration countedDuration) {
-        this.typ = Objects.requireNonNull(typ);
-        this.startTime = startTime;
-        this.endTime = endTime;
-        timeSpan = Period.ZERO;
-        this.countedDuration = countedDuration;
+        this(typ, startTime, endTime, Period.ZERO, countedDuration);
     }
 
     public PredlohaSmeny(TypPolozkyPlanu typ, LocalTime startTime, LocalTime endTime, Period timeSpan, Duration countedDuration) {
-        this.typ = typ;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.timeSpan = timeSpan;
-        this.countedDuration = countedDuration;
+        this.typ = Objects.requireNonNull(typ);
+        this.startTime = Objects.requireNonNull(startTime);
+        this.endTime = Objects.requireNonNull(endTime);
+        this.timeSpan = Objects.requireNonNull(timeSpan);
+        this.countedDuration = Objects.requireNonNull(countedDuration);
+        if (endTime.isBefore(startTime) && Period.ZERO.equals(timeSpan)) {
+            throw new IllegalArgumentException("Shift can not end before start");
+        }
+    }
+
+    public TypPolozkyPlanu getTyp() {
+        return typ;
     }
 
     public PolozkaPlanu vygenerujOd(LocalDate datum, ZoneId zona) {

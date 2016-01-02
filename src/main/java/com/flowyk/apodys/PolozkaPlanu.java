@@ -15,17 +15,21 @@ public class PolozkaPlanu {
 
 
     public PolozkaPlanu(ZonedDateTime zaciatok, ZonedDateTime koniec, TypPolozkyPlanu typ) {
-        this.zaciatok = zaciatok;
-        this.koniec = koniec;
-        this.typ = typ;
-        this.countedDuration = Duration.between(zaciatok, koniec);
+        this(zaciatok, koniec, typ, Duration.between(zaciatok, koniec));
     }
 
     public PolozkaPlanu(ZonedDateTime zaciatok, ZonedDateTime koniec, TypPolozkyPlanu typ, Duration countedDuration) {
-        this.zaciatok = zaciatok;
-        this.koniec = koniec;
-        this.typ = typ;
-        this.countedDuration = countedDuration;
+        this.zaciatok = Objects.requireNonNull(zaciatok);
+        this.koniec = Objects.requireNonNull(koniec);
+        if (Duration.between(this.zaciatok, this.koniec).isNegative()) {
+            throw new IllegalArgumentException("End must be after start");
+        }
+        this.typ = Objects.requireNonNull(typ);
+        this.countedDuration = Objects.requireNonNull(countedDuration);
+    }
+
+    public PolozkaPlanu(PolozkaPlanu origin) {
+        this(origin.zaciatok, origin.koniec, origin.typ, origin.countedDuration);
     }
 
     public TypPolozkyPlanu typ() {

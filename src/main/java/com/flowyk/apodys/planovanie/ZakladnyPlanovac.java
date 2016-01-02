@@ -5,6 +5,8 @@ import com.flowyk.apodys.PolozkaPlanu;
 import com.flowyk.apodys.PredlohaSmienPreObdobie;
 import com.flowyk.apodys.Zamestnanec;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Iterator;
 import java.util.List;
@@ -24,13 +26,13 @@ public class ZakladnyPlanovac implements Planovac {
     }
 
     @Override
-    public PlanSmien naplanuj(ZonedDateTime zaciatok, ZonedDateTime koniec) {
+    public PlanSmien naplanuj(LocalDate zaciatok, LocalDate koniec, ZoneId timezone) {
         PlanSmien planSmien = new PlanSmien();
-        ZonedDateTime startTime = zaciatok;
+        LocalDate startTime = zaciatok;
         while (startTime.isBefore(koniec)) {
             spracujSmeny(
                     planSmien,
-                    predlohaSmienPreObdobie.vygenerujOd(startTime.toLocalDate(), startTime.getZone())
+                    predlohaSmienPreObdobie.vygenerujOd(startTime, timezone)
             );
             startTime = startTime.plus(predlohaSmienPreObdobie.dlzkaObdobia());
         }

@@ -32,7 +32,7 @@ public class PredlohaSmienPreObdobie {
         Period startDay;
 
         public PredlohaSmenyPreObdobie(PredlohaSmeny predloha, Period startDay) {
-            super(predloha.typ, predloha.startTime, predloha.endTime, predloha.countedDuration);
+            super(predloha.typ, predloha.startTime, predloha.endTime, predloha.timeSpan, predloha.countedDuration);
             this.startDay = startDay;
         }
 

@@ -78,8 +78,27 @@ public class TestovacieData {
         zamestnanci.add(new Zamestnanec("Tinky-Winky", "flowyk+testTinkyWinky@gmail.com"));
         zamestnanci.add(new Zamestnanec("Elmo", "flowyk+testElmo@gmail.com"));
         zamestnanci.add(new Zamestnanec("Cookie Monster", "flowyk+testCookieMonster@gmail.com"));
-
-//        zamestnanci.add(new )
+        zamestnanci.add(new Zamestnanec("Bart Simpson", "flowyk+test@gmail.com"));
+        zamestnanci.add(new Zamestnanec("Homer Simpson", "flowyk+test@gmail.com"));
+        zamestnanci.add(new Zamestnanec("Marge Simpson", "flowyk+test@gmail.com"));
+        zamestnanci.add(new Zamestnanec("Maggie Simpson", "flowyk+test@gmail.com"));
+        zamestnanci.add(new Zamestnanec("Lisa Simpson", "flowyk+test@gmail.com"));
+        zamestnanci.add(new Zamestnanec("Ned Flanders", "flowyk+test@gmail.com"));
+        zamestnanci.add(new Zamestnanec("Bender", "flowyk+test@gmail.com"));
+//        zamestnanci.add(new Zamestnanec("Goofy", "flowyk+test@gmail.com"));
+//        zamestnanci.add(new Zamestnanec("SpongeBob Squarepants", "flowyk+test@gmail.com"));
+//        zamestnanci.add(new Zamestnanec("Krusty the Clown", "flowyk+test@gmail.com"));
+//        zamestnanci.add(new Zamestnanec("Daria Morgendorffer", "flowyk+test@gmail.com"));
+//        zamestnanci.add(new Zamestnanec("Yogi Bear", "flowyk+test@gmail.com"));
+//        zamestnanci.add(new Zamestnanec("Daffy Duck", "flowyk+test@gmail.com"));
+//        zamestnanci.add(new Zamestnanec("Stewie Griffin", "flowyk+test@gmail.com"));
+//        zamestnanci.add(new Zamestnanec("Wile E. Coyote", "flowyk+test@gmail.com"));
+//        zamestnanci.add(new Zamestnanec("Fred Flintstone ", "flowyk+test@gmail.com"));
+//        zamestnanci.add(new Zamestnanec("Mickey Mouse", "flowyk+test@gmail.com"));
+//        zamestnanci.add(new Zamestnanec("Eric Cartman ", "flowyk+test@gmail.com"));
+//        zamestnanci.add(new Zamestnanec("Bugs Bunny", "flowyk+test@gmail.com"));
+//        zamestnanci.add(new Zamestnanec("Tom", "flowyk+test@gmail.com"));
+//        zamestnanci.add(new Zamestnanec("Jerry", "flowyk+test@gmail.com"));
     }
 
 }

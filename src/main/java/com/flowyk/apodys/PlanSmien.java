@@ -98,9 +98,12 @@ public class PlanSmien implements Iterable<PolozkaPlanu> {
 
     @Override
     public String toString() {
-        return "PlanSmien{" +
-                polozky +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Plan smien:").append(System.getProperty("line.separator"));
+        for (PolozkaPlanu polozka: polozky) {
+            sb.append(polozka).append(System.getProperty("line.separator"));
+        }
+        return sb.toString();
     }
 
     @Override

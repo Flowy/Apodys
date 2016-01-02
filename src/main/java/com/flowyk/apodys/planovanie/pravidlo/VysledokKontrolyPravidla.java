@@ -30,4 +30,11 @@ public class VysledokKontrolyPravidla {
     public int hashCode() {
         return (broken ? 1 : 0);
     }
+
+    @Override
+    public String toString() {
+        return "VysledokKontrolyPravidla{" +
+                "broken=" + broken +
+                '}';
+    }
 }
