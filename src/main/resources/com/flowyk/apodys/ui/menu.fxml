@@ -1,0 +1,13 @@
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<MenuBar fx:controller="com.flowyk.apodys.ui.MenuController"
+         xmlns:fx="http://javafx.com/fxml">
+    <Menu text="%workplan">
+        <MenuItem text="%create_new_plan" onAction="#createNewPlan"/>
+        <MenuItem text="%load_xml_plan" onAction="#loadPlan"/>
+    </Menu>
+    <Menu text="%employees">
+        <MenuItem text="%create_new_employee" onAction="#createNewEmployee"/>
+    </Menu>
+</MenuBar>

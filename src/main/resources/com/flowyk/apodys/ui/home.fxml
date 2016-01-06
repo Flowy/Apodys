@@ -1,8 +1,9 @@
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<GridPane fx:controller="com.flowyk.apodys.ui.HomeController"
-          stylesheets="/com/flowyk/apodys/ui/home.css"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
-    <Button text="%create_new_plan" onAction="#createNewPlan"/>
-</GridPane>
+
+<?import javafx.scene.layout.VBox?>
+<VBox fx:controller="com.flowyk.apodys.ui.HomeController"
+      stylesheets="/com/flowyk/apodys/ui/home.css"
+      prefHeight="350"
+      prefWidth="400"
+      xmlns:fx="http://javafx.com/fxml">
+    <fx:include source="menu.fxml"/>
+</VBox>
