@@ -12,20 +12,10 @@ import java.util.ResourceBundle;
 
 public class DayController {
 
-    @FXML
-    ResourceBundle resourceBundle;
-
     @Inject
     private Context context;
 
     LocalDate day;
     List<PolozkaPlanu> shifts;
-
-    public DayController(LocalDate day, List<PolozkaPlanu> shifts) {
-        this.day = day;
-        this.shifts = shifts;
-
-        day.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
-    }
 
 }

@@ -2,28 +2,32 @@ package com.flowyk.apodys.ui;
 
 
 import com.flowyk.apodys.PlanSmien;
+import com.flowyk.apodys.ui.guava.event.WorkplanChanged;
+import com.google.common.eventbus.EventBus;
 import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import javax.inject.Inject;
 import java.io.File;
 import java.util.logging.Logger;
 
 public class MenuController {
-    Logger logger = Logger.getLogger(this.getClass().getCanonicalName());
+    private Logger logger = Logger.getLogger(this.getClass().getCanonicalName());
 
     @Inject
-    HomeController homeController;
+    private Context context;
 
     @Inject
-    Context context;
+    private Stage stage;
 
     @Inject
-    private ViewManager viewManager;
+    private EventBus eventBus;
 
     public void createNewPlan(ActionEvent actionEvent) {
         context.setWorkplan(new PlanSmien());
-        homeController.planLoaded();
+        logger.info("firing workplan changed event");
+        eventBus.post(new WorkplanChanged());
     }
 
     public void loadPlan(ActionEvent actionEvent) {
@@ -32,7 +36,7 @@ public class MenuController {
         FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
         fileChooser.getExtensionFilters().add(extensionFilter);
 
-        File file = fileChooser.showOpenDialog(viewManager.getPrimaryStage());
+        File file = fileChooser.showOpenDialog(stage);
 
         if (file != null) {
             logger.info("File loaded: " + file.toString());
@@ -41,6 +45,6 @@ public class MenuController {
     }
 
     public void createNewEmployee(ActionEvent actionEvent) {
-        viewManager.createEmployee();
+//        viewManager.goToNewEmployee();
     }
 }

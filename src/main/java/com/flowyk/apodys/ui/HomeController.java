@@ -1,6 +1,7 @@
 package com.flowyk.apodys.ui;
 
-import com.flowyk.apodys.PlanSmien;
+import javafx.fxml.FXML;
+import javafx.scene.control.MenuBar;
 
 import javax.inject.Inject;
 import java.util.logging.Logger;
@@ -10,6 +11,10 @@ public class HomeController {
 
     @Inject
     private Context context;
+
+    @FXML
+    public void initialize() {
+    }
 
 
     public void planLoaded() {

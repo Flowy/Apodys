@@ -15,7 +15,6 @@ import java.util.ResourceBundle;
 
 @Singleton
 public class ViewManager {
-    private Stage primaryStage;
 
     @Inject
     private GuiceControllerLoader guiceControllerLoader;
@@ -23,29 +22,16 @@ public class ViewManager {
     @Inject
     private ResourceBundle resourceBundle;
 
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
+    @Inject
+    private Stage stage;
 
-    public void setPrimaryStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-    }
-
-    public void initRootLayout() {
-        Parent root = load(getLoaderFor("home.fxml"));
-        primaryStage.setTitle(resourceBundle.getString("app_title"));
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-    }
-
-
-    public void createEmployee() {
+    public void goToNewEmployee() {
         FXMLLoader loader = getLoaderFor("create_employee.fxml");
         AnchorPane page = load(loader);
         Stage dialogStage = new Stage();
         dialogStage.setTitle(resourceBundle.getString("create_new_employee"));
         dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.initOwner(primaryStage);
+        dialogStage.initOwner(stage);
         Scene scene = new Scene(page);
         dialogStage.setScene(scene);
 

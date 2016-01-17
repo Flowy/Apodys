@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.BorderPane?>
@@ -8,12 +9,9 @@
         <fx:include source="menu.fxml"/>
     </top>
     <left>
-        <fx:include source="employee_list.fxml"/>
+        <!--<fx:include source="employee_list.fxml"/>-->
     </left>
     <center>
         <fx:include source="workplan.fxml"/>
     </center>
-    <right>
-
-    </right>
 </BorderPane>
