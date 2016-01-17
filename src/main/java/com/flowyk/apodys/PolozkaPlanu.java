@@ -1,18 +1,37 @@
 package com.flowyk.apodys;
 
+import javax.xml.bind.annotation.*;
 import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PolozkaPlanu {
 
+    @XmlElement(required = true)
     ZonedDateTime zaciatok;
+
+    @XmlElement(required = true)
     ZonedDateTime koniec;
+
+    @XmlElement(required = true)
     TypPolozkyPlanu typ;
+
+    @XmlIDREF
     Zamestnanec zamestnanec;
+
+    @XmlElement(required = true)
     Duration countedDuration;
 
+    @XmlIDREF
+    PredlohaSmeny predloha;
+
+    /**
+     * default konstruktor pre JAXB
+     */
+    public PolozkaPlanu() {
+    }
 
     public PolozkaPlanu(ZonedDateTime zaciatok, ZonedDateTime koniec, TypPolozkyPlanu typ) {
         this(zaciatok, koniec, typ, Duration.between(zaciatok, koniec));
@@ -28,8 +47,18 @@ public class PolozkaPlanu {
         this.countedDuration = Objects.requireNonNull(countedDuration);
     }
 
+    /**
+     * konstruktor pre predlohy
+     */
+    public PolozkaPlanu(ZonedDateTime zaciatok, ZonedDateTime koniec, TypPolozkyPlanu typ, Duration countedDuration, PredlohaSmeny predloha) {
+        this(zaciatok, koniec, typ, countedDuration);
+        this.predloha = Objects.requireNonNull(predloha);
+    }
+
     public PolozkaPlanu(PolozkaPlanu origin) {
-        this(origin.zaciatok, origin.koniec, origin.typ, origin.countedDuration);
+        this(origin.zaciatok, origin.koniec, origin.typ, origin.countedDuration, origin.predloha);
+        this.zamestnanec = origin.zamestnanec;
+
     }
 
     public TypPolozkyPlanu typ() {
@@ -50,6 +79,10 @@ public class PolozkaPlanu {
 
     public Duration countedDuration() {
         return countedDuration;
+    }
+
+    public PredlohaSmeny predloha() {
+        return predloha;
     }
 
     public void setZaciatok(ZonedDateTime zaciatok) {

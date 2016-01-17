@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.layout.*?>
+
+<?import java.lang.String?>
+<VBox prefHeight="354.0"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.flowyk.apodys.ui.EmployeeListController">
+    <!--<ListView>-->
+        <!--<items>-->
+        <!--<FXCollections fx:factory="observableArrayList">-->
+            <!--<ListCell text="Prvy"/>-->
+            <!--<ListCell text="Druhy"/>-->
+            <!--<ListCell text="Treti"/>-->
+        <!--</FXCollections>-->
+        <!--</items>-->
+    <!--</ListView>-->
+</VBox>

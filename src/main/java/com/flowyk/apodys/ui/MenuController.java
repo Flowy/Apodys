@@ -2,13 +2,11 @@ package com.flowyk.apodys.ui;
 
 
 import com.flowyk.apodys.PlanSmien;
-import com.flowyk.apodys.Zamestnanec;
 import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
 
 import javax.inject.Inject;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.logging.Logger;
 
 public class MenuController {

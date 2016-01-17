@@ -2,19 +2,20 @@ package com.flowyk.apodys.planovanie.pravidlo;
 
 import com.flowyk.apodys.PlanSmien;
 import com.flowyk.apodys.PolozkaPlanu;
+import com.flowyk.apodys.PredlohaSmeny;
 import com.flowyk.apodys.TypPolozkyPlanu;
 
 import java.time.Duration;
 import java.util.Objects;
 
 public class PravidloVolnoPoDvochSmenach implements PravidloPlanovaniaSmien {
-    TypPolozkyPlanu typPrvejSmeny;
-    TypPolozkyPlanu typDruhejSmeny;
+    PredlohaSmeny predlohaPrvejSmeny;
+    PredlohaSmeny predlohaDruhejSmeny;
     Duration dlzkaVolna;
 
-    public PravidloVolnoPoDvochSmenach(TypPolozkyPlanu typPrvejSmeny, TypPolozkyPlanu typDruhejSmeny, Duration dlzkaVolna) {
-        this.typPrvejSmeny = Objects.requireNonNull(typPrvejSmeny);
-        this.typDruhejSmeny = Objects.requireNonNull(typDruhejSmeny);
+    public PravidloVolnoPoDvochSmenach(PredlohaSmeny predlohaPrvejSmeny, PredlohaSmeny predlohaDruhejSmeny, Duration dlzkaVolna) {
+        this.predlohaPrvejSmeny = Objects.requireNonNull(predlohaPrvejSmeny);
+        this.predlohaDruhejSmeny = Objects.requireNonNull(predlohaDruhejSmeny);
         this.dlzkaVolna = Objects.requireNonNull(dlzkaVolna);
     }
 
@@ -26,11 +27,11 @@ public class PravidloVolnoPoDvochSmenach implements PravidloPlanovaniaSmien {
         for (PolozkaPlanu current: skumanyPlan) {
             //must be last match in plan
             poslednaZhoda = null;
-            if (firstMatched && current.typ().equals(typDruhejSmeny)) {
+            if (firstMatched && PravidloVolnoPoSmene.rovnakaPredloha(predlohaDruhejSmeny, current)) {
                 //this is second iteration - only if first one matched
                 poslednaZhoda = current;
             }
-            firstMatched = current.typ().equals(typPrvejSmeny);
+            firstMatched = PravidloVolnoPoSmene.rovnakaPredloha(predlohaPrvejSmeny, current);
         }
         if (poslednaZhoda != null && dlzkaVolna.compareTo(Duration.between(poslednaZhoda.koniec(), test.zaciatok())) >= 0) {
             return VysledokKontrolyPravidla.BROKEN;

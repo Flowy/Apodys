@@ -1,26 +1,49 @@
 package com.flowyk.apodys;
 
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlID;
 import java.time.*;
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PredlohaSmeny {
-    TypPolozkyPlanu typ;
+
+    @XmlID
+    @XmlAttribute
+    String nazov;
+
+    @XmlAttribute
     LocalTime startTime;
+
+    @XmlAttribute
     LocalTime endTime;
+
+    @XmlAttribute
     Period timeSpan;
 
+    @XmlAttribute
     Duration countedDuration;
 
     /**
-     * startTime and endTime are in same day
-     * @param countedDuration stable duration for this when making statistics
+     * default constructor for JAXB
      */
-    public PredlohaSmeny(TypPolozkyPlanu typ, LocalTime startTime, LocalTime endTime, Duration countedDuration) {
-        this(typ, startTime, endTime, Period.ZERO, countedDuration);
+    public PredlohaSmeny() {
     }
 
-    public PredlohaSmeny(TypPolozkyPlanu typ, LocalTime startTime, LocalTime endTime, Period timeSpan, Duration countedDuration) {
-        this.typ = Objects.requireNonNull(typ);
+    /**
+     * startTime and endTime are in same day
+     *
+     * @param countedDuration stable duration for this when making statistics
+     */
+    public PredlohaSmeny(String nazov, LocalTime startTime, LocalTime endTime, Duration countedDuration) {
+        this(nazov, startTime, endTime, Period.ZERO, countedDuration);
+    }
+
+    public PredlohaSmeny(String nazov, LocalTime startTime, LocalTime endTime, Period timeSpan, Duration countedDuration) {
+        this.nazov = Objects.requireNonNull(nazov);
         this.startTime = Objects.requireNonNull(startTime);
         this.endTime = Objects.requireNonNull(endTime);
         this.timeSpan = Objects.requireNonNull(timeSpan);
@@ -30,8 +53,8 @@ public class PredlohaSmeny {
         }
     }
 
-    public TypPolozkyPlanu getTyp() {
-        return typ;
+    public String getNazov() {
+        return nazov;
     }
 
     public PolozkaPlanu vygenerujOd(LocalDate datum, ZoneId zona) {
@@ -39,8 +62,9 @@ public class PredlohaSmeny {
         return new PolozkaPlanu(
                 Objects.requireNonNull(zaciatok),
                 zaciatok.plus(timeSpan).with(endTime),
-                typ,
-                countedDuration);
+                TypPolozkyPlanu.SMENA,
+                countedDuration,
+                this);
     }
 
     @Override
@@ -50,12 +74,12 @@ public class PredlohaSmeny {
 
         PredlohaSmeny that = (PredlohaSmeny) o;
 
-        return typ.equals(that.typ);
+        return nazov.equals(that.nazov);
 
     }
 
     @Override
     public int hashCode() {
-        return typ.hashCode();
+        return nazov.hashCode();
     }
 }

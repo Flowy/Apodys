@@ -1,23 +1,19 @@
 package com.flowyk.apodys;
 
+import javax.xml.bind.annotation.*;
 import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.function.Consumer;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PlanSmien implements Iterable<PolozkaPlanu> {
+
+    @XmlElementWrapper(name = "polozky")
+    @XmlElements({
+            @XmlElement(type = PolozkaPlanu.class, name = "smena")
+    })
     List<PolozkaPlanu> polozky;
-
-    public enum Zoradenie {
-        VYKONAVATEL(new PoradiePodlaVykonavatela()),
-        CAS(new PoradiePodlaZaciatku());
-
-        private Comparator<PolozkaPlanu> comparator;
-
-        Zoradenie(Comparator<PolozkaPlanu> comparator) {
-            this.comparator = comparator;
-        }
-    }
 
     public PlanSmien() {
         polozky = new ArrayList<>();
@@ -41,10 +37,10 @@ public class PlanSmien implements Iterable<PolozkaPlanu> {
         return result;
     }
 
-    public PlanSmien zoraditPodla(Zoradenie zoradenie) {
+    public PlanSmien zoradit(Comparator<PolozkaPlanu> zoradenie) {
         List<PolozkaPlanu> zoradenePolozky = new ArrayList<>(polozky.size());
         Collections.copy(zoradenePolozky, polozky);
-        Collections.sort(zoradenePolozky, zoradenie.comparator);
+        Collections.sort(zoradenePolozky, zoradenie);
         return new PlanSmien(zoradenePolozky);
     }
 
@@ -78,6 +74,7 @@ public class PlanSmien implements Iterable<PolozkaPlanu> {
         return result;
     }
 
+    @XmlTransient
     private static class PoradiePodlaVykonavatela implements Comparator<PolozkaPlanu> {
         @Override
         public int compare(PolozkaPlanu o1, PolozkaPlanu o2) {
@@ -85,6 +82,7 @@ public class PlanSmien implements Iterable<PolozkaPlanu> {
         }
     }
 
+    @XmlTransient
     private static class PoradiePodlaZaciatku implements Comparator<PolozkaPlanu> {
         @Override
         public int compare(PolozkaPlanu o1, PolozkaPlanu o2) {

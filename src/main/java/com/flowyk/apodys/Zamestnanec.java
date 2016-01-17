@@ -1,8 +1,25 @@
 package com.flowyk.apodys;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlID;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Zamestnanec implements Comparable<Zamestnanec> {
+
+    @XmlID
+    @XmlAttribute
     private String name;
+
+    @XmlAttribute
     private String email;
+
+    /**
+     * default konstruktor pre JAXB
+     */
+    public Zamestnanec() {
+    }
 
     public Zamestnanec(String name, String email) {
         this.name = name;
