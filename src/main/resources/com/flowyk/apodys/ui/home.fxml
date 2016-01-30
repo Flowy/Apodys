@@ -14,4 +14,9 @@
     <center>
         <fx:include source="workplan.fxml"/>
     </center>
+    <right>
+        <VBox>
+            <fx:include source="employee_list.fxml"/>
+        </VBox>
+    </right>
 </BorderPane>

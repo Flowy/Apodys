@@ -13,23 +13,22 @@ public class CreateEmployeeController {
     @Inject
     private Context context;
 
-    private Stage stage;
-
     @FXML
     private TextField meno;
     @FXML
     private TextField email;
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
     public void handleOk(ActionEvent actionEvent) {
         context.getEmployees().add(new Zamestnanec(meno.getText(), email.getText()));
-        stage.close();
+        reset();
     }
 
     public void handleCancel(ActionEvent actionEvent) {
-        stage.close();
+        reset();
+    }
+
+    private void reset() {
+        meno.setText(null);
+        email.setText(null);
     }
 }

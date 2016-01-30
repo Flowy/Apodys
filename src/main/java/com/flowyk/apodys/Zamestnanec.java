@@ -51,4 +51,12 @@ public class Zamestnanec implements Comparable<Zamestnanec> {
     public String toString() {
         return name;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 }

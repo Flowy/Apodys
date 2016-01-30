@@ -4,9 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<?import javafx.scene.control.TitledPane?>
-<Pane xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.flowyk.apodys.ui.WorkplanController">
-    <fx:include source="day.fxml"/>
-</Pane>
+<GridPane fx:id="grid" gridLinesVisible="true" prefHeight="139.0" prefWidth="203.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flowyk.apodys.ui.WorkplanController">
+
+
+</GridPane>

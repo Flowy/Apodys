@@ -15,9 +15,4 @@ public class HomeController {
     @FXML
     public void initialize() {
     }
-
-
-    public void planLoaded() {
-        logger.info("Plan loaded");
-    }
 }
