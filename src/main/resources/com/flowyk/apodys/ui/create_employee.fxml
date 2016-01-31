@@ -3,17 +3,23 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<FlowPane xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml"
-          fx:controller="com.flowyk.apodys.ui.CreateEmployeeController">
-    <GridPane>
-        <Label text="%name"/>
-        <Label text="%email" GridPane.rowIndex="1"/>
-        <TextField fx:id="meno" GridPane.columnIndex="1"/>
-        <TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-    </GridPane>
-    <FlowPane>
-        <Button defaultButton="true" onAction="#handleOk" text="%create_new_employee"/>
-        <Button onAction="#handleCancel" prefWidth="120.0" text="%cancel"/>
-    </FlowPane>
-</FlowPane>
+<TitledPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.flowyk.apodys.ui.CreateEmployeeController"
+            text="%create_new_employee"
+            fx:id="titledPane">
+    <content>
+        <FlowPane>
+            <HBox>
+                <Label text="%name"/>
+                <TextField fx:id="meno"/>
+            </HBox>
+            <HBox>
+                <Label text="%email"/>
+                <TextField fx:id="email"/>
+            </HBox>
+            <Button defaultButton="true" onAction="#handleOk" text="%create_new_employee"/>
+            <Button onAction="#handleCancel" prefWidth="120.0" text="%cancel"/>
+        </FlowPane>
+    </content>
+</TitledPane>

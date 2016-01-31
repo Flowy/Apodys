@@ -18,9 +18,6 @@ public class WorkplanController {
     private EventBus eventBus;
 
     @Inject
-    private Context context;
-
-    @Inject
     private Stage stage;
 
     @FXML

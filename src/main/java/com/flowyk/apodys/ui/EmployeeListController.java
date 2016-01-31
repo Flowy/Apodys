@@ -1,40 +1,28 @@
 package com.flowyk.apodys.ui;
 
 import com.flowyk.apodys.Zamestnanec;
-import com.flowyk.apodys.ui.guice.GuiceControllerLoader;
-import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DataFormat;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.util.Callback;
+import javafx.scene.control.TitledPane;
+import javafx.scene.input.*;
 
 import javax.inject.Inject;
-import java.io.IOException;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 public class EmployeeListController {
-    Logger logger = Logger.getLogger("list");
+    private Logger logger = Logger.getLogger(getClass().getCanonicalName());
 
     @Inject
     private Context context;
-    @Inject
-    private Stage stage;
 
     @FXML
+    private TitledPane titledPane;
+    @FXML
     private ListView<Zamestnanec> zamestnanci;
-
     @FXML
     private ResourceBundle resources;
 
@@ -46,6 +34,21 @@ public class EmployeeListController {
     }
 
     static class ZamestnanecCell extends ListCell<Zamestnanec> {
+        private Logger logger = Logger.getLogger(getClass().getCanonicalName());
+
+        public ZamestnanecCell() {
+//            this.setOnDragDetected(event -> {
+//                logger.info("drag detected, source: " + event.getSource());
+//                Dragboard db = ((ListCell) event.getSource()).startDragAndDrop(TransferMode.ANY);
+//
+//                ClipboardContent content = new ClipboardContent();
+//                content.put(new DataFormat("textDataFormat"), "text");
+//                db.setContent(content);
+//
+//                event.consume();
+//            });
+        }
+
         @Override
         protected void updateItem(Zamestnanec item, boolean empty) {
             super.updateItem(item, empty);
@@ -60,15 +63,6 @@ public class EmployeeListController {
     }
 
     public void onDragDetected(Event event) {
-        logger.info("drag detected, source: " + event.getSource());
-        ListView source = (ListView) event.getSource();
-        Dragboard db = source.startDragAndDrop(TransferMode.ANY);
-//        ObservableList<String> items = getListView().getItems();
-        /* Put a string on a dragboard */
-        ClipboardContent content = new ClipboardContent();
-        content.put(new DataFormat("textDataFormat"), "text");
-        db.setContent(content);
-
-        event.consume();
     }
+
 }

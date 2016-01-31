@@ -14,10 +14,6 @@
             </children>
         </AnchorPane>
         <ListView fx:id="zamestnanci" />
-        <TitledPane text="%create_new_employee">
-           <content>
-               <fx:include source="create_employee.fxml" />
-           </content>
-        </TitledPane>
+        <fx:include source="create_employee.fxml" />
     </children>
 </VBox>
