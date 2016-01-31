@@ -8,15 +8,14 @@
     <top>
         <fx:include source="menu.fxml"/>
     </top>
-    <left>
-        <!--<fx:include source="employee_list.fxml"/>-->
-    </left>
     <center>
         <fx:include source="workplan.fxml"/>
     </center>
     <right>
         <VBox>
-            <fx:include source="employee_list.fxml"/>
+            <fx:include source="employees.fxml"/>
+            <fx:include source="create_employee.fxml" />
+            <fx:include source="shifts.fxml"/>
         </VBox>
     </right>
 </BorderPane>

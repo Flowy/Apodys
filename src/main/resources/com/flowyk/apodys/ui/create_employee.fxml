@@ -12,7 +12,7 @@
         <FlowPane>
             <HBox>
                 <Label text="%name"/>
-                <TextField fx:id="meno"/>
+                <TextField fx:id="name"/>
             </HBox>
             <HBox>
                 <Label text="%email"/>

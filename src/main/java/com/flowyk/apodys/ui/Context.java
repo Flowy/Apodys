@@ -15,7 +15,7 @@ public class Context {
 
     private PlanSmien workplan;
     private ObservableList<Zamestnanec> employees;
-    private List<PredlohaSmeny> shiftTemplates;
+    private ObservableList<PredlohaSmeny> shiftTemplates;
 
     public Context() {
         this(null, new ArrayList<>(), new ArrayList<>());
@@ -43,11 +43,11 @@ public class Context {
         this.employees = FXCollections.observableList(employees);
     }
 
-    public List<PredlohaSmeny> getShiftTemplates() {
+    public ObservableList<PredlohaSmeny> getShiftTemplates() {
         return shiftTemplates;
     }
 
     public void setShiftTemplates(List<PredlohaSmeny> shiftTemplates) {
-        this.shiftTemplates = shiftTemplates;
+        this.shiftTemplates = FXCollections.observableList(shiftTemplates);
     }
 }

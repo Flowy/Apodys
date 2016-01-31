@@ -4,7 +4,11 @@
 <?import javafx.scene.layout.*?>
 
 
-<GridPane fx:id="grid" gridLinesVisible="true" prefHeight="139.0" prefWidth="203.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flowyk.apodys.ui.WorkplanController">
+<GridPane fx:id="grid"
+          gridLinesVisible="true"
+          xmlns="http://javafx.com/javafx/8"
+          xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.flowyk.apodys.ui.WorkplanController">
 
 
 </GridPane>

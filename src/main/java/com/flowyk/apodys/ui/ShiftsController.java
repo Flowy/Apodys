@@ -1,42 +1,38 @@
 package com.flowyk.apodys.ui;
 
+import com.flowyk.apodys.PredlohaSmeny;
 import com.flowyk.apodys.Zamestnanec;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TitledPane;
-import javafx.scene.input.*;
 
 import javax.inject.Inject;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
-public class EmployeeListController {
+public class ShiftsController {
     private Logger logger = Logger.getLogger(getClass().getCanonicalName());
 
     @Inject
     private Context context;
 
     @FXML
-    private TitledPane titledPane;
-    @FXML
-    private ListView<Zamestnanec> zamestnanci;
+    private ListView<PredlohaSmeny> shifts;
     @FXML
     private ResourceBundle resources;
 
     @FXML
     public void initialize() {
-        zamestnanci.setItems(context.getEmployees());
-        zamestnanci.setCellFactory(list -> new ZamestnanecCell());
+        shifts.setItems(context.getShiftTemplates());
+        shifts.setCellFactory(list -> new ShiftCell());
 //        stage.sizeToScene();
     }
 
-    static class ZamestnanecCell extends ListCell<Zamestnanec> {
+    static class ShiftCell extends ListCell<PredlohaSmeny> {
         private Logger logger = Logger.getLogger(getClass().getCanonicalName());
 
-        public ZamestnanecCell() {
+        public ShiftCell() {
 //            this.setOnDragDetected(event -> {
 //                logger.info("drag detected, source: " + event.getSource());
 //                Dragboard db = ((ListCell) event.getSource()).startDragAndDrop(TransferMode.ANY);
@@ -50,14 +46,14 @@ public class EmployeeListController {
         }
 
         @Override
-        protected void updateItem(Zamestnanec item, boolean empty) {
+        protected void updateItem(PredlohaSmeny item, boolean empty) {
             super.updateItem(item, empty);
 
             if (empty || item == null) {
                 setText(null);
                 setGraphic(null);
             } else {
-                setText(item.getName());
+                setText(item.getNazov());
             }
         }
     }

@@ -16,13 +16,11 @@ public class CreateEmployeeController {
 
     @Inject
     private Context context;
-    @Inject
-    private Stage stage;
 
     @FXML
     private TitledPane titledPane;
     @FXML
-    private TextField meno;
+    private TextField name;
     @FXML
     private TextField email;
 
@@ -40,7 +38,7 @@ public class CreateEmployeeController {
     }
 
     public void handleOk(ActionEvent actionEvent) {
-        context.getEmployees().add(new Zamestnanec(meno.getText(), email.getText()));
+        context.getEmployees().add(new Zamestnanec(name.getText(), email.getText()));
         reset();
     }
 
@@ -49,7 +47,7 @@ public class CreateEmployeeController {
     }
 
     private void reset() {
-        meno.setText(null);
+        name.setText(null);
         email.setText(null);
     }
 }
