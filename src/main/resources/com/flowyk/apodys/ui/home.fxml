@@ -9,7 +9,7 @@
         <fx:include source="menu.fxml"/>
     </top>
     <center>
-        <fx:include source="workplan.fxml"/>
+        <fx:include source="plan.fxml"/>
     </center>
     <right>
         <VBox>

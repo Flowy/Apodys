@@ -84,7 +84,7 @@ public class TestovacieData {
         zamestnanci.add(new Zamestnanec("Maggie Simpson", "flowyk+test@gmail.com"));
         zamestnanci.add(new Zamestnanec("Lisa Simpson", "flowyk+test@gmail.com"));
         zamestnanci.add(new Zamestnanec("Ned Flanders", "flowyk+test@gmail.com"));
-        zamestnanci.add(new Zamestnanec("Bender", "flowyk+test@gmail.com"));
+//        zamestnanci.add(new Zamestnanec("Bender", "flowyk+test@gmail.com"));
 //        zamestnanci.add(new Zamestnanec("Goofy", "flowyk+test@gmail.com"));
 //        zamestnanci.add(new Zamestnanec("SpongeBob Squarepants", "flowyk+test@gmail.com"));
 //        zamestnanci.add(new Zamestnanec("Krusty the Clown", "flowyk+test@gmail.com"));
