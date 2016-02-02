@@ -1,9 +1,8 @@
 package com.flowyk.apodys.planovanie.pravidlo;
 
 import com.flowyk.apodys.PlanSmien;
-import com.flowyk.apodys.PolozkaPlanu;
+import com.flowyk.apodys.Shift;
 import com.flowyk.apodys.PredlohaSmeny;
-import com.flowyk.apodys.TypPolozkyPlanu;
 
 import java.time.Duration;
 
@@ -18,10 +17,10 @@ public class PravidloVolnoPoSmene implements PravidloPlanovaniaSmien {
 
 
     @Override
-    public VysledokKontrolyPravidla over(PlanSmien naplanovaneSmeny, PolozkaPlanu test) {
+    public VysledokKontrolyPravidla over(PlanSmien naplanovaneSmeny, Shift test) {
         PlanSmien skumanyPlan = naplanovaneSmeny.preZamestnanca(test.vykonavatel()).preObdobie(test.zaciatok().minus(dlzkaVolna), test.zaciatok());
         Duration trvanieSmien = Duration.ZERO;
-        for (PolozkaPlanu polozka: skumanyPlan) {
+        for (Shift polozka: skumanyPlan) {
             if (rovnakaPredloha(predlohaSmeny, polozka)) {
                 trvanieSmien = trvanieSmien.plus(polozka.countedDuration());
             }
@@ -33,7 +32,7 @@ public class PravidloVolnoPoSmene implements PravidloPlanovaniaSmien {
         }
     }
 
-    static boolean rovnakaPredloha(PredlohaSmeny predloha, PolozkaPlanu test) {
+    static boolean rovnakaPredloha(PredlohaSmeny predloha, Shift test) {
         return predloha.equals(test.predloha());
     }
 }

@@ -1,7 +1,7 @@
 package com.flowyk.apodys.planovanie.pravidlo;
 
 import com.flowyk.apodys.PlanSmien;
-import com.flowyk.apodys.PolozkaPlanu;
+import com.flowyk.apodys.Shift;
 import com.flowyk.apodys.TestovacieData;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +25,7 @@ public class PravidloJednejSmenyTest {
     @Test
     public void porusenie() {
         PlanSmien plan = new PlanSmien();
-        PolozkaPlanu smena = td.predlohaR2P.vygenerujOd(LocalDate.of(2015, 12, 1), td.testovanaZona);
+        Shift smena = td.predlohaR2P.vygenerujOd(LocalDate.of(2015, 12, 1), td.testovanaZona);
         smena.setZamestnanec(td.zamestnanci.get(0));
         plan.pridatPolozku(smena);
 
@@ -35,11 +35,11 @@ public class PravidloJednejSmenyTest {
     @Test
     public void pass() {
         PlanSmien plan = new PlanSmien();
-        PolozkaPlanu smena = td.predlohaR2P.vygenerujOd(LocalDate.of(2015, 12, 1), td.testovanaZona);
+        Shift smena = td.predlohaR2P.vygenerujOd(LocalDate.of(2015, 12, 1), td.testovanaZona);
         smena.setZamestnanec(td.zamestnanci.get(0));
         plan.pridatPolozku(smena);
 
-        PolozkaPlanu test = td.predlohaR2P.vygenerujOd(LocalDate.of(2015, 12, 2), td.testovanaZona);
+        Shift test = td.predlohaR2P.vygenerujOd(LocalDate.of(2015, 12, 2), td.testovanaZona);
         test.setZamestnanec(td.zamestnanci.get(0));
         assertEquals(VysledokKontrolyPravidla.OK, new PravidloJednejSmeny().over(plan, test));
     }

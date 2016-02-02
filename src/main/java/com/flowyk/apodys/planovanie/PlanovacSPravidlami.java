@@ -1,7 +1,7 @@
 package com.flowyk.apodys.planovanie;
 
 import com.flowyk.apodys.PlanSmien;
-import com.flowyk.apodys.PolozkaPlanu;
+import com.flowyk.apodys.Shift;
 import com.flowyk.apodys.PredlohaSmienPreObdobie;
 import com.flowyk.apodys.Zamestnanec;
 import com.flowyk.apodys.planovanie.pravidlo.PravidloPlanovaniaSmien;
@@ -41,8 +41,8 @@ public class PlanovacSPravidlami implements Planovac {
         //iteration over templates
         while (startTime.isBefore(koniec)) {
 
-            List<PolozkaPlanu> generatedSamples = predlohaSmienPreObdobie.vygenerujOd(startTime, timezone);
-            for (PolozkaPlanu smena: generatedSamples) {
+            List<Shift> generatedSamples = predlohaSmienPreObdobie.vygenerujOd(startTime, timezone);
+            for (Shift smena: generatedSamples) {
 
                 List<Zamestnanec> moznyZamestnanci = moznyVykonavatelia(planSmien, smena);
                 if (moznyZamestnanci.size() > 0) {
@@ -59,9 +59,9 @@ public class PlanovacSPravidlami implements Planovac {
         return planSmien;
     }
 
-    private List<Zamestnanec> moznyVykonavatelia(PlanSmien planSmien, PolozkaPlanu smena) {
+    private List<Zamestnanec> moznyVykonavatelia(PlanSmien planSmien, Shift smena) {
         List<Zamestnanec> result = new ArrayList<>();
-        PolozkaPlanu kopiaSmeny = new PolozkaPlanu(smena);
+        Shift kopiaSmeny = new Shift(smena);
         for (Zamestnanec zamestnanec: zamestnanci) {
             boolean ok = true;
             kopiaSmeny.setZamestnanec(zamestnanec);

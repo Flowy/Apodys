@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class PolozkaPlanu {
+public class Shift {
 
     @XmlElement(required = true)
     ZonedDateTime zaciatok;
@@ -30,14 +30,14 @@ public class PolozkaPlanu {
     /**
      * default konstruktor pre JAXB
      */
-    public PolozkaPlanu() {
+    public Shift() {
     }
 
-    public PolozkaPlanu(ZonedDateTime zaciatok, ZonedDateTime koniec, TypPolozkyPlanu typ) {
+    public Shift(ZonedDateTime zaciatok, ZonedDateTime koniec, TypPolozkyPlanu typ) {
         this(zaciatok, koniec, typ, Duration.between(zaciatok, koniec));
     }
 
-    public PolozkaPlanu(ZonedDateTime zaciatok, ZonedDateTime koniec, TypPolozkyPlanu typ, Duration countedDuration) {
+    public Shift(ZonedDateTime zaciatok, ZonedDateTime koniec, TypPolozkyPlanu typ, Duration countedDuration) {
         this.zaciatok = Objects.requireNonNull(zaciatok);
         this.koniec = Objects.requireNonNull(koniec);
         if (Duration.between(this.zaciatok, this.koniec).isNegative()) {
@@ -50,12 +50,12 @@ public class PolozkaPlanu {
     /**
      * konstruktor pre predlohy
      */
-    public PolozkaPlanu(ZonedDateTime zaciatok, ZonedDateTime koniec, TypPolozkyPlanu typ, Duration countedDuration, PredlohaSmeny predloha) {
+    public Shift(ZonedDateTime zaciatok, ZonedDateTime koniec, TypPolozkyPlanu typ, Duration countedDuration, PredlohaSmeny predloha) {
         this(zaciatok, koniec, typ, countedDuration);
         this.predloha = Objects.requireNonNull(predloha);
     }
 
-    public PolozkaPlanu(PolozkaPlanu origin) {
+    public Shift(Shift origin) {
         this(origin.zaciatok, origin.koniec, origin.typ, origin.countedDuration, origin.predloha);
         this.zamestnanec = origin.zamestnanec;
 
@@ -98,7 +98,7 @@ public class PolozkaPlanu {
     }
 
 
-    public boolean prekryva(PolozkaPlanu origin) {
+    public boolean prekryva(Shift origin) {
         return prekryva(origin.zaciatok(), origin.koniec());
     }
 
@@ -108,11 +108,11 @@ public class PolozkaPlanu {
                 isOver(zaciatok, koniec);
     }
 
-    public boolean rovnakyVykonavatel(PolozkaPlanu origin) {
+    public boolean rovnakyVykonavatel(Shift origin) {
         return Objects.equals(origin.vykonavatel(), this.vykonavatel());
     }
 
-    public boolean rovnakyTyp(PolozkaPlanu origin) {
+    public boolean rovnakyTyp(Shift origin) {
         return Objects.equals(origin != null ? origin.typ() : null, this.typ());
     }
 
@@ -140,7 +140,7 @@ public class PolozkaPlanu {
     @Override
     public String toString() {
         DateTimeFormatter dateTime = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-        return "PolozkaPlanu{" +
+        return "Shift{" +
                 "zaciatok=" + zaciatok.format(dateTime) +
                 ", koniec=" + koniec.format(dateTime) +
                 ", typ=" + typ +

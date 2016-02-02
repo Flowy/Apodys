@@ -1,7 +1,7 @@
 package com.flowyk.apodys.planovanie;
 
 import com.flowyk.apodys.PlanSmien;
-import com.flowyk.apodys.PolozkaPlanu;
+import com.flowyk.apodys.Shift;
 import com.flowyk.apodys.TestovacieData;
 import com.flowyk.apodys.planovanie.pravidlo.*;
 import org.junit.Before;
@@ -40,7 +40,7 @@ public class PlanovacSPravidlamiTest {
                 LocalDate.of(2015, 11, 30),
                 LocalDate.of(2015, 12, 27),
                 td.testovanaZona);
-        for (PolozkaPlanu polozka: planSmien) {
+        for (Shift polozka: planSmien) {
             assertNotNull(polozka.vykonavatel());
         }
         System.out.println(planSmien);

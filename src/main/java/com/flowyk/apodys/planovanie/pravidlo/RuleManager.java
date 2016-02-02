@@ -1,7 +1,7 @@
 package com.flowyk.apodys.planovanie.pravidlo;
 
 import com.flowyk.apodys.PlanSmien;
-import com.flowyk.apodys.PolozkaPlanu;
+import com.flowyk.apodys.Shift;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class RuleManager implements PravidloPlanovaniaSmien {
     }
 
     @Override
-    public VysledokKontrolyPravidla over(PlanSmien naplanovaneSmeny, PolozkaPlanu test) {
+    public VysledokKontrolyPravidla over(PlanSmien naplanovaneSmeny, Shift test) {
         for (PravidloPlanovaniaSmien pravidlo: pravidla) {
             if (VysledokKontrolyPravidla.BROKEN.equals(pravidlo.over(naplanovaneSmeny, test))) {
                 return VysledokKontrolyPravidla.BROKEN;

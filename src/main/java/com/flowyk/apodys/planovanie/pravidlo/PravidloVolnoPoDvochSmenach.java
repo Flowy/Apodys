@@ -1,9 +1,8 @@
 package com.flowyk.apodys.planovanie.pravidlo;
 
 import com.flowyk.apodys.PlanSmien;
-import com.flowyk.apodys.PolozkaPlanu;
+import com.flowyk.apodys.Shift;
 import com.flowyk.apodys.PredlohaSmeny;
-import com.flowyk.apodys.TypPolozkyPlanu;
 
 import java.time.Duration;
 import java.util.Objects;
@@ -20,11 +19,11 @@ public class PravidloVolnoPoDvochSmenach implements PravidloPlanovaniaSmien {
     }
 
     @Override
-    public VysledokKontrolyPravidla over(PlanSmien naplanovaneSmeny, PolozkaPlanu test) {
+    public VysledokKontrolyPravidla over(PlanSmien naplanovaneSmeny, Shift test) {
         PlanSmien skumanyPlan = naplanovaneSmeny.preZamestnanca(test.vykonavatel());
         boolean firstMatched = false;
-        PolozkaPlanu poslednaZhoda = null;
-        for (PolozkaPlanu current: skumanyPlan) {
+        Shift poslednaZhoda = null;
+        for (Shift current: skumanyPlan) {
             //must be last match in plan
             poslednaZhoda = null;
             if (firstMatched && PravidloVolnoPoSmene.rovnakaPredloha(predlohaDruhejSmeny, current)) {

@@ -57,9 +57,9 @@ public class PredlohaSmeny {
         return nazov;
     }
 
-    public PolozkaPlanu vygenerujOd(LocalDate datum, ZoneId zona) {
+    public Shift vygenerujOd(LocalDate datum, ZoneId zona) {
         ZonedDateTime zaciatok = ZonedDateTime.of(datum, startTime, zona);
-        return new PolozkaPlanu(
+        return new Shift(
                 Objects.requireNonNull(zaciatok),
                 zaciatok.plus(timeSpan).with(endTime),
                 TypPolozkyPlanu.SMENA,

@@ -1,13 +1,12 @@
 package com.flowyk.apodys.planovanie;
 
 import com.flowyk.apodys.PlanSmien;
-import com.flowyk.apodys.PolozkaPlanu;
+import com.flowyk.apodys.Shift;
 import com.flowyk.apodys.PredlohaSmienPreObdobie;
 import com.flowyk.apodys.Zamestnanec;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -39,9 +38,9 @@ public class ZakladnyPlanovac implements Planovac {
         return planSmien;
     }
 
-    void spracujSmeny(PlanSmien planSmien, List<PolozkaPlanu> smeny) {
+    void spracujSmeny(PlanSmien planSmien, List<Shift> smeny) {
         Iterator<Zamestnanec> zamestnanci = null;
-        for (PolozkaPlanu smena: smeny) {
+        for (Shift smena: smeny) {
             if (zamestnanci == null || !zamestnanci.hasNext()) {
                 zamestnanci = zamestnanecList.iterator();
             }

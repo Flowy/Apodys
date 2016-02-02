@@ -1,7 +1,7 @@
 package com.flowyk.apodys.planovanie.pravidlo;
 
 import com.flowyk.apodys.PlanSmien;
-import com.flowyk.apodys.PolozkaPlanu;
+import com.flowyk.apodys.Shift;
 
 import java.util.Objects;
 
@@ -13,11 +13,11 @@ public class MaximalneOpakovanieSmien implements PravidloPlanovaniaSmien {
     }
 
     @Override
-    public VysledokKontrolyPravidla over(PlanSmien naplanovaneSmeny, PolozkaPlanu test) {
+    public VysledokKontrolyPravidla over(PlanSmien naplanovaneSmeny, Shift test) {
         PlanSmien skumanyPlan = naplanovaneSmeny.preZamestnanca(test.vykonavatel());
-        PolozkaPlanu poslednaSmena = null;
+        Shift poslednaSmena = null;
         int pocetOpakovani = 0;
-        for (PolozkaPlanu smena: skumanyPlan) {
+        for (Shift smena: skumanyPlan) {
             if (smena.rovnakyTyp(poslednaSmena)) {
                 pocetOpakovani += 1;
             } else {

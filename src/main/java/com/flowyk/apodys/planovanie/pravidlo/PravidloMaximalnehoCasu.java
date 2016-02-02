@@ -1,7 +1,7 @@
 package com.flowyk.apodys.planovanie.pravidlo;
 
 import com.flowyk.apodys.PlanSmien;
-import com.flowyk.apodys.PolozkaPlanu;
+import com.flowyk.apodys.Shift;
 
 import java.time.Duration;
 import java.time.Period;
@@ -21,12 +21,12 @@ public class PravidloMaximalnehoCasu implements PravidloPlanovaniaSmien {
      * Odpracovany cas za dane obdobie nesmie byt vyssi ako maximalny cas
      */
     @Override
-    public VysledokKontrolyPravidla over(PlanSmien naplanovaneSmeny, PolozkaPlanu test) {
+    public VysledokKontrolyPravidla over(PlanSmien naplanovaneSmeny, Shift test) {
         ZonedDateTime zaciatokSkumanehoObdobia = test.zaciatok().minus(skumaneObdobie);
         ZonedDateTime koniecSkumanehoObdobia = test.zaciatok();
         PlanSmien skumanyPlan = naplanovaneSmeny.preZamestnanca(test.vykonavatel()).preObdobie(zaciatokSkumanehoObdobia, koniecSkumanehoObdobia);
         Duration totalDuration = Duration.ZERO;
-        for (PolozkaPlanu smena: skumanyPlan) {
+        for (Shift smena: skumanyPlan) {
             ZonedDateTime startTime = smena.zaciatok().isBefore(zaciatokSkumanehoObdobia) ? zaciatokSkumanehoObdobia : smena.zaciatok();
             ZonedDateTime endTime = smena.koniec().isAfter(koniecSkumanehoObdobia) ? koniecSkumanehoObdobia : smena.koniec();
             totalDuration = totalDuration.plus(Duration.between(startTime, endTime));
