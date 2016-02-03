@@ -32,7 +32,7 @@ public class Context {
     }
 
     public void setWorkplan(PlanSmien workplan) {
-        this.workplan = workplan;
+        this.workplan = workplan == null ? new PlanSmien() : workplan;
     }
 
     public ObservableList<Zamestnanec> getEmployees() {

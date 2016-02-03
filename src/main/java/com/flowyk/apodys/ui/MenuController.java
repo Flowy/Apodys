@@ -2,6 +2,7 @@ package com.flowyk.apodys.ui;
 
 
 import com.flowyk.apodys.PlanSmien;
+import com.flowyk.apodys.ui.export.ExportService;
 import com.flowyk.apodys.ui.guava.event.WorkplanChanged;
 import com.google.common.eventbus.EventBus;
 import javafx.event.ActionEvent;
@@ -23,11 +24,26 @@ public class MenuController {
 
     @Inject
     private EventBus eventBus;
+    @Inject
+    private ExportService exportService;
 
     public void createNewPlan(ActionEvent actionEvent) {
         context.setWorkplan(new PlanSmien());
         logger.info("firing workplan changed event");
         eventBus.post(new WorkplanChanged());
+    }
+
+    public void saveActual(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+
+        FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+        fileChooser.getExtensionFilters().add(extensionFilter);
+
+        File file = fileChooser.showSaveDialog(stage);
+
+        if (file != null) {
+            exportService.save(file, context);
+        }
     }
 
     public void loadPlan(ActionEvent actionEvent) {
@@ -41,6 +57,10 @@ public class MenuController {
         if (file != null) {
             logger.info("File loaded: " + file.toString());
             //TODO: load xml file
+            Context loaded = exportService.read(file);
+            context.setWorkplan(loaded.getWorkplan());
+            context.setShiftTemplates(loaded.getShiftTemplates());
+            context.setEmployees(loaded.getEmployees());
         }
     }
 

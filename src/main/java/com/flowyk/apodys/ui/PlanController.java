@@ -40,6 +40,7 @@ public class PlanController {
     }
 
     public void redraw() {
+
         for (Shift shift : shifts) {
             planGrid.add(
                     new Text(shift.predloha().getNazov()),
@@ -60,18 +61,19 @@ public class PlanController {
     }
 
     private PlanSmien getWorkplan() {
-        PlanSmien result = new PlanSmien();
-        PredlohaSmeny predlohaR2P = new PredlohaSmeny("R2P", LocalTime.of(6, 0), LocalTime.of(18, 0), Duration.ofHours(12L));
-        PredlohaSmeny predlohaP1C = new PredlohaSmeny("P1C", LocalTime.of(9, 0), LocalTime.of(21, 0), Duration.ofHours(12L));
-        PredlohaSmeny predlohaO75 = new PredlohaSmeny("07,5", LocalTime.of(14, 0), LocalTime.of(22, 0), Duration.ofHours(8L));
-        PredlohaSmeny predlohaN2P = new PredlohaSmeny("N2P", LocalTime.of(18, 0), LocalTime.of(6, 0), Period.ofDays(1), Duration.ofHours(12L));
-
-        ZoneId testovanaZona = ZoneId.of("Europe/Bratislava");
-
-        Shift smena = predlohaR2P.vygenerujOd(LocalDate.now(), testovanaZona);
-        smena.setZamestnanec(new Zamestnanec("Papa Smurf", "flowyk+testPapaSmurf@gmail.com"));
-
-        result.pridatPolozku(smena);
-        return result;
+        return context.getWorkplan();
+//        PlanSmien result = new PlanSmien();
+//        PredlohaSmeny predlohaR2P = new PredlohaSmeny("R2P", LocalTime.of(6, 0), LocalTime.of(18, 0), Duration.ofHours(12L));
+//        PredlohaSmeny predlohaP1C = new PredlohaSmeny("P1C", LocalTime.of(9, 0), LocalTime.of(21, 0), Duration.ofHours(12L));
+//        PredlohaSmeny predlohaO75 = new PredlohaSmeny("07,5", LocalTime.of(14, 0), LocalTime.of(22, 0), Duration.ofHours(8L));
+//        PredlohaSmeny predlohaN2P = new PredlohaSmeny("N2P", LocalTime.of(18, 0), LocalTime.of(6, 0), Period.ofDays(1), Duration.ofHours(12L));
+//
+//        ZoneId testovanaZona = ZoneId.of("Europe/Bratislava");
+//
+//        Shift smena = predlohaR2P.vygenerujOd(LocalDate.now(), testovanaZona);
+//        smena.setZamestnanec(new Zamestnanec("Papa Smurf", "flowyk+testPapaSmurf@gmail.com"));
+//
+//        result.pridatPolozku(smena);
+//        return result;
     }
 }

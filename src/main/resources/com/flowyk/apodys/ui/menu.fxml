@@ -5,6 +5,7 @@
          xmlns:fx="http://javafx.com/fxml">
     <Menu text="%workplan">
         <MenuItem text="%create_new_plan" onAction="#createNewPlan"/>
+        <MenuItem text="%save_plan" onAction="#saveActual"/>
         <MenuItem text="%load_xml_plan" onAction="#loadPlan"/>
     </Menu>
     <Menu text="%employees">
