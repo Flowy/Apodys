@@ -1,5 +1,7 @@
 package com.flowyk.apodys;
 
+import javafx.beans.*;
+
 import javax.xml.bind.annotation.*;
 import java.time.Duration;
 import java.time.ZonedDateTime;
@@ -7,13 +9,16 @@ import java.util.*;
 import java.util.function.Consumer;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class PlanSmien implements Iterable<Shift> {
+public class PlanSmien implements Iterable<Shift>, javafx.beans.Observable {
 
     @XmlElementWrapper(name = "polozky")
     @XmlElements({
             @XmlElement(type = Shift.class, name = "smena")
     })
     List<Shift> polozky;
+
+    @XmlTransient
+    private List<InvalidationListener> listeners = new ArrayList<>();
 
     public PlanSmien() {
         polozky = new ArrayList<>();
@@ -25,6 +30,9 @@ public class PlanSmien implements Iterable<Shift> {
 
     public void pridatPolozku(Shift polozka) {
         polozky.add(polozka);
+        for (InvalidationListener listener: listeners) {
+            listener.invalidated(this);
+        }
     }
 
     public Duration trvaniePoloziek(TypPolozkyPlanu typ) {
@@ -72,6 +80,16 @@ public class PlanSmien implements Iterable<Shift> {
             }
         }
         return result;
+    }
+
+    @Override
+    public void addListener(InvalidationListener listener) {
+        listeners.add(listener);
+    }
+
+    @Override
+    public void removeListener(InvalidationListener listener) {
+        listeners.remove(listener);
     }
 
     @XmlTransient

@@ -4,9 +4,12 @@ import com.flowyk.apodys.*;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import javax.inject.Inject;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -15,8 +18,6 @@ public class PlanController {
     private Logger logger = Logger.getLogger(getClass().getCanonicalName());
 
     private List<LocalDate> days;
-    private List<Zamestnanec> employees;
-    private List<Shift> shifts;
 
     @Inject
     private Context context;
@@ -24,40 +25,47 @@ public class PlanController {
     @FXML
     private GridPane planGrid;
 
+    @Inject
+    private Stage stage;
+
     public PlanController() {
         days = new ArrayList<>();
-        employees = new ArrayList<>();
-        shifts = new ArrayList<>();
     }
 
     @FXML
     public void initialize() {
-
-        for (Shift shift : getWorkplan()) {
-            addShift(shift);
-        }
         redraw();
+        context.addListener(observable -> redraw());
     }
 
     public void redraw() {
-
-        for (Shift shift : shifts) {
+        planGrid.getChildren().clear();
+        days.clear();
+        List<Zamestnanec> employees = context.getEmployees();
+        for (Zamestnanec employee: employees) {
+            planGrid.add(
+                    new Text(employee.getName()),
+                    0,
+                    employees.indexOf(employee) + 1
+            );
+        }
+        for (Shift shift : getWorkplan()) {
+            if (!days.contains(shift.zaciatok().toLocalDate())) {
+                days.add(shift.zaciatok().toLocalDate());
+                planGrid.add(
+                        new Text(shift.zaciatok().toLocalDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))),
+                        days.indexOf(shift.zaciatok().toLocalDate()) + 1,
+                        0
+                );
+            }
             planGrid.add(
                     new Text(shift.predloha().getNazov()),
-                    days.indexOf(shift.zaciatok().toLocalDate()),
-                    employees.indexOf(shift.vykonavatel()));
+                    days.indexOf(shift.zaciatok().toLocalDate()) + 1,
+                    employees.indexOf(shift.vykonavatel()) + 1);
         }
-        planGrid.autosize();
-    }
-
-    private void addShift(Shift shift) {
-        shifts.add(shift);
-        if (!days.contains(shift.zaciatok().toLocalDate())) {
-            days.add(shift.zaciatok().toLocalDate());
-        }
-        if (!employees.contains(shift.vykonavatel())) {
-            employees.add(shift.vykonavatel());
-        }
+        planGrid.setGridLinesVisible(true);
+        stage.sizeToScene();
+//        planGrid.autosize();
     }
 
     private PlanSmien getWorkplan() {

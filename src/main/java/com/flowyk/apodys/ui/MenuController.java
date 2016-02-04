@@ -1,7 +1,5 @@
 package com.flowyk.apodys.ui;
 
-
-import com.flowyk.apodys.PlanSmien;
 import com.flowyk.apodys.ui.export.ExportService;
 import com.flowyk.apodys.ui.guava.event.WorkplanChanged;
 import com.google.common.eventbus.EventBus;
@@ -28,7 +26,7 @@ public class MenuController {
     private ExportService exportService;
 
     public void createNewPlan(ActionEvent actionEvent) {
-        context.setWorkplan(new PlanSmien());
+        context.setContext(new Context());
         logger.info("firing workplan changed event");
         eventBus.post(new WorkplanChanged());
     }
@@ -58,9 +56,7 @@ public class MenuController {
             logger.info("File loaded: " + file.toString());
             //TODO: load xml file
             Context loaded = exportService.read(file);
-            context.setWorkplan(loaded.getWorkplan());
-            context.setShiftTemplates(loaded.getShiftTemplates());
-            context.setEmployees(loaded.getEmployees());
+            context.setContext(loaded);
         }
     }
 
