@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Text?>
-<BorderPane
-        xmlns="http://javafx.com/javafx/8"
-        xmlns:fx="http://javafx.com/fxml"
-        fx:controller="com.flowyk.apodys.ui.PlanController">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            stylesheets="/com/flowyk/apodys/ui/plan.css"
+            fx:controller="com.flowyk.apodys.ui.PlanController">
     <top>
-        <Text>Date selector</Text>
+        <HBox>
+            <DatePicker fx:id="firstDayPicker"
+                        showWeekNumbers="true"/>
+            <DatePicker fx:id="lastDayPicker"
+                        showWeekNumbers="true"/>
+        </HBox>
     </top>
     <center>
-        <GridPane
-                fx:id="planGrid">
+        <GridPane fx:id="planGrid">
         </GridPane>
     </center>
 </BorderPane>

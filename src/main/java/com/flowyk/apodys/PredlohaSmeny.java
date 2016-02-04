@@ -5,11 +5,12 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
+import java.io.Serializable;
 import java.time.*;
 import java.util.Objects;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class PredlohaSmeny {
+public class PredlohaSmeny implements Serializable {
 
     @XmlID
     @XmlAttribute

@@ -1,11 +1,10 @@
 package com.flowyk.apodys.ui;
 
 import com.flowyk.apodys.PredlohaSmeny;
-import com.flowyk.apodys.Zamestnanec;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.*;
 
 import javax.inject.Inject;
 import java.util.ResourceBundle;
@@ -25,24 +24,24 @@ public class ShiftsController {
     @FXML
     public void initialize() {
         shifts.setItems(context.getShiftTemplates());
-        shifts.setCellFactory(list -> new ShiftCell());
+        shifts.setCellFactory(list -> new ShiftTemplateCell());
 //        stage.sizeToScene();
     }
 
-    static class ShiftCell extends ListCell<PredlohaSmeny> {
+    static class ShiftTemplateCell extends ListCell<PredlohaSmeny> {
         private Logger logger = Logger.getLogger(getClass().getCanonicalName());
 
-        public ShiftCell() {
-//            this.setOnDragDetected(event -> {
-//                logger.info("drag detected, source: " + event.getSource());
-//                Dragboard db = ((ListCell) event.getSource()).startDragAndDrop(TransferMode.ANY);
-//
-//                ClipboardContent content = new ClipboardContent();
-//                content.put(new DataFormat("textDataFormat"), "text");
-//                db.setContent(content);
-//
-//                event.consume();
-//            });
+        public ShiftTemplateCell() {
+            this.setOnDragDetected(event -> {
+                logger.fine("drag detected, source: " + event.getSource());
+                Dragboard db = startDragAndDrop(TransferMode.COPY);
+
+                ClipboardContent content = new ClipboardContent();
+                content.put(DragAndDropDataTypes.SHIFT_TEMPLATE, getItem());
+                db.setContent(content);
+
+                event.consume();
+            });
         }
 
         @Override
@@ -56,9 +55,6 @@ public class ShiftsController {
                 setText(item.getNazov());
             }
         }
-    }
-
-    public void onDragDetected(Event event) {
     }
 
 }

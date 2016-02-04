@@ -1,13 +1,14 @@
 package com.flowyk.apodys;
 
 import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Shift {
+public class Shift implements Serializable {
 
     @XmlElement(required = true)
     ZonedDateTime zaciatok;

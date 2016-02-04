@@ -28,8 +28,16 @@ public class PlanSmien implements Iterable<Shift>, javafx.beans.Observable {
         this.polozky = Objects.requireNonNull(polozky);
     }
 
+    public void odstranitPolozku(Shift polozka) {
+        polozky.remove(polozka);
+        invalidate();
+    }
     public void pridatPolozku(Shift polozka) {
         polozky.add(polozka);
+        invalidate();
+    }
+
+    private void invalidate() {
         for (InvalidationListener listener: listeners) {
             listener.invalidated(this);
         }

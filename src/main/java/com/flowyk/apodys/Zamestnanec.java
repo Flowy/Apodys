@@ -4,9 +4,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
+import java.io.Serializable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Zamestnanec implements Comparable<Zamestnanec> {
+public class Zamestnanec implements Comparable<Zamestnanec>, Serializable {
 
     @XmlID
     @XmlAttribute

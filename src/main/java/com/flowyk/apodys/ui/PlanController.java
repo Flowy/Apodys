@@ -2,6 +2,7 @@ package com.flowyk.apodys.ui;
 
 import com.flowyk.apodys.*;
 import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -17,30 +18,39 @@ import java.util.logging.Logger;
 public class PlanController {
     private Logger logger = Logger.getLogger(getClass().getCanonicalName());
 
-    private List<LocalDate> days;
-
     @Inject
     private Context context;
 
     @FXML
     private GridPane planGrid;
+    @FXML
+    private DatePicker firstDayPicker;
+    @FXML
+    private DatePicker lastDayPicker;
 
     @Inject
     private Stage stage;
 
     public PlanController() {
-        days = new ArrayList<>();
     }
 
     @FXML
     public void initialize() {
+        firstDayPicker.setValue(LocalDate.now());
+        firstDayPicker.valueProperty().addListener(observable -> {
+            lastDayPicker.setValue(firstDayPicker.getValue().plusWeeks(2L));
+            redraw();
+        });
+        lastDayPicker.setValue(LocalDate.now().plusWeeks(2));
+        lastDayPicker.valueProperty().addListener(observable -> redraw());
         redraw();
         context.addListener(observable -> redraw());
     }
 
-    public void redraw() {
+
+    private void redraw() {
         planGrid.getChildren().clear();
-        days.clear();
+        List<LocalDate> days = initializeDays(firstDayPicker.getValue(), lastDayPicker.getValue());
         List<Zamestnanec> employees = context.getEmployees();
         for (Zamestnanec employee: employees) {
             planGrid.add(
@@ -49,39 +59,65 @@ public class PlanController {
                     employees.indexOf(employee) + 1
             );
         }
-        for (Shift shift : getWorkplan()) {
-            if (!days.contains(shift.zaciatok().toLocalDate())) {
-                days.add(shift.zaciatok().toLocalDate());
-                planGrid.add(
-                        new Text(shift.zaciatok().toLocalDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))),
-                        days.indexOf(shift.zaciatok().toLocalDate()) + 1,
-                        0
-                );
-            }
+
+        for (LocalDate day: days) {
             planGrid.add(
-                    new Text(shift.predloha().getNazov()),
-                    days.indexOf(shift.zaciatok().toLocalDate()) + 1,
-                    employees.indexOf(shift.vykonavatel()) + 1);
+                    new Text(day.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))),
+                    days.indexOf(day) + 1,
+                    0
+            );
         }
-        planGrid.setGridLinesVisible(true);
+
+        for (Zamestnanec zamestnanec: employees) {
+            for (LocalDate day: days) {
+                int row = employees.indexOf(zamestnanec) + 1;
+                int column = days.indexOf(day) + 1;
+                ShiftCell shiftCell = new ShiftCell(day, zamestnanec, context.getWorkplan());
+                shiftCell.getStyleClass().addAll(
+                        row % 2 == 0 ? "even" : "odd",
+                        dayOfWeek(day)
+                );
+                planGrid.add(shiftCell, column, row);
+            }
+        }
+
+        for (Shift shift : context.getWorkplan()) {
+            if (shouldShow(shift)) {
+                planGrid.add(
+                        new ShiftCell(shift, context.getWorkplan()),
+                        days.indexOf(shift.zaciatok().toLocalDate()) + 1,
+                        employees.indexOf(shift.vykonavatel()) + 1);
+            }
+        }
         stage.sizeToScene();
-//        planGrid.autosize();
     }
 
-    private PlanSmien getWorkplan() {
-        return context.getWorkplan();
-//        PlanSmien result = new PlanSmien();
-//        PredlohaSmeny predlohaR2P = new PredlohaSmeny("R2P", LocalTime.of(6, 0), LocalTime.of(18, 0), Duration.ofHours(12L));
-//        PredlohaSmeny predlohaP1C = new PredlohaSmeny("P1C", LocalTime.of(9, 0), LocalTime.of(21, 0), Duration.ofHours(12L));
-//        PredlohaSmeny predlohaO75 = new PredlohaSmeny("07,5", LocalTime.of(14, 0), LocalTime.of(22, 0), Duration.ofHours(8L));
-//        PredlohaSmeny predlohaN2P = new PredlohaSmeny("N2P", LocalTime.of(18, 0), LocalTime.of(6, 0), Period.ofDays(1), Duration.ofHours(12L));
-//
-//        ZoneId testovanaZona = ZoneId.of("Europe/Bratislava");
-//
-//        Shift smena = predlohaR2P.vygenerujOd(LocalDate.now(), testovanaZona);
-//        smena.setZamestnanec(new Zamestnanec("Papa Smurf", "flowyk+testPapaSmurf@gmail.com"));
-//
-//        result.pridatPolozku(smena);
-//        return result;
+    private String dayOfWeek(LocalDate day) {
+        switch (day.getDayOfWeek().getValue()) {
+            case 1: return "monday";
+            case 2: return "tuesday";
+            case 3: return "wednesday";
+            case 4: return "thursday";
+            case 5: return "friday";
+            case 6: return "saturday";
+            case 7: return "sunday";
+            default: throw new IllegalArgumentException("unknown day: " + day);
+        }
+    }
+
+    private List<LocalDate> initializeDays(LocalDate first, LocalDate last) {
+        List<LocalDate> result = new ArrayList<>();
+        LocalDate actual = first;
+        while (!actual.isAfter(last)) {
+            result.add(actual);
+            actual = actual.plusDays(1L);
+        }
+        return result;
+    }
+
+    private boolean shouldShow(Shift shift) {
+        ZonedDateTime start = ZonedDateTime.of(firstDayPicker.getValue(), LocalTime.MIDNIGHT, ZoneId.systemDefault());
+        ZonedDateTime end = ZonedDateTime.of(lastDayPicker.getValue(), LocalTime.MAX, ZoneId.systemDefault());
+        return !shift.zaciatok().isBefore(start) && !shift.zaciatok().isAfter(end);
     }
 }
