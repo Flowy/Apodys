@@ -8,7 +8,4 @@
         <MenuItem text="%save_plan" onAction="#saveActual"/>
         <MenuItem text="%load_xml_plan" onAction="#loadPlan"/>
     </Menu>
-    <Menu text="%employees">
-        <MenuItem text="%create_new_employee" onAction="#createNewEmployee"/>
-    </Menu>
 </MenuBar>
