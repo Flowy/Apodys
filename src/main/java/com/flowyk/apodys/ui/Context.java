@@ -55,6 +55,7 @@ public class Context implements Observable {
     private void setEmployees(List<Zamestnanec> employees) {
         if (this.employees == null) {
             this.employees = FXCollections.observableList(employees);
+            this.employees.addListener((InvalidationListener) c -> invalidate());
         } else {
             this.employees.clear();
             this.employees.addAll(employees);
@@ -65,6 +66,7 @@ public class Context implements Observable {
     private void setShiftTemplates(List<PredlohaSmeny> shiftTemplates) {
         if (this.shiftTemplates == null) {
             this.shiftTemplates = FXCollections.observableList(shiftTemplates);
+            this.shiftTemplates.addListener((InvalidationListener) listener -> invalidate());
         } else {
             this.shiftTemplates.clear();
             this.shiftTemplates.addAll(shiftTemplates);
