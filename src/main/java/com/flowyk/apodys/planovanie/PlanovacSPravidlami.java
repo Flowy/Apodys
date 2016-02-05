@@ -37,35 +37,39 @@ public class PlanovacSPravidlami implements Planovac {
     @Override
     public PlanSmien naplanuj(LocalDate zaciatok, LocalDate koniec, ZoneId timezone) {
         PlanSmien planSmien = new PlanSmien();
-        LocalDate startTime = zaciatok;
-        //iteration over templates
-        while (startTime.isBefore(koniec)) {
+        List<Shift> shifts = generateShifts(zaciatok, koniec, timezone);
 
-            List<Shift> generatedSamples = predlohaSmienPreObdobie.vygenerujOd(startTime, timezone);
-            for (Shift smena: generatedSamples) {
-
-                List<Zamestnanec> moznyZamestnanci = moznyVykonavatelia(planSmien, smena);
-                if (moznyZamestnanci.size() > 0) {
-                    smena.setZamestnanec(moznyZamestnanci.get(0));
-                    planSmien.pridatPolozku(smena);
-                } else {
-                    logger.warn("Vytvoreny plan: {}", planSmien);
-                    throw new IllegalStateException("No possible employee for " + smena);
-                }
+        for (Shift smena : shifts) {
+            List<Zamestnanec> moznyZamestnanci = moznyVykonavatelia(planSmien, smena);
+            if (moznyZamestnanci.size() > 0) {
+                smena.setZamestnanec(moznyZamestnanci.get(0));
+                planSmien.pridatPolozku(smena);
+            } else {
+                logger.debug("Vytvoreny plan: {}", planSmien);
+                throw new IllegalStateException("No possible employee for " + smena);
             }
-
-            startTime = startTime.plus(predlohaSmienPreObdobie.dlzkaObdobia());
         }
+
         return planSmien;
+    }
+
+    private List<Shift> generateShifts(LocalDate start, LocalDate end, ZoneId timezone) {
+        LocalDate current = start;
+        List<Shift> shifts = new ArrayList<>();
+        while (!current.isAfter(end)) {
+            shifts.addAll(predlohaSmienPreObdobie.vygenerujOdDo(start, end, timezone));
+            current = current.plus(predlohaSmienPreObdobie.dlzkaObdobia());
+        }
+        return shifts;
     }
 
     private List<Zamestnanec> moznyVykonavatelia(PlanSmien planSmien, Shift smena) {
         List<Zamestnanec> result = new ArrayList<>();
         Shift kopiaSmeny = new Shift(smena);
-        for (Zamestnanec zamestnanec: zamestnanci) {
+        for (Zamestnanec zamestnanec : zamestnanci) {
             boolean ok = true;
             kopiaSmeny.setZamestnanec(zamestnanec);
-            for (PravidloPlanovaniaSmien pravidlo: pravidla) {
+            for (PravidloPlanovaniaSmien pravidlo : pravidla) {
                 VysledokKontrolyPravidla vysledok = pravidlo.over(planSmien, kopiaSmeny);
                 if (VysledokKontrolyPravidla.BROKEN.equals(vysledok)) {
                     ok = false;

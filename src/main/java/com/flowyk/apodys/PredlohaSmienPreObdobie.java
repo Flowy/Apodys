@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class PredlohaSmienPreObdobie {
@@ -27,6 +28,18 @@ public class PredlohaSmienPreObdobie {
         return dlzkaObdobia;
     }
 
+    public Collection<? extends Shift> vygenerujOdDo(LocalDate start, LocalDate end, ZoneId timezone) {
+        List<Shift> vysledok = new ArrayList<>(supisPredloh.size());
+        for (PredlohaSmenyPreObdobie predloha: supisPredloh) {
+            if (start.plus(predloha.getStartDay()).isAfter(end)) {
+                break;
+            } else {
+                vysledok.add(predloha.vygenerujOd(start, timezone));
+            }
+        }
+        return vysledok;
+    }
+
     public static class PredlohaSmenyPreObdobie extends PredlohaSmeny {
         Period startDay;
 
@@ -39,6 +52,10 @@ public class PredlohaSmienPreObdobie {
         public Shift vygenerujOd(LocalDate datum, ZoneId zona) {
             LocalDate posunutyDatum = datum.plus(startDay);
             return super.vygenerujOd(posunutyDatum, zona);
+        }
+
+        public Period getStartDay() {
+            return startDay;
         }
     }
 }
