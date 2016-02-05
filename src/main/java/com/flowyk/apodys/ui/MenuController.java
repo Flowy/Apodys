@@ -25,6 +25,8 @@ public class MenuController {
     @Inject
     private ExportService exportService;
 
+    private final static FileChooser.ExtensionFilter fileType = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+
     public void createNewPlan(ActionEvent actionEvent) {
         context.setContext(new Context());
         logger.info("firing workplan changed event");
@@ -34,8 +36,7 @@ public class MenuController {
     public void saveActual(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
 
-        FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
-        fileChooser.getExtensionFilters().add(extensionFilter);
+        fileChooser.getExtensionFilters().add(fileType);
 
         File file = fileChooser.showSaveDialog(stage);
 
@@ -47,8 +48,7 @@ public class MenuController {
     public void loadPlan(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
 
-        FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
-        fileChooser.getExtensionFilters().add(extensionFilter);
+        fileChooser.getExtensionFilters().add(fileType);
 
         File file = fileChooser.showOpenDialog(stage);
 
