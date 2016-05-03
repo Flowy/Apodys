@@ -38,10 +38,10 @@ public class PlanController {
     public void initialize() {
         firstDayPicker.setValue(LocalDate.now());
         firstDayPicker.valueProperty().addListener(observable -> {
-            lastDayPicker.setValue(firstDayPicker.getValue().plusWeeks(2L));
+            lastDayPicker.setValue(firstDayPicker.getValue().plusWeeks(1L));
             redraw();
         });
-        lastDayPicker.setValue(LocalDate.now().plusWeeks(2));
+        lastDayPicker.setValue(LocalDate.now().plusWeeks(1L));
         lastDayPicker.valueProperty().addListener(observable -> redraw());
         redraw();
         context.addListener(observable -> redraw());
