@@ -1,5 +1,7 @@
 package com.flowyk.apodys;
 
+import org.optaplanner.core.api.domain.entity.PlanningEntity;
+
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.time.Duration;
@@ -7,26 +9,27 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
+@PlanningEntity
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Shift implements Serializable {
 
     @XmlElement(required = true)
-    ZonedDateTime zaciatok;
+    private ZonedDateTime zaciatok;
 
     @XmlElement(required = true)
-    ZonedDateTime koniec;
+    private ZonedDateTime koniec;
 
     @XmlElement(required = true)
-    TypPolozkyPlanu typ;
+    private TypPolozkyPlanu typ;
 
     @XmlIDREF
-    Zamestnanec zamestnanec;
+    private Zamestnanec zamestnanec;
 
     @XmlElement(required = true)
-    Duration countedDuration;
+    private Duration countedDuration;
 
     @XmlIDREF
-    PredlohaSmeny predloha;
+    private PredlohaSmeny predloha;
 
     /**
      * default konstruktor pre JAXB
@@ -114,7 +117,13 @@ public class Shift implements Serializable {
     }
 
     public boolean rovnakyTyp(Shift origin) {
-        return Objects.equals(origin != null ? origin.typ() : null, this.typ());
+        return origin != null && Objects.equals(origin.typ(), this.typ());
+    }
+
+    public boolean rovnakyCas(Shift origin) {
+        return origin != null &&
+                Objects.equals(origin.zaciatok().toLocalTime(), zaciatok().toLocalTime()) &&
+                Objects.equals(origin.koniec().toLocalTime(), koniec().toLocalTime());
     }
 
     /**

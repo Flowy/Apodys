@@ -7,6 +7,7 @@ import com.flowyk.apodys.Zamestnanec;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -26,7 +27,7 @@ public class ZakladnyPlanovac implements Planovac {
 
     @Override
     public PlanSmien naplanuj(LocalDate zaciatok, LocalDate koniec, ZoneId timezone) {
-        PlanSmien planSmien = new PlanSmien();
+        PlanSmien planSmien = new PlanSmien(new ArrayList<>(), zamestnanecList);
         LocalDate startTime = zaciatok;
         while (startTime.isBefore(koniec)) {
             spracujSmeny(

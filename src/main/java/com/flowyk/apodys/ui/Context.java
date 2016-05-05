@@ -6,6 +6,7 @@ import com.flowyk.apodys.Zamestnanec;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 import javax.inject.Singleton;
@@ -22,20 +23,20 @@ public class Context implements Observable {
     private List<InvalidationListener> listeners = new ArrayList<>();
 
     public Context() {
-        this(new PlanSmien(), new ArrayList<>(), new ArrayList<>());
+        this(new PlanSmien(), new ArrayList<>());
     }
 
-    public Context(PlanSmien workplan, List<Zamestnanec> employees, List<PredlohaSmeny> shiftTemplates) {
-        this.setContext(workplan, employees, shiftTemplates);
+    public Context(PlanSmien workplan, List<PredlohaSmeny> shiftTemplates) {
+        this.setContext(workplan, shiftTemplates);
     }
 
     public void setContext(Context newContext) {
-        setContext(newContext.getWorkplan(), newContext.getEmployees(), newContext.getShiftTemplates());
+        setContext(newContext.getWorkplan(), newContext.getShiftTemplates());
     }
 
-    public void setContext(PlanSmien workplan, List<Zamestnanec> employees, List<PredlohaSmeny> shiftTemplate) {
+    public void setContext(PlanSmien workplan, List<PredlohaSmeny> shiftTemplate) {
         this.workplan = workplan;
-        setEmployees(employees);
+        setEmployees(workplan.getZamestnanci());
         setShiftTemplates(shiftTemplate);
         invalidate();
     }

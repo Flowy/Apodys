@@ -19,7 +19,7 @@ public class PredlohaSmenyTest {
     @Test
     public void spravnyKoncovyCas() {
         Shift smena = td.predlohaR2P.vygenerujOd(LocalDate.now(td.testovanaZona), td.testovanaZona);
-        assertEquals(td.predlohaR2P.endTime, smena.koniec.toLocalTime());
+        assertEquals(td.predlohaR2P.endTime, smena.koniec().toLocalTime());
     }
 
     /**
@@ -31,7 +31,7 @@ public class PredlohaSmenyTest {
         Shift smena = td.predlohaN2P.vygenerujOd(LocalDate.of(2015, 3, 28), td.testovanaZona);
         assertEquals(
                 Duration.ofHours(11L),
-                Duration.between(smena.zaciatok, smena.koniec));
+                Duration.between(smena.zaciatok(), smena.koniec()));
     }
 
     /**
@@ -43,7 +43,7 @@ public class PredlohaSmenyTest {
         Shift smena = td.predlohaN2P.vygenerujOd(LocalDate.of(2015, 10, 24), td.testovanaZona);
         assertEquals(
                 Duration.ofHours(13L),
-                Duration.between(smena.zaciatok, smena.koniec));
+                Duration.between(smena.zaciatok(), smena.koniec()));
     }
 
     @Test
@@ -51,6 +51,6 @@ public class PredlohaSmenyTest {
         Shift smena = td.predlohaP1C.vygenerujOd(LocalDate.of(2015, 1, 1), td.testovanaZona);
         assertEquals(
                 Duration.between(td.predlohaP1C.startTime, td.predlohaP1C.endTime),
-                Duration.between(smena.zaciatok, smena.koniec));
+                Duration.between(smena.zaciatok(), smena.koniec()));
     }
 }

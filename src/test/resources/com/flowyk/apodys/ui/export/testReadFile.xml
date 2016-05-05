@@ -1283,21 +1283,27 @@
                 <predloha>N2P</predloha>
             </smena>
         </polozky>
+        <zamestnanci>
+            <zamestnanec name="Papa Smurf" email="flowyk+testPapaSmurf@gmail.com"/>
+            <zamestnanec name="Gargamel" email="flowyk+testGargamel@gmail.com"/>
+            <zamestnanec name="Darth Vader" email="flowyk+testDdarthVader@gmail.com"/>
+            <zamestnanec name="Alf" email="flowyk+testAlf@gmail.com"/>
+            <zamestnanec name="Tinky-Winky" email="flowyk+testTinkyWinky@gmail.com"/>
+            <zamestnanec name="Elmo" email="flowyk+testElmo@gmail.com"/>
+            <zamestnanec name="Cookie Monster" email="flowyk+testCookieMonster@gmail.com"/>
+            <zamestnanec name="Bart Simpson" email="flowyk+test@gmail.com"/>
+            <zamestnanec name="Homer Simpson" email="flowyk+test@gmail.com"/>
+            <zamestnanec name="Marge Simpson" email="flowyk+test@gmail.com"/>
+            <zamestnanec name="Maggie Simpson" email="flowyk+test@gmail.com"/>
+            <zamestnanec name="Lisa Simpson" email="flowyk+test@gmail.com"/>
+            <zamestnanec name="Ned Flanders" email="flowyk+test@gmail.com"/>
+            <zamestnanec name="Bender" email="flowyk+test@gmail.com"/>
+        </zamestnanci>
     </planSmien>
-    <zamestnanci>
-        <zamestnanec name="Papa Smurf" email="flowyk+testPapaSmurf@gmail.com"/>
-        <zamestnanec name="Gargamel" email="flowyk+testGargamel@gmail.com"/>
-        <zamestnanec name="Darth Vader" email="flowyk+testDdarthVader@gmail.com"/>
-        <zamestnanec name="Alf" email="flowyk+testAlf@gmail.com"/>
-        <zamestnanec name="Tinky-Winky" email="flowyk+testTinkyWinky@gmail.com"/>
-        <zamestnanec name="Elmo" email="flowyk+testElmo@gmail.com"/>
-        <zamestnanec name="Cookie Monster" email="flowyk+testCookieMonster@gmail.com"/>
-        <zamestnanec name="Bart Simpson" email="flowyk+test@gmail.com"/>
-        <zamestnanec name="Homer Simpson" email="flowyk+test@gmail.com"/>
-        <zamestnanec name="Marge Simpson" email="flowyk+test@gmail.com"/>
-        <zamestnanec name="Maggie Simpson" email="flowyk+test@gmail.com"/>
-        <zamestnanec name="Lisa Simpson" email="flowyk+test@gmail.com"/>
-        <zamestnanec name="Ned Flanders" email="flowyk+test@gmail.com"/>
-        <zamestnanec name="Bender" email="flowyk+test@gmail.com"/>
-    </zamestnanci>
+    <smeny>
+        <smena nazov="N2P" startTime="18:00:00" endTime="06:00:00" timeSpan="P1D" countedDuration="PT12H"/>
+        <smena nazov="07,5" startTime="14:00:00" endTime="22:00:00" timeSpan="P0D" countedDuration="PT8H"/>
+        <smena nazov="P1C" startTime="09:00:00" endTime="21:00:00" timeSpan="P0D" countedDuration="PT12H"/>
+        <smena nazov="R2P" startTime="06:00:00" endTime="18:00:00" timeSpan="P0D" countedDuration="PT12H"/>
+    </smeny>
 </apodysData>

@@ -5,6 +5,7 @@ import com.flowyk.apodys.Shift;
 
 import java.util.Objects;
 
+//TODO: naco je toto?
 public class MaximalneOpakovanieSmien implements PravidloPlanovaniaSmien {
     Integer maximalneMnozstvo;
 

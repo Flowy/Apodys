@@ -19,7 +19,7 @@ public class Email {
         MimeMessage msg = new MimeMessage(session);
         prepareMessage(msg);
 
-        Transport.send(msg, "flowyk@gmail.com", "igltrmcldyqgoobr");
+        sendMessage(msg, preferences);
     }
 
     private Properties extractProperties(Preferences prefs) {
@@ -27,6 +27,7 @@ public class Email {
         props.put("mail.smtp.host", prefs.get("host", null));
         props.put("mail.smtp.port", prefs.get("port", null));
         props.put("mail.smtp.auth", prefs.get("auth", null));
+//        props.put("mail.smtp.auth.mechanisms", "PLAIN LOGIN");
         props.put("mail.smtp.starttls.enable", prefs.get("starttls", null));
         return props;
     }

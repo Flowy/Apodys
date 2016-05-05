@@ -44,7 +44,7 @@ public class ExportServiceTest {
                 LocalDate.of(2015, 11, 30),
                 LocalDate.of(2015, 12, 6),
                 td.testovanaZona);
-        Context context = new Context(planSmien, td.zamestnanci, Arrays.asList(td.predlohaN2P, td.predlohaO75, td.predlohaP1C, td.predlohaR2P));
+        Context context = new Context(planSmien, Arrays.asList(td.predlohaN2P, td.predlohaO75, td.predlohaP1C, td.predlohaR2P));
         File file = File.createTempFile("testSave", ".xml");
         new ExportService().save(file, context);
 

@@ -1,6 +1,8 @@
 package com.flowyk.apodys;
 
 import javafx.beans.*;
+import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
+import org.optaplanner.core.api.domain.solution.PlanningSolution;
 
 import javax.xml.bind.annotation.*;
 import java.time.Duration;
@@ -8,24 +10,36 @@ import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.function.Consumer;
 
+@PlanningSolution
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PlanSmien implements Iterable<Shift>, javafx.beans.Observable {
 
+    @PlanningEntityCollectionProperty
     @XmlElementWrapper(name = "polozky")
     @XmlElements({
             @XmlElement(type = Shift.class, name = "smena")
     })
-    List<Shift> polozky;
+    private List<Shift> polozky;
+
+
+    @XmlElementWrapper(name = "zamestnanci")
+    @XmlElement(name = "zamestnanec", nillable = false)
+    private List<Zamestnanec> zamestnanci;
 
     @XmlTransient
     private List<InvalidationListener> listeners = new ArrayList<>();
 
     public PlanSmien() {
-        polozky = new ArrayList<>();
+        this(new ArrayList<>(), new ArrayList<>());
     }
 
-    PlanSmien(List<Shift> polozky) {
+    public PlanSmien(List<Shift> polozky, List<Zamestnanec> zamestnanci) {
         this.polozky = Objects.requireNonNull(polozky);
+        this.zamestnanci = zamestnanci;
+    }
+
+    public List<Zamestnanec> getZamestnanci() {
+        return zamestnanci;
     }
 
     public void odstranitPolozku(Shift polozka) {
@@ -57,7 +71,7 @@ public class PlanSmien implements Iterable<Shift>, javafx.beans.Observable {
         List<Shift> zoradenePolozky = new ArrayList<>(polozky.size());
         Collections.copy(zoradenePolozky, polozky);
         Collections.sort(zoradenePolozky, zoradenie);
-        return new PlanSmien(zoradenePolozky);
+        return new PlanSmien(zoradenePolozky, zamestnanci);
     }
 
     public PlanSmien preObdobie(ZonedDateTime zaciatok, ZonedDateTime koniec) {

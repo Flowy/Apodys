@@ -10,18 +10,20 @@ public class RovnakeSmenyCezVikend implements PravidloPlanovaniaSmien {
     @Override
     public VysledokKontrolyPravidla over(PlanSmien naplanovaneSmeny, Shift test) {
         boolean testInSunday = test.zaciatok().getDayOfWeek().equals(DayOfWeek.SUNDAY);
+        if (!testInSunday) {
+            return VysledokKontrolyPravidla.OK;
+        }
+
         boolean saturdaySameAsSunday = false;
-        if (testInSunday) {
-            PlanSmien skumanyPlan = naplanovaneSmeny
-                    .preObdobie(test.zaciatok().minusDays(1L), test.koniec().minusDays(1L));
-            for (Shift polozka: skumanyPlan) {
-                if (polozka.typ().equals(test.typ()) && polozka.vykonavatel().equals(test.vykonavatel())) {
-                    saturdaySameAsSunday = true;
-                }
+        PlanSmien skumanyPlan = naplanovaneSmeny
+                .preObdobie(test.zaciatok().minusDays(1L), test.koniec().minusDays(1L));
+
+        for (Shift polozka : skumanyPlan) {
+            if (polozka.rovnakyCas(test) && polozka.vykonavatel().equals(test.vykonavatel())) {
+                saturdaySameAsSunday = true;
             }
         }
-        boolean isOk = !testInSunday || saturdaySameAsSunday;
-        if (isOk) {
+        if (saturdaySameAsSunday) {
             return VysledokKontrolyPravidla.OK;
         } else {
             return VysledokKontrolyPravidla.BROKEN;

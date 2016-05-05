@@ -14,12 +14,8 @@ public class ApodysData {
     @XmlElement(required = true)
     private PlanSmien planSmien;
 
-    @XmlElementWrapper(name = "zamestnanci")
-    @XmlElement(name = "zamestnanec", nillable = false)
-    private List<Zamestnanec> zamestnanci;
-
-    @XmlElementWrapper(name = "smeny")
-    @XmlElement(name = "smena", nillable = false)
+    @XmlElementWrapper(name = "smeny", required = true)
+    @XmlElement(name = "smena")
     private List<PredlohaSmeny> predlohy;
 
     /**
@@ -28,18 +24,13 @@ public class ApodysData {
     public ApodysData() {
     }
 
-    public ApodysData(PlanSmien planSmien, List<Zamestnanec> zamestnanci, List<PredlohaSmeny> smeny) {
+    public ApodysData(PlanSmien planSmien, List<PredlohaSmeny> smeny) {
         this.planSmien = planSmien;
-        this.zamestnanci = zamestnanci;
         this.predlohy = smeny;
     }
 
     public PlanSmien getPlanSmien() {
         return planSmien;
-    }
-
-    public List<Zamestnanec> getZamestnanci() {
-        return zamestnanci;
     }
 
     public List<PredlohaSmeny> getSmeny() {

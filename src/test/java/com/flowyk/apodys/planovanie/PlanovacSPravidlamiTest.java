@@ -5,6 +5,7 @@ import com.flowyk.apodys.Shift;
 import com.flowyk.apodys.TestovacieData;
 import com.flowyk.apodys.planovanie.pravidlo.*;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.time.Duration;
@@ -22,6 +23,7 @@ public class PlanovacSPravidlamiTest {
         td = new TestovacieData();
     }
 
+    @Ignore("comparing nothing")
     @Test
     public void testNaplanuj() throws Exception {
         PlanovacSPravidlami planovac = new PlanovacSPravidlami(td.zamestnanci, td.tyzdennyPlan);

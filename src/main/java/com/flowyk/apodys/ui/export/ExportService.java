@@ -8,6 +8,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.util.ArrayList;
 
 @Singleton
 public class ExportService {
@@ -17,7 +18,7 @@ public class ExportService {
             JAXBContext jaxbContext = JAXBContext.newInstance(ApodysData.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             ApodysData data = (ApodysData) unmarshaller.unmarshal(file);
-            return new Context(data.getPlanSmien(), data.getZamestnanci(), data.getSmeny());
+            return new Context(data.getPlanSmien(), data.getSmeny() != null ? data.getSmeny() : new ArrayList<>());
         } catch (JAXBException e) {
             throw new IllegalStateException(e);
         }
@@ -29,7 +30,7 @@ public class ExportService {
 
             Marshaller marshaller = jaxbContext.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            marshaller.marshal(new ApodysData(context.getWorkplan(), context.getEmployees(), context.getShiftTemplates()), file);
+            marshaller.marshal(new ApodysData(context.getWorkplan(), context.getShiftTemplates()), file);
         } catch (JAXBException e) {
             throw new IllegalStateException(e);
         }
