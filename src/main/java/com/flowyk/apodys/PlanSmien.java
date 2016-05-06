@@ -3,6 +3,9 @@ package com.flowyk.apodys;
 import javafx.beans.*;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningSolution;
+import org.optaplanner.core.api.domain.solution.Solution;
+import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
+import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 
 import javax.xml.bind.annotation.*;
 import java.time.Duration;
@@ -12,7 +15,7 @@ import java.util.function.Consumer;
 
 @PlanningSolution
 @XmlAccessorType(XmlAccessType.FIELD)
-public class PlanSmien implements Iterable<Shift>, javafx.beans.Observable {
+public class PlanSmien implements Iterable<Shift>, javafx.beans.Observable, Solution<HardSoftScore> {
 
     @PlanningEntityCollectionProperty
     @XmlElementWrapper(name = "polozky")
@@ -22,12 +25,14 @@ public class PlanSmien implements Iterable<Shift>, javafx.beans.Observable {
     private List<Shift> polozky;
 
 
+    @ValueRangeProvider(id = "zamestnanciRange")
     @XmlElementWrapper(name = "zamestnanci")
     @XmlElement(name = "zamestnanec", nillable = false)
     private List<Zamestnanec> zamestnanci;
 
     @XmlTransient
     private List<InvalidationListener> listeners = new ArrayList<>();
+    private HardSoftScore hardSoftScore;
 
     public PlanSmien() {
         this(new ArrayList<>(), new ArrayList<>());
@@ -112,6 +117,21 @@ public class PlanSmien implements Iterable<Shift>, javafx.beans.Observable {
     @Override
     public void removeListener(InvalidationListener listener) {
         listeners.remove(listener);
+    }
+
+    @Override
+    public HardSoftScore getScore() {
+        return hardSoftScore;
+    }
+
+    @Override
+    public void setScore(HardSoftScore score) {
+        this.hardSoftScore = score;
+    }
+
+    @Override
+    public Collection<?> getProblemFacts() {
+        return null;
     }
 
     @XmlTransient

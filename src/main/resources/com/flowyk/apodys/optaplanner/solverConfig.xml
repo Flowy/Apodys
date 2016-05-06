@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <solver>
-    <scanAnnotatedClasses>
-        <packageInclude>com.flowyk.apodys</packageInclude>
-    </scanAnnotatedClasses>
-    <!--&lt;!&ndash;<environmentMode>FAST_ASSERT</environmentMode>&ndash;&gt;-->
-    <!--<solutionClass>org.optaplanner.examples.nurserostering.domain.NurseRoster</solutionClass>-->
-    <!--<entityClass>org.optaplanner.examples.nurserostering.domain.ShiftAssignment</entityClass>-->
+    <!--<environmentMode>FAST_ASSERT</environmentMode>-->
+    <environmentMode>FULL_ASSERT</environmentMode>
+    <!--<environmentMode>PRODUCTION</environmentMode>-->
 
-    <!--<scoreDirectorFactory>-->
-        <!--<scoreDefinitionType>HARD_SOFT</scoreDefinitionType>-->
-        <!--<scoreDrl>org/optaplanner/examples/nurserostering/solver/nurseRosteringScoreRules.drl</scoreDrl>-->
-    <!--</scoreDirectorFactory>-->
+    <solutionClass>com.flowyk.apodys.PlanSmien</solutionClass>
+    <entityClass>com.flowyk.apodys.Shift</entityClass>
 
-    <!--<termination>-->
-        <!--&lt;!&ndash;-->
-          <!--Official benchmark secondsSpentLimit allowed on:-->
-          <!-- - ge0ffrey's main pc: sprint 11, medium 700, long 42000-->
-        <!--&ndash;&gt;-->
-        <!--<secondsSpentLimit>700</secondsSpentLimit>-->
-        <!--&lt;!&ndash;<bestScoreLimit>-0hard/-999999soft</bestScoreLimit>&ndash;&gt;-->
-    <!--</termination>-->
+    <scoreDirectorFactory>
+        <scoreDefinitionType>HARD_SOFT</scoreDefinitionType>
+        <easyScoreCalculatorClass>com.flowyk.apodys.planovanie.ScoreCalculator</easyScoreCalculatorClass>
+    </scoreDirectorFactory>
+
+    <termination>
+        <secondsSpentLimit>2</secondsSpentLimit>
+    </termination>
+
     <!--<constructionHeuristic>-->
         <!--<constructionHeuristicType>WEAKEST_FIT</constructionHeuristicType>-->
     <!--</constructionHeuristic>-->

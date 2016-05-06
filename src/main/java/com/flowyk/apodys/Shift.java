@@ -1,6 +1,7 @@
 package com.flowyk.apodys;
 
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
+import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
@@ -22,6 +23,7 @@ public class Shift implements Serializable {
     @XmlElement(required = true)
     private TypPolozkyPlanu typ;
 
+    @PlanningVariable(valueRangeProviderRefs = "zamestnanciRange")
     @XmlIDREF
     private Zamestnanec zamestnanec;
 
