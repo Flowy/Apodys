@@ -1,11 +1,14 @@
 package com.flowyk.apodys;
 
+import com.flowyk.apodys.planovanie.scoringrule.SameShiftOnWeekend;
+import com.flowyk.apodys.planovanie.scoringrule.ScoreCalculator;
 import javafx.beans.*;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningSolution;
 import org.optaplanner.core.api.domain.solution.Solution;
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
+import org.optaplanner.core.impl.score.director.easy.EasyScoreCalculator;
 
 import javax.xml.bind.annotation.*;
 import java.time.Duration;
@@ -27,12 +30,17 @@ public class PlanSmien implements Iterable<Shift>, javafx.beans.Observable, Solu
 
     @ValueRangeProvider(id = "zamestnanciRange")
     @XmlElementWrapper(name = "zamestnanci")
-    @XmlElement(name = "zamestnanec", nillable = false)
+    @XmlElement(name = "zamestnanec")
     private List<Zamestnanec> zamestnanci;
 
     @XmlTransient
     private List<InvalidationListener> listeners = new ArrayList<>();
+    @XmlTransient
     private HardSoftScore hardSoftScore;
+
+    @XmlElementWrapper(name = "scoreCalculators")
+    @XmlAnyElement
+    private List<ScoreCalculator> scoreCalculators;
 
     public PlanSmien() {
         this(new ArrayList<>(), new ArrayList<>());
@@ -41,6 +49,15 @@ public class PlanSmien implements Iterable<Shift>, javafx.beans.Observable, Solu
     public PlanSmien(List<Shift> polozky, List<Zamestnanec> zamestnanci) {
         this.polozky = Objects.requireNonNull(polozky);
         this.zamestnanci = zamestnanci;
+        this.scoreCalculators = new ArrayList<>();
+    }
+
+    public void addScoreCalculator(ScoreCalculator calculator) {
+        scoreCalculators.add(calculator);
+    }
+
+    public List<ScoreCalculator> getScoreCalculators() {
+        return scoreCalculators;
     }
 
     public List<Zamestnanec> getZamestnanci() {

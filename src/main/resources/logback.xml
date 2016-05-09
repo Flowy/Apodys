@@ -7,10 +7,10 @@
     </encoder>
   </appender>
 
-  <logger name="org.optaplanner" level="debug"/>
+  <logger name="org.optaplanner" level="info"/>
   
 
-  <root level="debug">
+  <root level="trace">
     <appender-ref ref="STDOUT" />
   </root>
 </configuration>

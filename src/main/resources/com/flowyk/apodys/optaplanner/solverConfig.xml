@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <solver>
-    <!--<environmentMode>FAST_ASSERT</environmentMode>-->
-    <environmentMode>FULL_ASSERT</environmentMode>
+    <environmentMode>FAST_ASSERT</environmentMode>
+    <!--<environmentMode>FULL_ASSERT</environmentMode>-->
     <!--<environmentMode>PRODUCTION</environmentMode>-->
 
     <solutionClass>com.flowyk.apodys.PlanSmien</solutionClass>
@@ -9,10 +9,12 @@
 
     <scoreDirectorFactory>
         <scoreDefinitionType>HARD_SOFT</scoreDefinitionType>
-        <easyScoreCalculatorClass>com.flowyk.apodys.planovanie.ScoreCalculator</easyScoreCalculatorClass>
+        <easyScoreCalculatorClass>com.flowyk.apodys.planovanie.ScoreCalculatorManager</easyScoreCalculatorClass>
     </scoreDirectorFactory>
 
     <termination>
+        <terminationCompositionStyle>OR</terminationCompositionStyle>
+        <bestScoreLimit>0hard/0soft</bestScoreLimit>
         <secondsSpentLimit>2</secondsSpentLimit>
     </termination>
 
