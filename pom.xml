@@ -107,36 +107,5 @@
             <artifactId>jaxb-java-time-adapters</artifactId>
             <version>1.1.3</version>
         </dependency>
-
-        <!--searching library-->
-        <!--<dependency>-->
-            <!--<groupId>es.usc.citius.hipster</groupId>-->
-            <!--<artifactId>hipster-core</artifactId>-->
-            <!--<version>1.0.0</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>es.usc.citius.hipster</groupId>-->
-            <!--<artifactId>hipster-examples</artifactId>-->
-            <!--<version>1.0.0</version>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
-
-
-        <!--<dependency>-->
-            <!--<groupId>cz.cvut.fit.jcop</groupId>-->
-            <!--<artifactId>jcop</artifactId>-->
-            <!--<version>1.0.1</version>-->
-        <!--</dependency>-->
-
-        <dependency>
-            <groupId>org.optaplanner</groupId>
-            <artifactId>optaplanner-core</artifactId>
-            <version>6.4.0.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.optaplanner</groupId>
-            <artifactId>optaplanner-examples</artifactId>
-            <version>6.4.0.Final</version>
-        </dependency>
     </dependencies>
 </project>

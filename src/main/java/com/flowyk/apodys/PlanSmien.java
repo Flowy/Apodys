@@ -1,14 +1,7 @@
 package com.flowyk.apodys;
 
-import com.flowyk.apodys.planovanie.scoringrule.SameShiftOnWeekend;
-import com.flowyk.apodys.planovanie.scoringrule.ScoreCalculator;
+import com.flowyk.apodys.planovanie.RuleInvestigator;
 import javafx.beans.*;
-import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
-import org.optaplanner.core.api.domain.solution.PlanningSolution;
-import org.optaplanner.core.api.domain.solution.Solution;
-import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
-import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
-import org.optaplanner.core.impl.score.director.easy.EasyScoreCalculator;
 
 import javax.xml.bind.annotation.*;
 import java.time.Duration;
@@ -16,11 +9,9 @@ import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.function.Consumer;
 
-@PlanningSolution
 @XmlAccessorType(XmlAccessType.FIELD)
-public class PlanSmien implements Iterable<Shift>, javafx.beans.Observable, Solution<HardSoftScore> {
+public class PlanSmien implements Iterable<Shift>, javafx.beans.Observable {
 
-    @PlanningEntityCollectionProperty
     @XmlElementWrapper(name = "polozky")
     @XmlElements({
             @XmlElement(type = Shift.class, name = "smena")
@@ -28,19 +19,16 @@ public class PlanSmien implements Iterable<Shift>, javafx.beans.Observable, Solu
     private List<Shift> polozky;
 
 
-    @ValueRangeProvider(id = "zamestnanciRange")
     @XmlElementWrapper(name = "zamestnanci")
     @XmlElement(name = "zamestnanec")
     private List<Zamestnanec> zamestnanci;
 
     @XmlTransient
     private List<InvalidationListener> listeners = new ArrayList<>();
-    @XmlTransient
-    private HardSoftScore hardSoftScore;
 
     @XmlElementWrapper(name = "scoreCalculators")
     @XmlAnyElement
-    private List<ScoreCalculator> scoreCalculators;
+    private List<RuleInvestigator> scoreCalculators;
 
     public PlanSmien() {
         this(new ArrayList<>(), new ArrayList<>());
@@ -49,15 +37,6 @@ public class PlanSmien implements Iterable<Shift>, javafx.beans.Observable, Solu
     public PlanSmien(List<Shift> polozky, List<Zamestnanec> zamestnanci) {
         this.polozky = Objects.requireNonNull(polozky);
         this.zamestnanci = zamestnanci;
-        this.scoreCalculators = new ArrayList<>();
-    }
-
-    public void addScoreCalculator(ScoreCalculator calculator) {
-        scoreCalculators.add(calculator);
-    }
-
-    public List<ScoreCalculator> getScoreCalculators() {
-        return scoreCalculators;
     }
 
     public List<Zamestnanec> getZamestnanci() {
@@ -136,21 +115,6 @@ public class PlanSmien implements Iterable<Shift>, javafx.beans.Observable, Solu
         listeners.remove(listener);
     }
 
-    @Override
-    public HardSoftScore getScore() {
-        return hardSoftScore;
-    }
-
-    @Override
-    public void setScore(HardSoftScore score) {
-        this.hardSoftScore = score;
-    }
-
-    @Override
-    public Collection<?> getProblemFacts() {
-        return null;
-    }
-
     @XmlTransient
     private static class PoradiePodlaVykonavatela implements Comparator<Shift> {
         @Override
@@ -195,4 +159,5 @@ public class PlanSmien implements Iterable<Shift>, javafx.beans.Observable, Solu
     public Spliterator<Shift> spliterator() {
         return polozky.spliterator();
     }
+
 }

@@ -28,9 +28,7 @@ public class PlanovacSPravidlamiTest {
     public void testNaplanuj() throws Exception {
         PlanovacSPravidlami planovac = new PlanovacSPravidlami(td.zamestnanci, td.tyzdennyPlan);
 
-        planovac.pridat(new PravidloJednejSmeny());
         planovac.pridat(new PravidloMaximalnehoCasu(Duration.ofHours(33L), Period.ofDays(4)));
-        planovac.pridat(new MaximalneOpakovanieSmien(2));
         planovac.pridat(new PravidloVolnoPoSmene(td.predlohaN2P, Duration.ofHours(12L)));
         planovac.pridat(new PravidloVolnoPoSmene(td.predlohaR2P, Duration.ofHours(1L)));
         planovac.pridat(new PravidloVolnoPoDvochSmenach(td.predlohaN2P, td.predlohaN2P, Duration.ofHours(48L)));

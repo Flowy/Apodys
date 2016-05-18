@@ -1,9 +1,11 @@
 package com.flowyk.apodys;
 
+import com.flowyk.apodys.planovanie.RuleOffender;
 import org.junit.Assert;
 
 import java.time.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class TestovacieData {
@@ -101,4 +103,21 @@ public class TestovacieData {
 //        zamestnanci.add(new Zamestnanec("Jerry", "flowyk+test@gmail.com"));
     }
 
+
+
+    public Shift combine(Shift shift, Zamestnanec employee) {
+        shift.setZamestnanec(employee);
+        return shift;
+    }
+
+    public PlanSmien combine(PlanSmien planSmien, Shift... shifts) {
+        for (Shift shift: shifts) {
+            planSmien.pridatPolozku(shift);
+        }
+        return planSmien;
+    }
+
+    public void assertCrimes(int expected, Collection<RuleOffender> crimes) {
+        Assert.assertTrue("Found " + crimes.size() + " instead of " + expected, crimes.size() == expected);
+    }
 }

@@ -1,16 +1,17 @@
 package com.flowyk.apodys.planovanie.scoringrule;
 
-import com.flowyk.apodys.planovanie.pravidlo.RovnakeSmenyCezVikend;
-import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
+import com.flowyk.apodys.PlanSmien;
+import com.flowyk.apodys.planovanie.RuleInvestigator;
+import com.flowyk.apodys.planovanie.RuleOffender;
 
-public class SameShiftOnWeekend extends RuleBasedScoreCalculator implements ScoreCalculator {
+import java.util.ArrayList;
+import java.util.Collection;
 
-    public SameShiftOnWeekend() {
-        super(new RovnakeSmenyCezVikend());
-    }
+public class SameShiftOnWeekend implements RuleInvestigator {
 
     @Override
-    protected HardSoftScore parseBrokes(int brokes) {
-        return HardSoftScore.valueOf(-brokes, 0);
+    public Collection<RuleOffender> findOffenders(PlanSmien plan) {
+        //TODO
+        return new ArrayList<>();
     }
 }

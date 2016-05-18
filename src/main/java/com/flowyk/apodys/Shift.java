@@ -1,8 +1,5 @@
 package com.flowyk.apodys;
 
-import org.optaplanner.core.api.domain.entity.PlanningEntity;
-import org.optaplanner.core.api.domain.variable.PlanningVariable;
-
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.time.Duration;
@@ -10,7 +7,6 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-@PlanningEntity
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Shift implements Serializable {
 
@@ -23,7 +19,6 @@ public class Shift implements Serializable {
     @XmlElement(required = true)
     private TypPolozkyPlanu typ;
 
-    @PlanningVariable(valueRangeProviderRefs = "zamestnanciRange")
     @XmlIDREF
     private Zamestnanec zamestnanec;
 
@@ -116,6 +111,10 @@ public class Shift implements Serializable {
 
     public boolean rovnakyVykonavatel(Shift origin) {
         return Objects.equals(origin.vykonavatel(), this.vykonavatel());
+    }
+
+    public boolean rovnakaZmena(Shift origin) {
+        return Objects.equals(origin.zaciatok().toLocalTime(), this.zaciatok().toLocalTime());
     }
 
     public boolean rovnakyTyp(Shift origin) {
