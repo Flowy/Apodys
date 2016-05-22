@@ -68,6 +68,10 @@ public class PredlohaSmeny implements Serializable {
                 this);
     }
 
+    public Shift vygenerujOd(LocalDate datum) {
+        return vygenerujOd(datum, ZoneId.systemDefault());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
