@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import static com.flowyk.apodys.TestHelper.*;
 
-public class RepeatingShiftTest {
+public class TwoSameShiftsInRowAtMaxTest {
     private static final Logger LOG = LoggerFactory.getLogger("test");
 
     private TestovacieData td;
@@ -24,7 +24,7 @@ public class RepeatingShiftTest {
         td = new TestovacieData();
     }
 
-    private RuleInvestigator investigator = new RepeatingShift();
+    private RuleInvestigator investigator = new TwoSameShiftsInRowAtMax();
 
     @Test
     public void threeShiftsInRow() {

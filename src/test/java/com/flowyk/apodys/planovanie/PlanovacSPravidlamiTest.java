@@ -32,7 +32,6 @@ public class PlanovacSPravidlamiTest {
         planovac.pridat(new PravidloVolnoPoSmene(td.predlohaN2P, Duration.ofHours(12L)));
         planovac.pridat(new PravidloVolnoPoSmene(td.predlohaR2P, Duration.ofHours(1L)));
         planovac.pridat(new PravidloVolnoPoDvochSmenach(td.predlohaN2P, td.predlohaN2P, Duration.ofHours(48L)));
-//        planovac.pridat(new RovnakeSmenyCezVikend());
         planovac.pridat(new PravidloMaximalnehoCasu(Duration.ofHours(55L), Period.ofDays(7)));
 
 

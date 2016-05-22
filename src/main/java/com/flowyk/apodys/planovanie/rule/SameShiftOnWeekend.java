@@ -39,10 +39,14 @@ public class SameShiftOnWeekend extends BaseRuleOffenderFinder {
         if ((isSaturday(shift) && isSunday(test)) ||
                 (isSaturday(test) && isSunday(shift))) {
             return shift.rovnakyVykonavatel(test) &&
-                    shift.zaciatok().toLocalTime().equals(test.zaciatok().toLocalTime());
+                    sameStart(shift, test);
         } else {
             return false;
         }
+    }
+
+    private boolean sameStart(Shift shift, Shift test) {
+        return shift.zaciatok().toLocalTime().equals(test.zaciatok().toLocalTime());
     }
 
 }

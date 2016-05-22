@@ -2,13 +2,16 @@ package com.flowyk.apodys.planovanie.rule;
 
 import com.flowyk.apodys.PlanSmien;
 import com.flowyk.apodys.Shift;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 
 /**
  * shift can't be repeated more than once in a row for employee
  */
-public class RepeatingShift extends BaseRuleOffenderFinder {
+public class TwoSameShiftsInRowAtMax extends BaseRuleOffenderFinder {
+    private static final Logger LOG = LoggerFactory.getLogger(TwoSameShiftsInRowAtMax.class);
 
     @Override
     protected boolean isOffender(Shift shift, PlanSmien plan) {
@@ -21,7 +24,7 @@ public class RepeatingShift extends BaseRuleOffenderFinder {
         for (Shift test : plan) {
             LocalDate testDate = test.zaciatok().toLocalDate();
             if (testDate.isAfter(secondDate)) {
-                //break if we are after shift (expects that loop is ordered by time)
+                LOG.debug("Breaking the streak, expecting shifts ordered by time");
                 break;
             } else if (testDate.isEqual(firstDate) && sameShifts(shift, test)) {
                 firstDay = true;

@@ -1,11 +1,9 @@
 package com.flowyk.apodys;
 
-import com.flowyk.apodys.planovanie.RuleOffender;
 import org.junit.Assert;
 
 import java.time.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class TestovacieData {
