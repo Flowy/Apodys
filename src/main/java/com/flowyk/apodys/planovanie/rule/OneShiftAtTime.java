@@ -2,7 +2,6 @@ package com.flowyk.apodys.planovanie.rule;
 
 import com.flowyk.apodys.PlanSmien;
 import com.flowyk.apodys.Shift;
-import com.flowyk.apodys.planovanie.rule.BaseRuleOffenderFinder;
 
 public class OneShiftAtTime extends BaseRuleOffenderFinder {
 

@@ -103,21 +103,4 @@ public class TestovacieData {
 //        zamestnanci.add(new Zamestnanec("Jerry", "flowyk+test@gmail.com"));
     }
 
-
-
-    public Shift combine(Shift shift, Zamestnanec employee) {
-        shift.setZamestnanec(employee);
-        return shift;
-    }
-
-    public PlanSmien combine(PlanSmien planSmien, Shift... shifts) {
-        for (Shift shift: shifts) {
-            planSmien.pridatPolozku(shift);
-        }
-        return planSmien;
-    }
-
-    public void assertCrimes(int expected, Collection<RuleOffender> crimes) {
-        Assert.assertTrue("Found " + crimes.size() + " instead of " + expected, crimes.size() == expected);
-    }
 }

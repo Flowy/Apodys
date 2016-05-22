@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import static com.flowyk.apodys.TestHelper.*;
+
 public class SameShiftOnWeekendTest {
     private static final Logger LOG = LoggerFactory.getLogger("test");
 
@@ -21,53 +23,53 @@ public class SameShiftOnWeekendTest {
         td = new TestovacieData();
     }
 
-    private RuleInvestigator investigator = new OneShiftAtTime();
+    private RuleInvestigator investigator = new SameShiftOnWeekend();
 
     @Test
     public void differentShift() {
-        PlanSmien planSmien = td.combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
-                td.combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 7)), td.zamestnanci.get(0)),
-                td.combine(td.predlohaO75.vygenerujOd(LocalDate.of(2016, 5, 8)), td.zamestnanci.get(0))
+        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+                combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 7)), td.zamestnanci.get(0)),
+                combine(td.predlohaO75.vygenerujOd(LocalDate.of(2016, 5, 8)), td.zamestnanci.get(0))
         );
 
-        td.assertCrimes(2, investigator.findOffenders(planSmien));
+        assertBroken(investigator.findOffenders(planSmien));
     }
 
     @Test
     public void onlySunday() {
-        PlanSmien planSmien = td.combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
-                td.combine(td.predlohaR2P.vygenerujOd(LocalDate.of(2016, 5, 8)), td.zamestnanci.get(0))
+        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+                combine(td.predlohaR2P.vygenerujOd(LocalDate.of(2016, 5, 8)), td.zamestnanci.get(0))
         );
 
-        td.assertCrimes(1, investigator.findOffenders(planSmien));
+        assertBroken(investigator.findOffenders(planSmien));
     }
 
     @Test
     public void onlySaturday() {
-        PlanSmien planSmien = td.combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
-                td.combine(td.predlohaR2P.vygenerujOd(LocalDate.of(2016, 5, 7)), td.zamestnanci.get(0))
+        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+                combine(td.predlohaR2P.vygenerujOd(LocalDate.of(2016, 5, 7)), td.zamestnanci.get(0))
         );
 
-        td.assertCrimes(1, investigator.findOffenders(planSmien));
+        assertBroken(investigator.findOffenders(planSmien));
     }
 
     @Test
     public void differentEmployee() {
-        PlanSmien planSmien = td.combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
-                td.combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 7)), td.zamestnanci.get(0)),
-                td.combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 8)), td.zamestnanci.get(1))
+        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+                combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 7)), td.zamestnanci.get(0)),
+                combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 8)), td.zamestnanci.get(1))
         );
 
-        td.assertCrimes(2, investigator.findOffenders(planSmien));
+        assertBroken(investigator.findOffenders(planSmien));
     }
 
     @Test
     public void sameShifts() {
-        PlanSmien planSmien = td.combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
-                td.combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 7)), td.zamestnanci.get(0)),
-                td.combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 8)), td.zamestnanci.get(0))
+        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+                combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 7)), td.zamestnanci.get(0)),
+                combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 8)), td.zamestnanci.get(0))
         );
 
-        td.assertCrimes(0, investigator.findOffenders(planSmien));
+        assertValid(investigator.findOffenders(planSmien));
     }
 }
