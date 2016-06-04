@@ -15,4 +15,12 @@ public class RuleOffender {
     }
 
     //TODO: get crime
+
+
+    @Override
+    public String toString() {
+        return "RuleOffender{" +
+                "shift=" + shift +
+                '}';
+    }
 }
