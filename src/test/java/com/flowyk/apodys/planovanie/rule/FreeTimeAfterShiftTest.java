@@ -54,4 +54,37 @@ public class FreeTimeAfterShiftTest {
         assertBroken(investigator.findOffenders(planSmien));
     }
 
+    //free time after 2 shifts
+    private RuleInvestigator investigator2 = new FreeTimeAfterShift(2, LocalTime.of(18, 0), Duration.ofHours(24L));
+
+    @Test
+    public void freeTime2() {
+        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+                combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0)),
+                combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 2), td.testovanaZona), td.zamestnanci.get(0)),
+                combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 4), td.testovanaZona), td.zamestnanci.get(0))
+        );
+        assertValid(investigator2.findOffenders(planSmien));
+    }
+
+    @Test
+    public void freeTime2TwoEmployees() {
+        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+                combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0)),
+                combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 2), td.testovanaZona), td.zamestnanci.get(0)),
+                combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 3), td.testovanaZona), td.zamestnanci.get(1))
+        );
+        assertValid(investigator2.findOffenders(planSmien));
+    }
+
+    @Test
+    public void overloaded2() {
+        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+                combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0)),
+                combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 2), td.testovanaZona), td.zamestnanci.get(0)),
+                combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 3), td.testovanaZona), td.zamestnanci.get(0))
+        );
+        assertBroken(investigator2.findOffenders(planSmien));
+    }
+
 }
