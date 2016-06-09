@@ -34,6 +34,10 @@ public class PlanSmien implements Iterable<Shift>, javafx.beans.Observable {
         this(new ArrayList<>(), new ArrayList<>());
     }
 
+    public PlanSmien(List<Zamestnanec> zamestnanci) {
+        this(new ArrayList<>(), zamestnanci);
+    }
+
     public PlanSmien(List<Shift> polozky, List<Zamestnanec> zamestnanci) {
         this.polozky = Objects.requireNonNull(polozky);
         this.zamestnanci = zamestnanci;

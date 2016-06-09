@@ -1,7 +1,7 @@
 package com.flowyk.apodys.planovanie.rule;
 
 import com.flowyk.apodys.PlanSmien;
-import com.flowyk.apodys.TestovacieData;
+import com.flowyk.apodys.test.TestovacieData;
 
 import com.flowyk.apodys.planovanie.RuleInvestigator;
 import org.junit.Before;
@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import static com.flowyk.apodys.TestHelper.*;
+import static com.flowyk.apodys.test.TestHelper.*;
 
 public class TwoSameShiftsInRowAtMaxTest {
     private static final Logger LOG = LoggerFactory.getLogger("test");

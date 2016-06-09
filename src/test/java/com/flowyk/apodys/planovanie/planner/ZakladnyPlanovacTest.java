@@ -1,15 +1,20 @@
-package com.flowyk.apodys;
+package com.flowyk.apodys.planovanie.planner;
 
+import com.flowyk.apodys.PlanSmien;
+import com.flowyk.apodys.Shift;
+import com.flowyk.apodys.test.TestovacieData;
 import com.flowyk.apodys.planovanie.Planovac;
-import com.flowyk.apodys.planovanie.ZakladnyPlanovac;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 
 import static org.junit.Assert.*;
 
 public class ZakladnyPlanovacTest {
+    private static final Logger LOG = LoggerFactory.getLogger("test");
 
     TestovacieData td;
 

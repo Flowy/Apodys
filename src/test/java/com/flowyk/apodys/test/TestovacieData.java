@@ -1,5 +1,6 @@
-package com.flowyk.apodys;
+package com.flowyk.apodys.test;
 
+import com.flowyk.apodys.*;
 import org.junit.Assert;
 
 import java.time.*;
@@ -84,21 +85,25 @@ public class TestovacieData {
         zamestnanci.add(new Zamestnanec("Maggie Simpson", "flowyk+test@gmail.com"));
         zamestnanci.add(new Zamestnanec("Lisa Simpson", "flowyk+test@gmail.com"));
         zamestnanci.add(new Zamestnanec("Ned Flanders", "flowyk+test@gmail.com"));
-//        zamestnanci.add(new Zamestnanec("Bender", "flowyk+test@gmail.com"));
-//        zamestnanci.add(new Zamestnanec("Goofy", "flowyk+test@gmail.com"));
-//        zamestnanci.add(new Zamestnanec("SpongeBob Squarepants", "flowyk+test@gmail.com"));
-//        zamestnanci.add(new Zamestnanec("Krusty the Clown", "flowyk+test@gmail.com"));
-//        zamestnanci.add(new Zamestnanec("Daria Morgendorffer", "flowyk+test@gmail.com"));
-//        zamestnanci.add(new Zamestnanec("Yogi Bear", "flowyk+test@gmail.com"));
-//        zamestnanci.add(new Zamestnanec("Daffy Duck", "flowyk+test@gmail.com"));
-//        zamestnanci.add(new Zamestnanec("Stewie Griffin", "flowyk+test@gmail.com"));
-//        zamestnanci.add(new Zamestnanec("Wile E. Coyote", "flowyk+test@gmail.com"));
-//        zamestnanci.add(new Zamestnanec("Fred Flintstone ", "flowyk+test@gmail.com"));
-//        zamestnanci.add(new Zamestnanec("Mickey Mouse", "flowyk+test@gmail.com"));
-//        zamestnanci.add(new Zamestnanec("Eric Cartman ", "flowyk+test@gmail.com"));
-//        zamestnanci.add(new Zamestnanec("Bugs Bunny", "flowyk+test@gmail.com"));
-//        zamestnanci.add(new Zamestnanec("Tom", "flowyk+test@gmail.com"));
-//        zamestnanci.add(new Zamestnanec("Jerry", "flowyk+test@gmail.com"));
+    }
+
+
+    public PredlohaSmienPreObdobie tyzden40() {
+        List<PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie> tyzden = new ArrayList<>();
+        tyzden.add(new PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie(predlohaR2P, Period.ofDays(0)));
+        tyzden.add(new PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie(predlohaR2P, Period.ofDays(1)));
+        tyzden.add(new PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie(predlohaO75, Period.ofDays(2)));
+        tyzden.add(new PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie(predlohaO75, Period.ofDays(3)));
+        PredlohaSmienPreObdobie zmeny = new PredlohaSmienPreObdobie(tyzden, Period.ofDays(7));
+        return zmeny;
+    }
+    public PredlohaSmienPreObdobie tyzden32() {
+        List<PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie> tyzden = new ArrayList<>();
+        tyzden.add(new PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie(predlohaR2P, Period.ofDays(0)));
+        tyzden.add(new PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie(predlohaR2P, Period.ofDays(1)));
+        tyzden.add(new PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie(predlohaO75, Period.ofDays(2)));
+        PredlohaSmienPreObdobie zmeny = new PredlohaSmienPreObdobie(tyzden, Period.ofDays(7));
+        return zmeny;
     }
 
 }
