@@ -1,5 +1,6 @@
-package com.flowyk.apodys.ui.guice;
+package com.flowyk.apodys.ui.config;
 
+import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import javafx.fxml.FXMLLoader;
@@ -20,8 +21,13 @@ public class GuiceControllerLoader implements Callback<Class<?>, Object> {
         this.injector = injector;
     }
 
+    @Inject
+    private EventBus eventBus;
+
     @Override
     public Object call(Class<?> controller) {
-        return injector.getInstance(controller);
+        Object object = injector.getInstance(controller);
+        eventBus.register(object);
+        return object;
     }
 }

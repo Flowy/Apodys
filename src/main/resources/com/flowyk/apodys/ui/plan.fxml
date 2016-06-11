@@ -16,7 +16,6 @@
         </HBox>
     </top>
     <center>
-        <GridPane fx:id="planGrid">
-        </GridPane>
+        <fx:include source="rooster.fxml"/>
     </center>
 </BorderPane>

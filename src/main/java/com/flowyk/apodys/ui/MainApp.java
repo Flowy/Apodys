@@ -1,7 +1,7 @@
 package com.flowyk.apodys.ui;
 
-import com.flowyk.apodys.ui.guice.ApplicationModule;
-import com.flowyk.apodys.ui.guice.GuiceControllerLoader;
+import com.flowyk.apodys.ui.config.ApplicationModule;
+import com.flowyk.apodys.ui.config.GuiceControllerLoader;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import javafx.fxml.FXMLLoader;

@@ -1,7 +1,10 @@
 package com.flowyk.apodys.ui.export;
 
 import com.flowyk.apodys.ui.Context;
+import com.flowyk.apodys.ui.config.event.ContextUpdated;
+import com.google.common.eventbus.EventBus;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -13,11 +16,16 @@ import java.util.ArrayList;
 @Singleton
 public class ExportService {
 
+    @Inject
+    private EventBus eventBus;
+
     public Context read(File file) {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(ApodysData.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             ApodysData data = (ApodysData) unmarshaller.unmarshal(file);
+            //TODO: change to XmlLoaded
+            eventBus.post(new ContextUpdated(data));
             return new Context(data.getPlanSmien(), data.getSmeny() != null ? data.getSmeny() : new ArrayList<>());
         } catch (JAXBException e) {
             throw new IllegalStateException(e);

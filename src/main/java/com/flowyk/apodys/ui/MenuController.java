@@ -1,7 +1,7 @@
 package com.flowyk.apodys.ui;
 
 import com.flowyk.apodys.ui.export.ExportService;
-import com.flowyk.apodys.ui.guava.event.WorkplanChanged;
+import com.flowyk.apodys.ui.config.event.ContextUpdated;
 import com.google.common.eventbus.EventBus;
 import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
@@ -30,7 +30,7 @@ public class MenuController {
     public void createNewPlan(ActionEvent actionEvent) {
         context.setContext(new Context());
         logger.info("firing workplan changed event");
-        eventBus.post(new WorkplanChanged());
+        eventBus.post(new ContextUpdated());
     }
 
     public void saveActual(ActionEvent actionEvent) {

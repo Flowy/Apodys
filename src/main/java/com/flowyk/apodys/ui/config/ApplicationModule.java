@@ -1,4 +1,4 @@
-package com.flowyk.apodys.ui.guice;
+package com.flowyk.apodys.ui.config;
 
 import com.google.common.eventbus.EventBus;
 import com.google.inject.AbstractModule;
@@ -17,6 +17,9 @@ public class ApplicationModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(Stage.class).toInstance(stage);
-        bind(EventBus.class).in(Singleton.class);
+
+        EventBus eventBus = new EventBus();
+        eventBus.register(new DeadEventHandler());
+        bind(EventBus.class).toInstance(eventBus);
     }
 }

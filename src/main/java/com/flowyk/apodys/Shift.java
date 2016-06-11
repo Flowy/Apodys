@@ -26,6 +26,7 @@ public class Shift implements Serializable {
     private Duration countedDuration;
 
     @XmlIDREF
+    @XmlAttribute(required = true)
     private PredlohaSmeny predloha;
 
     /**
