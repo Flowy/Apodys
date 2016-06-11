@@ -26,6 +26,7 @@ public class ExportService {
             ApodysData data = (ApodysData) unmarshaller.unmarshal(file);
             //TODO: change to XmlLoaded
             eventBus.post(new ContextUpdated(data));
+            //TODO: delete and catch with event
             return new Context(data.getPlanSmien(), data.getSmeny() != null ? data.getSmeny() : new ArrayList<>());
         } catch (JAXBException e) {
             throw new IllegalStateException(e);

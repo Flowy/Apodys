@@ -4,26 +4,21 @@ import com.flowyk.apodys.Shift;
 import com.flowyk.apodys.Zamestnanec;
 import com.flowyk.apodys.ui.config.event.RoosterDataChange;
 import com.google.common.collect.Table;
-import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.Map;
-import java.util.logging.Logger;
 
 public class RoosterController {
-    private Logger logger = Logger.getLogger(this.getClass().getCanonicalName());
 
     @FXML
-    private TableView<Map<LocalDate, Shift>> roosterTable;
+    private TableView<RoosterTableRow> roosterTable;
 
     @Subscribe
     public void workplanChanged(RoosterDataChange event) {
@@ -32,30 +27,51 @@ public class RoosterController {
     }
 
     private void draw(Table<Zamestnanec, LocalDate, Shift> data, LocalDate startDate, LocalDate endDate) {
-        TableColumn<Map<LocalDate, Shift>, String> dateColumn = new TableColumn<>("Zamestnanci");
-        dateColumn.setCellValueFactory(rowData -> new SimpleStringProperty(
-                //gets the employee name in first shift in row
-                rowData.getValue().entrySet().iterator().next().getValue().vykonavatel().getName()
-        ));
-        roosterTable.getColumns().add(dateColumn);
+        addEmployeeColumn();
+        addShiftColumns(startDate, endDate);
 
+        roosterTable.getSelectionModel().setCellSelectionEnabled(true);
+//        roosterTable.setEditable(true);
+
+        roosterTable.setItems(FXCollections.observableArrayList());
+        for (Zamestnanec key : data.rowKeySet()) {
+            roosterTable.getItems().add(new RoosterTableRow(key, data.row(key)));
+        }
+        roosterTable.getItems().add(new RoosterTableRow());
+    }
+
+    private void addEmployeeColumn() {
+        TableColumn<RoosterTableRow, Zamestnanec> employeeColumn = new TableColumn<>("Zamestnanci");
+        employeeColumn.setCellFactory(column -> new EmployeeTableCell());
+        employeeColumn.setCellValueFactory(rowData -> new SimpleObjectProperty<>(
+                rowData.getValue().getKey()
+        ));
+        employeeColumn.setSortable(false);
+        employeeColumn.setEditable(false);
+        roosterTable.getColumns().add(employeeColumn);
+    }
+
+    private void addShiftColumns(LocalDate startDate, LocalDate endDate) {
         LocalDate actualDate = startDate;
         while (!actualDate.isAfter(endDate)) {
-            final LocalDate finalActualDate = actualDate;
-            TableColumn<Map<LocalDate, Shift>, String> shiftColumn = new TableColumn<>(finalActualDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
-            shiftColumn.setCellValueFactory(rowData -> {
-                if (rowData.getValue().get(finalActualDate) != null) {
-                    return new SimpleStringProperty(
-                            rowData.getValue().get(finalActualDate).predloha().getNazov()
-                    );
-                } else {
-                    return null;
-                }
-            });
-            roosterTable.getColumns().add(shiftColumn);
+            addShiftColumn(actualDate);
             actualDate = actualDate.plusDays(1L);
         }
+    }
 
-        roosterTable.setItems(FXCollections.observableArrayList(data.rowMap().values()));
+    private void addShiftColumn(final LocalDate date) {
+        TableColumn<RoosterTableRow, Shift> shiftColumn = new TableColumn<>(date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
+        shiftColumn.setCellFactory(column -> new ShiftTableCell());
+
+        shiftColumn.setCellValueFactory(rowData -> {
+            if (rowData.getValue().get(date) != null && rowData.getValue().getKey() != null) {
+                return new SimpleObjectProperty<>(rowData.getValue().get(date));
+            } else {
+                return null;
+            }
+        });
+        shiftColumn.setSortable(false);
+        shiftColumn.setEditable(false);
+        roosterTable.getColumns().add(shiftColumn);
     }
 }

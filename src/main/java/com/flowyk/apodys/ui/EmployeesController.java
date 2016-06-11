@@ -5,13 +5,13 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 
 public class EmployeesController {
-    private Logger logger = Logger.getLogger(getClass().getCanonicalName());
 
     @Inject
     private Context context;
@@ -29,7 +29,6 @@ public class EmployeesController {
     }
 
     static class ZamestnanecCell extends ListCell<Zamestnanec> {
-        private Logger logger = Logger.getLogger(getClass().getCanonicalName());
 
         public ZamestnanecCell() {
 //            this.setOnDragDetected(event -> {

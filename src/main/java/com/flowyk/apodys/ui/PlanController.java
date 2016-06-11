@@ -14,10 +14,8 @@ import javafx.scene.layout.GridPane;
 
 import javax.inject.Inject;
 import java.time.*;
-import java.util.logging.Logger;
 
 public class PlanController {
-    private Logger logger = Logger.getLogger(getClass().getCanonicalName());
 
     @Inject
     private EventBus eventBus;

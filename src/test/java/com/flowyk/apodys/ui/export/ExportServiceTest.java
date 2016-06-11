@@ -9,16 +9,17 @@ import com.flowyk.apodys.planovanie.planner.ZakladnyPlanovac;
 import com.flowyk.apodys.ui.Context;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class ExportServiceTest {
-    private Logger logger = Logger.getLogger(this.getClass().getCanonicalName());
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     TestovacieData td;
 

@@ -5,13 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 
 public class ShiftsController {
-    private Logger logger = Logger.getLogger(getClass().getCanonicalName());
 
     @Inject
     private Context context;
@@ -29,11 +29,11 @@ public class ShiftsController {
     }
 
     static class ShiftTemplateCell extends ListCell<PredlohaSmeny> {
-        private Logger logger = Logger.getLogger(getClass().getCanonicalName());
+        private Logger logger = LoggerFactory.getLogger(getClass());
 
         public ShiftTemplateCell() {
             this.setOnDragDetected(event -> {
-                logger.fine("drag detected, source: " + event.getSource());
+                logger.debug("drag detected, source: " + event.getSource());
                 Dragboard db = startDragAndDrop(TransferMode.COPY);
 
                 ClipboardContent content = new ClipboardContent();

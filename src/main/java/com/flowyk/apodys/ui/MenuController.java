@@ -6,13 +6,14 @@ import com.google.common.eventbus.EventBus;
 import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.io.File;
-import java.util.logging.Logger;
 
 public class MenuController {
-    private Logger logger = Logger.getLogger(this.getClass().getCanonicalName());
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Inject
     private Context context;

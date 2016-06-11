@@ -5,14 +5,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.Region;
-import javafx.stage.Stage;
 
 import javax.inject.Inject;
-import java.util.logging.Logger;
 
 public class CreateEmployeeController {
-    private Logger logger = Logger.getLogger(getClass().getCanonicalName());
 
     @Inject
     private Context context;
