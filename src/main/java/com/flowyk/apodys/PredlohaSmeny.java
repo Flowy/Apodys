@@ -1,6 +1,9 @@
 package com.flowyk.apodys;
 
 
+import com.flowyk.apodys.bussiness.entity.Shift;
+import com.flowyk.apodys.bussiness.entity.TypPolozkyPlanu;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;

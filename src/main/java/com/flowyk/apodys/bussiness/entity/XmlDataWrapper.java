@@ -1,15 +1,13 @@
 package com.flowyk.apodys.bussiness.entity;
 
-import com.flowyk.apodys.PlanSmien;
 import com.flowyk.apodys.PredlohaSmeny;
-import com.flowyk.apodys.Zamestnanec;
 
 import javax.xml.bind.annotation.*;
 import java.util.List;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ApodysData {
+public class XmlDataWrapper {
 
     @XmlElement(required = true)
     private PlanSmien planSmien;
@@ -21,10 +19,10 @@ public class ApodysData {
     /**
      * JAXB constructor
      */
-    public ApodysData() {
+    public XmlDataWrapper() {
     }
 
-    public ApodysData(PlanSmien planSmien, List<PredlohaSmeny> smeny) {
+    public XmlDataWrapper(PlanSmien planSmien, List<PredlohaSmeny> smeny) {
         this.planSmien = planSmien;
         this.predlohy = smeny;
     }

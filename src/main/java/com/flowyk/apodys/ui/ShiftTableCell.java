@@ -1,6 +1,7 @@
 package com.flowyk.apodys.ui;
 
-import com.flowyk.apodys.Shift;
+import com.flowyk.apodys.bussiness.entity.Shift;
+import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import com.flowyk.apodys.bussiness.boundary.RoosterBoundary;
 import javafx.scene.control.TableCell;
 import javafx.scene.input.ClipboardContent;
@@ -58,10 +59,25 @@ public class ShiftTableCell extends TableCell<RoosterTableRow, Shift> {
         setOnDragDropped(event -> {
             Dragboard db = event.getDragboard();
             if (db.hasContent(DragAndDropDataTypes.SHIFT)) {
-                logger.debug("Drag dropped with shift: " + db.getContent(DragAndDropDataTypes.SHIFT));
+                Shift droppedShift = (Shift) db.getContent(DragAndDropDataTypes.SHIFT);
+                logger.debug("Drag dropped with shift: " + droppedShift);
+                if (getItem() == null) {
+                    logger.debug("Creating shift");
+                    Zamestnanec employee = ((RoosterTableRow) (((ShiftTableCell) event.getGestureTarget()).getTableRow().getItem())).getKey();
+                    roosterBoundary.create(droppedShift, employee);
+                } else {
+                    logger.debug("Changing shift " + getItem());
+                    Zamestnanec employee = null;
+                    roosterBoundary.assign(getItem(), employee);
+                }
                 event.setDropCompleted(true);
             } else if (db.hasContent(DragAndDropDataTypes.SHIFT_TEMPLATE)) {
                 logger.debug("Drag dropped with template: " + db.getContent(DragAndDropDataTypes.SHIFT_TEMPLATE));
+                if (getItem() == null) {
+                    logger.debug("Creating shift from template");
+                } else {
+                    logger.debug("Changing shift by template");
+                }
                 event.setDropCompleted(true);
             } else {
                 logger.debug("Drag dropped with unsupported content types: " + db.getContentTypes());
@@ -70,6 +86,11 @@ public class ShiftTableCell extends TableCell<RoosterTableRow, Shift> {
             event.consume();
         });
 
+        setOnDragDone(event -> {
+            if (event.getTransferMode() == TransferMode.MOVE) {
+                logger.debug("Removing shift " + getItem());
+            }
+        });
     }
 
     private boolean isDroppable(DragEvent event) {

@@ -1,16 +1,16 @@
 package com.flowyk.apodys.ui.config.event;
 
-import com.flowyk.apodys.bussiness.entity.ApodysData;
+import com.flowyk.apodys.bussiness.entity.XmlDataWrapper;
 
 public class XmlLoaded {
 
-    private ApodysData apodysData;
+    private XmlDataWrapper xmlDataWrapper;
 
-    public XmlLoaded(ApodysData apodysData) {
-        this.apodysData = apodysData;
+    public XmlLoaded(XmlDataWrapper xmlDataWrapper) {
+        this.xmlDataWrapper = xmlDataWrapper;
     }
 
-    public ApodysData getApodysData() {
-        return apodysData;
+    public XmlDataWrapper getXmlDataWrapper() {
+        return xmlDataWrapper;
     }
 }

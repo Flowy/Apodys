@@ -1,8 +1,8 @@
 package com.flowyk.apodys.test;
 
-import com.flowyk.apodys.PlanSmien;
-import com.flowyk.apodys.Shift;
-import com.flowyk.apodys.Zamestnanec;
+import com.flowyk.apodys.bussiness.entity.PlanSmien;
+import com.flowyk.apodys.bussiness.entity.Shift;
+import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import com.flowyk.apodys.planovanie.RuleOffender;
 import org.junit.Assert;
 

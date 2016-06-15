@@ -1,17 +1,13 @@
 package com.flowyk.apodys.ui;
 
-import com.flowyk.apodys.PlanSmien;
+import com.flowyk.apodys.bussiness.entity.PlanSmien;
 import com.flowyk.apodys.PredlohaSmeny;
-import com.flowyk.apodys.Shift;
-import com.flowyk.apodys.Zamestnanec;
+import com.flowyk.apodys.bussiness.entity.Shift;
+import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import javafx.scene.control.Label;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.text.Text;
 
 import java.time.LocalDate;
 import java.time.ZoneId;

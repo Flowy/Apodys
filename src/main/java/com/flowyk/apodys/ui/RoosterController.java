@@ -1,7 +1,7 @@
 package com.flowyk.apodys.ui;
 
-import com.flowyk.apodys.Shift;
-import com.flowyk.apodys.Zamestnanec;
+import com.flowyk.apodys.bussiness.entity.Shift;
+import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import com.flowyk.apodys.ui.config.event.RoosterDataChange;
 import com.google.common.collect.Table;
 import com.google.common.eventbus.Subscribe;

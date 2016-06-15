@@ -1,9 +1,9 @@
 package com.flowyk.apodys.bussiness.boundary;
 
 import com.flowyk.apodys.PredlohaSmeny;
-import com.flowyk.apodys.Shift;
-import com.flowyk.apodys.Zamestnanec;
-import com.flowyk.apodys.bussiness.entity.ApodysData;
+import com.flowyk.apodys.bussiness.entity.Shift;
+import com.flowyk.apodys.bussiness.entity.Zamestnanec;
+import com.flowyk.apodys.bussiness.entity.XmlDataWrapper;
 import com.flowyk.apodys.ui.Context;
 import com.flowyk.apodys.bussiness.controller.ExportController;
 import com.flowyk.apodys.ui.config.event.ContextUpdated;
@@ -36,7 +36,7 @@ public class RoosterBoundary {
     }
     public void readFrom(File file) {
         logger.info("File loaded: " + file.toString());
-        ApodysData newData = exportController.read(file);
+        XmlDataWrapper newData = exportController.read(file);
         context.setContext(newData.getPlanSmien(), newData.getSmeny() != null ? newData.getSmeny() : new ArrayList<>());
     }
 
@@ -64,4 +64,15 @@ public class RoosterBoundary {
     public void xmlLoaded(XmlLoaded event) {
         eventBus.post(new ContextUpdated());
     }
+
+    public void create(Shift shift, Zamestnanec employee) {
+        Shift newShift = new Shift(shift);
+        assign(newShift, employee);
+        context.getWorkplan().pridatPolozku(shift);
+    }
+
+    public void assign(Shift shift, Zamestnanec employee) {
+        shift.setZamestnanec(employee);
+    }
+
 }

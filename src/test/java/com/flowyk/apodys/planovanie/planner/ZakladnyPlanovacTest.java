@@ -1,7 +1,7 @@
 package com.flowyk.apodys.planovanie.planner;
 
-import com.flowyk.apodys.PlanSmien;
-import com.flowyk.apodys.Shift;
+import com.flowyk.apodys.bussiness.entity.PlanSmien;
+import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.test.TestovacieData;
 import com.flowyk.apodys.planovanie.Planovac;
 import org.junit.Before;

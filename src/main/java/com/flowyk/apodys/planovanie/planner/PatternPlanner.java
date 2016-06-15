@@ -1,9 +1,9 @@
 package com.flowyk.apodys.planovanie.planner;
 
-import com.flowyk.apodys.PlanSmien;
+import com.flowyk.apodys.bussiness.entity.PlanSmien;
 import com.flowyk.apodys.PredlohaSmienPreObdobie;
-import com.flowyk.apodys.Shift;
-import com.flowyk.apodys.Zamestnanec;
+import com.flowyk.apodys.bussiness.entity.Shift;
+import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import com.flowyk.apodys.planovanie.Planovac;
 
 import java.time.LocalDate;

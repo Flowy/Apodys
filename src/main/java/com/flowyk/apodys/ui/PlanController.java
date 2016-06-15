@@ -1,7 +1,8 @@
 package com.flowyk.apodys.ui;
 
-import com.flowyk.apodys.*;
 import com.flowyk.apodys.bussiness.boundary.RoosterBoundary;
+import com.flowyk.apodys.bussiness.entity.Shift;
+import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import com.flowyk.apodys.ui.config.event.RoosterDataChange;
 import com.flowyk.apodys.ui.config.event.ContextUpdated;
 import com.google.common.collect.HashBasedTable;

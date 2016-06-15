@@ -1,7 +1,7 @@
 package com.flowyk.apodys.ui.export;
 
-import com.flowyk.apodys.PlanSmien;
-import com.flowyk.apodys.Zamestnanec;
+import com.flowyk.apodys.bussiness.entity.PlanSmien;
+import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import com.flowyk.apodys.bussiness.controller.ExportController;
 import com.flowyk.apodys.planovanie.planner.PatternPlanner;
 import com.flowyk.apodys.test.TestovacieData;

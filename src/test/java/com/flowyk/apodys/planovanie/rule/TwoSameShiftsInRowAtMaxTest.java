@@ -1,6 +1,6 @@
 package com.flowyk.apodys.planovanie.rule;
 
-import com.flowyk.apodys.PlanSmien;
+import com.flowyk.apodys.bussiness.entity.PlanSmien;
 import com.flowyk.apodys.test.TestovacieData;
 
 import com.flowyk.apodys.planovanie.RuleInvestigator;

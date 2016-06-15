@@ -1,12 +1,11 @@
 package com.flowyk.apodys.ui;
 
-import com.flowyk.apodys.PlanSmien;
+import com.flowyk.apodys.bussiness.entity.PlanSmien;
 import com.flowyk.apodys.PredlohaSmeny;
-import com.flowyk.apodys.Zamestnanec;
+import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 import javax.inject.Singleton;
@@ -28,10 +27,6 @@ public class Context implements Observable {
 
     public Context(PlanSmien workplan, List<PredlohaSmeny> shiftTemplates) {
         this.setContext(workplan, shiftTemplates);
-    }
-
-    public void setContext(Context newContext) {
-        setContext(newContext.getWorkplan(), newContext.getShiftTemplates());
     }
 
     public void setContext(PlanSmien workplan, List<PredlohaSmeny> shiftTemplate) {

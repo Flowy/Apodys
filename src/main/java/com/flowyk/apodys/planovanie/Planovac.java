@@ -1,6 +1,6 @@
 package com.flowyk.apodys.planovanie;
 
-import com.flowyk.apodys.PlanSmien;
+import com.flowyk.apodys.bussiness.entity.PlanSmien;
 
 import java.time.LocalDate;
 import java.time.ZoneId;

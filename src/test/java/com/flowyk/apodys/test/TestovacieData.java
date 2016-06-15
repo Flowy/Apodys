@@ -1,6 +1,9 @@
 package com.flowyk.apodys.test;
 
 import com.flowyk.apodys.*;
+import com.flowyk.apodys.bussiness.entity.Shift;
+import com.flowyk.apodys.bussiness.entity.TypPolozkyPlanu;
+import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import org.junit.Assert;
 
 import java.time.*;

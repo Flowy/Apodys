@@ -1,4 +1,6 @@
-package com.flowyk.apodys;
+package com.flowyk.apodys.bussiness.entity;
+
+import com.flowyk.apodys.PredlohaSmeny;
 
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;

@@ -1,6 +1,6 @@
 package com.flowyk.apodys.planovanie;
 
-import com.flowyk.apodys.Shift;
+import com.flowyk.apodys.bussiness.entity.Shift;
 
 public class RuleOffender {
 

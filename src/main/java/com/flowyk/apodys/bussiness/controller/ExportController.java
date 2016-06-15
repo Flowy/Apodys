@@ -1,7 +1,7 @@
 package com.flowyk.apodys.bussiness.controller;
 
 import com.flowyk.apodys.ui.Context;
-import com.flowyk.apodys.bussiness.entity.ApodysData;
+import com.flowyk.apodys.bussiness.entity.XmlDataWrapper;
 
 import javax.inject.Singleton;
 import javax.xml.bind.JAXBContext;
@@ -13,11 +13,11 @@ import java.io.File;
 @Singleton
 public class ExportController {
 
-    public ApodysData read(File file) {
+    public XmlDataWrapper read(File file) {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(ApodysData.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(XmlDataWrapper.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            return (ApodysData) unmarshaller.unmarshal(file);
+            return (XmlDataWrapper) unmarshaller.unmarshal(file);
         } catch (JAXBException e) {
             throw new IllegalStateException(e);
         }
@@ -25,11 +25,11 @@ public class ExportController {
 
     public void save(File file, Context context) {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(ApodysData.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(XmlDataWrapper.class);
 
             Marshaller marshaller = jaxbContext.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            marshaller.marshal(new ApodysData(context.getWorkplan(), context.getShiftTemplates()), file);
+            marshaller.marshal(new XmlDataWrapper(context.getWorkplan(), context.getShiftTemplates()), file);
         } catch (JAXBException e) {
             throw new IllegalStateException(e);
         }

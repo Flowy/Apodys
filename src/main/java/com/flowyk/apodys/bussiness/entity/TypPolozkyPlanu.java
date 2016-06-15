@@ -1,4 +1,4 @@
-package com.flowyk.apodys;
+package com.flowyk.apodys.bussiness.entity;
 
 import javax.xml.bind.annotation.XmlEnum;
 

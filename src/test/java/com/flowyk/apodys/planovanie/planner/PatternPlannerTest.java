@@ -1,6 +1,7 @@
 package com.flowyk.apodys.planovanie.planner;
 
-import com.flowyk.apodys.*;
+import com.flowyk.apodys.bussiness.entity.PlanSmien;
+import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import com.flowyk.apodys.planovanie.Planovac;
 import com.flowyk.apodys.test.TestovacieData;
 import org.junit.Before;
@@ -9,8 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
-import java.time.Period;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

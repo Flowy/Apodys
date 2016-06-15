@@ -1,5 +1,7 @@
 package com.flowyk.apodys;
 
+import com.flowyk.apodys.bussiness.entity.Shift;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
