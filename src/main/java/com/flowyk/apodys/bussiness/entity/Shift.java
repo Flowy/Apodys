@@ -1,8 +1,5 @@
 package com.flowyk.apodys.bussiness.entity;
 
-import javafx.beans.binding.ObjectBinding;
-import javafx.beans.property.SimpleObjectProperty;
-
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.time.Duration;
@@ -11,25 +8,19 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 @XmlAccessorType(XmlAccessType.NONE)
-public class Shift extends ObjectBinding<Shift> implements Serializable {
+public class Shift implements Serializable {
 
-    private SimpleObjectProperty<ZonedDateTime> zaciatok;
-    private SimpleObjectProperty<ZonedDateTime> koniec;
+    private ZonedDateTime zaciatok;
+    private ZonedDateTime koniec;
     private TypPolozkyPlanu typ;
-    private SimpleObjectProperty<Zamestnanec> employee;
+    private Zamestnanec employee;
     private Duration countedDuration;
-    private SimpleObjectProperty<PredlohaSmeny> predloha;
+    private PredlohaSmeny predloha;
 
     /**
      * default konstruktor pre JAXB
      */
     public Shift() {
-        this.zaciatok = new SimpleObjectProperty<>(this, "zaciatok");
-        this.koniec = new SimpleObjectProperty<>(this, "koniec");
-        this.employee = new SimpleObjectProperty<>(this, "employee");
-        this.predloha = new SimpleObjectProperty<>(this, "predloha");
-
-        bind(this.zaciatok, this.koniec, this.employee, this.predloha);
     }
 
     public Shift(ZonedDateTime zaciatok, ZonedDateTime koniec, TypPolozkyPlanu typ) {
@@ -71,26 +62,26 @@ public class Shift extends ObjectBinding<Shift> implements Serializable {
 
     @XmlElement(required = true)
     public ZonedDateTime getZaciatok() {
-        return zaciatok.getValue();
+        return zaciatok;
     }
     public void setZaciatok(ZonedDateTime zaciatok) {
-        this.zaciatok.setValue(zaciatok);
+        this.zaciatok = zaciatok;
     }
 
     @XmlElement(required = true)
     public ZonedDateTime getKoniec() {
-        return koniec.getValue();
+        return koniec;
     }
     public void setKoniec(ZonedDateTime koniec) {
-        this.koniec.set(koniec);
+        this.koniec = koniec;
     }
 
     @XmlIDREF
     public Zamestnanec getEmployee() {
-        return employee.getValue();
+        return employee;
     }
     public void setEmployee(Zamestnanec employee) {
-        this.employee.set(employee);
+        this.employee = employee;
     }
 
     @XmlElement(required = true)
@@ -104,10 +95,10 @@ public class Shift extends ObjectBinding<Shift> implements Serializable {
     @XmlIDREF
     @XmlAttribute(required = true)
     public PredlohaSmeny getPredloha() {
-        return predloha.get();
+        return predloha;
     }
     public void setPredloha(PredlohaSmeny predloha) {
-        this.predloha.set(predloha);
+        this.predloha = predloha;
     }
 
 
@@ -171,10 +162,5 @@ public class Shift extends ObjectBinding<Shift> implements Serializable {
                 ", typ=" + getTyp() +
                 ", zamestnanec=" + getEmployee() +
                 '}';
-    }
-
-    @Override
-    protected Shift computeValue() {
-        return this;
     }
 }

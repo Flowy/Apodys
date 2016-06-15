@@ -16,6 +16,6 @@
         </HBox>
     </top>
     <center>
-        <fx:include source="rooster.fxml"/>
+        <fx:include source="roster.fxml"/>
     </center>
 </BorderPane>

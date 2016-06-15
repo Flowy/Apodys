@@ -1,6 +1,6 @@
 package com.flowyk.apodys.ui;
 
-import com.flowyk.apodys.bussiness.boundary.RoosterBoundary;
+import com.flowyk.apodys.bussiness.boundary.RosterBoundary;
 import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -17,12 +17,12 @@ public class MenuController {
     private Stage stage;
 
     @Inject
-    private RoosterBoundary roosterBoundary;
+    private RosterBoundary rosterBoundary;
 
     private final static FileChooser.ExtensionFilter fileType = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
 
     public void createNewPlan(ActionEvent actionEvent) {
-        roosterBoundary.newRooster();
+        rosterBoundary.newRooster();
     }
 
     public void saveActual(ActionEvent actionEvent) {
@@ -31,7 +31,7 @@ public class MenuController {
         File file = fileChooser.showSaveDialog(stage);
 
         if (file != null) {
-            roosterBoundary.saveTo(file);
+            rosterBoundary.saveTo(file);
         }
     }
 
@@ -41,7 +41,7 @@ public class MenuController {
         File file = fileChooser.showOpenDialog(stage);
 
         if (file != null) {
-            roosterBoundary.readFrom(file);
+            rosterBoundary.readFrom(file);
         }
     }
 }

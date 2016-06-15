@@ -1,7 +1,7 @@
 package com.flowyk.apodys.ui;
 
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
-import com.flowyk.apodys.bussiness.boundary.RoosterBoundary;
+import com.flowyk.apodys.bussiness.boundary.RosterBoundary;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 
 public class EmployeesController {
     @Inject
-    private RoosterBoundary roosterBoundary;
+    private RosterBoundary rosterBoundary;
 
     @FXML
     private ListView<Zamestnanec> employees;
@@ -21,7 +21,7 @@ public class EmployeesController {
 
     @FXML
     public void initialize() {
-        employees.setItems(roosterBoundary.getEmployees());
+        employees.setItems(rosterBoundary.getEmployees());
         employees.setCellFactory(list -> new ZamestnanecCell());
 //        stage.sizeToScene();
     }

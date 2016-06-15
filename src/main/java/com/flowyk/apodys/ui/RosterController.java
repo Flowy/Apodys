@@ -2,7 +2,7 @@ package com.flowyk.apodys.ui;
 
 import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
-import com.flowyk.apodys.ui.config.event.RoosterDataChange;
+import com.flowyk.apodys.ui.config.event.RosterDataChange;
 import com.google.common.collect.Table;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Injector;
@@ -17,17 +17,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
-public class RoosterController {
+public class RosterController {
 
     @FXML
-    private TableView<RoosterTableRow> roosterTable;
+    private TableView<RosterTableRow> rosterTable;
 
     @Inject
     private Injector injector;
 
     @Subscribe
-    public void workplanChanged(RoosterDataChange event) {
-        roosterTable.getColumns().clear();
+    public void workplanChanged(RosterDataChange event) {
+        rosterTable.getColumns().clear();
         draw(event.getData(), event.getStartDate(), event.getEndDate());
     }
 
@@ -35,25 +35,25 @@ public class RoosterController {
         addEmployeeColumn();
         addShiftColumns(startDate, endDate);
 
-        roosterTable.getSelectionModel().setCellSelectionEnabled(true);
-//        roosterTable.setEditable(true);
+        rosterTable.getSelectionModel().setCellSelectionEnabled(true);
+//        rosterTable.setEditable(true);
 
-        roosterTable.setItems(FXCollections.observableArrayList());
+        rosterTable.setItems(FXCollections.observableArrayList());
         for (Zamestnanec key : data.rowKeySet()) {
-            roosterTable.getItems().add(new RoosterTableRow(key, data.row(key)));
+            rosterTable.getItems().add(new RosterTableRow(key, data.row(key)));
         }
-        roosterTable.getItems().add(new RoosterTableRow());
+        rosterTable.getItems().add(new RosterTableRow());
     }
 
     private void addEmployeeColumn() {
-        TableColumn<RoosterTableRow, Zamestnanec> employeeColumn = new TableColumn<>("Zamestnanci");
+        TableColumn<RosterTableRow, Zamestnanec> employeeColumn = new TableColumn<>("Zamestnanci");
         employeeColumn.setCellFactory(column -> injector.getInstance(EmployeeTableCell.class));
         employeeColumn.setCellValueFactory(rowData -> new SimpleObjectProperty<>(
                 rowData.getValue().getKey()
         ));
         employeeColumn.setSortable(false);
         employeeColumn.setEditable(false);
-        roosterTable.getColumns().add(employeeColumn);
+        rosterTable.getColumns().add(employeeColumn);
     }
 
     private void addShiftColumns(LocalDate startDate, LocalDate endDate) {
@@ -65,13 +65,13 @@ public class RoosterController {
     }
 
     private void addShiftColumn(final LocalDate date) {
-        TableColumn<RoosterTableRow, Shift> shiftColumn = new TableColumn<>(date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
-        shiftColumn.setCellFactory(column -> injector.getInstance(ShiftTableCell.class));
+        TableColumn<RosterTableRow, Shift> shiftColumn = new TableColumn<>(date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
+        shiftColumn.setCellFactory(column -> injector.getInstance(DragDropShiftTableCell.class));
 
         shiftColumn.setCellValueFactory(rowData -> {
             Shift value = rowData.getValue().get(date);
             if (value != null && rowData.getValue().getKey() != null) {
-                return value;
+                return new SimpleObjectProperty<>(value);
             } else {
                 return null;
             }
@@ -81,6 +81,6 @@ public class RoosterController {
 
         shiftColumn.getStyleClass().add("dayOfWeek-" + date.getDayOfWeek().getValue());
 
-        roosterTable.getColumns().add(shiftColumn);
+        rosterTable.getColumns().add(shiftColumn);
     }
 }

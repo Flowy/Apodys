@@ -6,13 +6,13 @@ import com.google.common.collect.Table;
 
 import java.time.LocalDate;
 
-public class RoosterDataChange {
+public class RosterDataChange {
 
     private Table<Zamestnanec, LocalDate, Shift> data;
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public RoosterDataChange(Table<Zamestnanec, LocalDate, Shift> data, LocalDate startDate, LocalDate endDate) {
+    public RosterDataChange(Table<Zamestnanec, LocalDate, Shift> data, LocalDate startDate, LocalDate endDate) {
         this.data = data;
         this.startDate = startDate;
         this.endDate = endDate;

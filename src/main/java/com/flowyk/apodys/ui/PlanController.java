@@ -1,9 +1,9 @@
 package com.flowyk.apodys.ui;
 
-import com.flowyk.apodys.bussiness.boundary.RoosterBoundary;
+import com.flowyk.apodys.bussiness.boundary.RosterBoundary;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
-import com.flowyk.apodys.ui.config.event.RoosterDataChange;
+import com.flowyk.apodys.ui.config.event.RosterDataChange;
 import com.flowyk.apodys.ui.config.event.ContextUpdated;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
@@ -21,7 +21,7 @@ public class PlanController {
     @Inject
     private EventBus eventBus;
     @Inject
-    private RoosterBoundary roosterBoundary;
+    private RosterBoundary rosterBoundary;
     @FXML
     private GridPane planGrid;
     @FXML
@@ -36,18 +36,18 @@ public class PlanController {
     public void initialize() {
         firstDayPicker.setValue(LocalDate.now());
         firstDayPicker.valueProperty().addListener(observable -> {
-            eventBus.post(new RoosterDataChange(parseData(), firstDayPicker.getValue(), lastDayPicker.getValue()));
+            eventBus.post(new RosterDataChange(parseData(), firstDayPicker.getValue(), lastDayPicker.getValue()));
         });
         lastDayPicker.setValue(LocalDate.now().plusWeeks(1L));
         lastDayPicker.valueProperty().addListener(observable -> {
-            eventBus.post(new RoosterDataChange(parseData(), firstDayPicker.getValue(), lastDayPicker.getValue()));
+            eventBus.post(new RosterDataChange(parseData(), firstDayPicker.getValue(), lastDayPicker.getValue()));
         });
 //        context.addListener(observable -> redraw());
     }
 
     @Subscribe
     public void dataChanged(ContextUpdated event) {
-        eventBus.post(new RoosterDataChange(
+        eventBus.post(new RosterDataChange(
                 parseData(),
                 firstDayPicker.getValue(),
                 lastDayPicker.getValue())
@@ -59,7 +59,7 @@ public class PlanController {
         HashBasedTable<Zamestnanec, LocalDate, Shift> data = HashBasedTable.create();
         ZonedDateTime start = ZonedDateTime.of(firstDayPicker.getValue(), LocalTime.MIDNIGHT, ZoneId.systemDefault());
         ZonedDateTime end = ZonedDateTime.of(lastDayPicker.getValue(), LocalTime.MAX, ZoneId.systemDefault());
-        for (Shift shift : roosterBoundary.getShifts()) {
+        for (Shift shift : rosterBoundary.getShifts()) {
             if (shift.getZaciatok().isAfter(end) || shift.getZaciatok().isBefore(start)) {
                 continue;
             }

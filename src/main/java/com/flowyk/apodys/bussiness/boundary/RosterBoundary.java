@@ -17,9 +17,10 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.File;
+import java.time.LocalDate;
 
 @Singleton
-public class RoosterBoundary {
+public class RosterBoundary {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Inject
@@ -60,14 +61,20 @@ public class RoosterBoundary {
         eventBus.post(new ContextUpdated());
     }
 
-    public void create(Shift shift, Zamestnanec employee) {
-        Shift newShift = new Shift(shift);
-        assign(newShift, employee);
-        context.getShifts().add(shift);
+    public void override(Shift shift, PredlohaSmeny shiftTemplate) {
+        context.getShifts().remove(shift);
+        create(shiftTemplate, shift.getZaciatok().toLocalDate(), shift.getEmployee());
     }
 
-    public void assign(Shift shift, Zamestnanec employee) {
+    public void create(PredlohaSmeny shiftTemplate, LocalDate startDate, Zamestnanec employee) {
+        Shift shift = shiftTemplate.vygenerujOd(startDate);
         shift.setEmployee(employee);
+        context.getShifts().add(shift);
+        eventBus.post(new ContextUpdated());
     }
 
+    public void remove(Shift shift) {
+        context.getShifts().remove(shift);
+        eventBus.post(new ContextUpdated());
+    }
 }

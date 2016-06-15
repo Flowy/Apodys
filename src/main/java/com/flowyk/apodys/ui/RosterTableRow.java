@@ -7,11 +7,11 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RoosterTableRow extends TableRow<Zamestnanec, LocalDate, Shift> {
-    public RoosterTableRow() {
+public class RosterTableRow extends TableRow<Zamestnanec, LocalDate, Shift> {
+    public RosterTableRow() {
         super(null, new HashMap<>());
     }
-    public RoosterTableRow(Zamestnanec zamestnanec, Map<LocalDate, Shift> cells) {
+    public RosterTableRow(Zamestnanec zamestnanec, Map<LocalDate, Shift> cells) {
         super(zamestnanec, cells);
     }
 }

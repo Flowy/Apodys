@@ -1,6 +1,6 @@
 package com.flowyk.apodys.ui;
 
-import com.flowyk.apodys.bussiness.boundary.RoosterBoundary;
+import com.flowyk.apodys.bussiness.boundary.RosterBoundary;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -11,7 +11,7 @@ import javax.inject.Inject;
 public class CreateEmployeeController {
 
     @Inject
-    private RoosterBoundary roosterBoundary;
+    private RosterBoundary rosterBoundary;
 
     @FXML
     private TitledPane titledPane;
@@ -21,7 +21,7 @@ public class CreateEmployeeController {
     private TextField email;
 
     public void handleOk(ActionEvent actionEvent) {
-        roosterBoundary.createEmployee(name.getText(), email.getText());
+        rosterBoundary.createEmployee(name.getText(), email.getText());
         reset();
     }
 

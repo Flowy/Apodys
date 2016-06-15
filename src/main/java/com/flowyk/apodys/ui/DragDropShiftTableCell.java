@@ -1,8 +1,9 @@
 package com.flowyk.apodys.ui;
 
+import com.flowyk.apodys.bussiness.entity.PredlohaSmeny;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
-import com.flowyk.apodys.bussiness.boundary.RoosterBoundary;
+import com.flowyk.apodys.bussiness.boundary.RosterBoundary;
 import javafx.scene.control.TableCell;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
@@ -12,14 +13,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
-public class ShiftTableCell extends TableCell<RoosterTableRow, Shift> {
+public class DragDropShiftTableCell extends TableCell<RosterTableRow, Shift> {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Inject
-    private RoosterBoundary roosterBoundary;
+    private RosterBoundary rosterBoundary;
 
-    public ShiftTableCell() {
+    public DragDropShiftTableCell() {
         super();
 
         setOnDragDetected(event -> {
@@ -31,7 +35,7 @@ public class ShiftTableCell extends TableCell<RoosterTableRow, Shift> {
                 db = startDragAndDrop(TransferMode.MOVE);
             }
             ClipboardContent content = new ClipboardContent();
-            content.put(DragAndDropDataTypes.SHIFT, getItem());
+            content.put(DragAndDropDataTypes.SHIFT_TEMPLATE, getItem().getPredloha());
             db.setContent(content);
 
             event.consume();
@@ -58,25 +62,18 @@ public class ShiftTableCell extends TableCell<RoosterTableRow, Shift> {
 
         setOnDragDropped(event -> {
             Dragboard db = event.getDragboard();
-            if (db.hasContent(DragAndDropDataTypes.SHIFT)) {
-                Shift droppedShift = (Shift) db.getContent(DragAndDropDataTypes.SHIFT);
-                logger.debug("Drag dropped with shift: " + droppedShift);
+            if (db.hasContent(DragAndDropDataTypes.SHIFT_TEMPLATE)) {
+                PredlohaSmeny template = (PredlohaSmeny) db.getContent(DragAndDropDataTypes.SHIFT_TEMPLATE);
+                logger.debug("Drag dropped with template: " + template);
+                Zamestnanec employee = ((RosterTableRow) (((DragDropShiftTableCell) event.getGestureTarget()).getTableRow().getItem())).getKey();
+                LocalDate startDate = LocalDate.parse(
+                        ((DragDropShiftTableCell) event.getGestureTarget()).getTableColumn().getText(),
+                        DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+                );
                 if (getItem() == null) {
-                    logger.debug("Creating shift");
-                    Zamestnanec employee = ((RoosterTableRow) (((ShiftTableCell) event.getGestureTarget()).getTableRow().getItem())).getKey();
-                    roosterBoundary.create(droppedShift, employee);
+                    rosterBoundary.create(template, startDate, employee);
                 } else {
-                    logger.debug("Changing shift " + getItem());
-                    Zamestnanec employee = null;
-                    roosterBoundary.assign(getItem(), employee);
-                }
-                event.setDropCompleted(true);
-            } else if (db.hasContent(DragAndDropDataTypes.SHIFT_TEMPLATE)) {
-                logger.debug("Drag dropped with template: " + db.getContent(DragAndDropDataTypes.SHIFT_TEMPLATE));
-                if (getItem() == null) {
-                    logger.debug("Creating shift from template");
-                } else {
-                    logger.debug("Changing shift by template");
+                    rosterBoundary.override(getItem(), template);
                 }
                 event.setDropCompleted(true);
             } else {
@@ -88,7 +85,8 @@ public class ShiftTableCell extends TableCell<RoosterTableRow, Shift> {
 
         setOnDragDone(event -> {
             if (event.getTransferMode() == TransferMode.MOVE) {
-                logger.debug("Removing shift " + getItem());
+                logger.debug("Removing shift " + event.getGestureSource());
+                rosterBoundary.remove(getItem());
             }
         });
     }
@@ -96,8 +94,6 @@ public class ShiftTableCell extends TableCell<RoosterTableRow, Shift> {
     private boolean isDroppable(DragEvent event) {
         boolean same = event.getGestureSource() == event.getGestureTarget();
         if (same) return false;
-        boolean isShift = event.getDragboard().hasContent(DragAndDropDataTypes.SHIFT);
-        if (isShift) return true;
         //noinspection UnnecessaryLocalVariable
         boolean isShiftTemplate = event.getDragboard().hasContent(DragAndDropDataTypes.SHIFT_TEMPLATE);
         return isShiftTemplate;
