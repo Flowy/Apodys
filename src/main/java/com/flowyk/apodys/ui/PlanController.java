@@ -114,18 +114,6 @@ public class PlanController {
 //        stage.sizeToScene();
 //    }
 
-//    private String dayOfWeek(LocalDate day) {
-//        switch (day.getDayOfWeek().getValue()) {
-//            case 1: return "monday";
-//            case 2: return "tuesday";
-//            case 3: return "wednesday";
-//            case 4: return "thursday";
-//            case 5: return "friday";
-//            case 6: return "saturday";
-//            case 7: return "sunday";
-//            default: throw new IllegalArgumentException("unknown day: " + day);
-//        }
-//    }
 
 //    private List<LocalDate> initializeDays(LocalDate first, LocalDate last) {
 //        List<LocalDate> result = new ArrayList<>();

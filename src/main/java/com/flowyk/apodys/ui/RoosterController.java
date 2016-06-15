@@ -78,6 +78,9 @@ public class RoosterController {
         });
         shiftColumn.setSortable(false);
         shiftColumn.setEditable(false);
+
+        shiftColumn.getStyleClass().add("dayOfWeek-" + date.getDayOfWeek().getValue());
+
         roosterTable.getColumns().add(shiftColumn);
     }
 }

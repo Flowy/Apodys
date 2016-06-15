@@ -1,0 +1,12 @@
+.table-row-cell .dayOfWeek-6,
+.table-row-cell .dayOfWeek-7
+{
+    -fx-background-color: -fx-table-cell-border-color, derive(-fx-control-inner-background,-10%);
+}
+.table-row-cell .dayOfWeek-6:odd,
+.table-row-cell .dayOfWeek-7:odd
+{
+    -fx-background-color: -fx-table-cell-border-color, derive(-fx-control-inner-background,-15%);
+}
+
+
