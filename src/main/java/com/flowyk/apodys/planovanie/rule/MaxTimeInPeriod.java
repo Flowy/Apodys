@@ -1,6 +1,5 @@
 package com.flowyk.apodys.planovanie.rule;
 
-import com.flowyk.apodys.bussiness.entity.PlanSmien;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 import java.time.Period;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 public class MaxTimeInPeriod extends BaseRuleOffenderFinder {
     private static final Logger LOG = LoggerFactory.getLogger(MaxTimeInPeriod.class);
@@ -21,10 +21,10 @@ public class MaxTimeInPeriod extends BaseRuleOffenderFinder {
     }
 
     @Override
-    protected boolean isOffender(Shift shift, PlanSmien plan) {
+    protected boolean isOffender(Shift shift, List<Shift> shifts) {
         ZonedDateTime periodMin = shift.zaciatok().minus(period);
         Duration workedTimeBeforeShift = Duration.ZERO;
-        for (Shift current: plan) {
+        for (Shift current: shifts) {
             if (!current.rovnakyVykonavatel(shift) || current.zaciatok().isBefore(periodMin)) {
                 continue;
             }

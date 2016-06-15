@@ -1,6 +1,6 @@
 package com.flowyk.apodys.planovanie.rule;
 
-import com.flowyk.apodys.bussiness.entity.PlanSmien;
+import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.test.TestovacieData;
 
 import com.flowyk.apodys.planovanie.RuleInvestigator;
@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.flowyk.apodys.test.TestHelper.*;
 
@@ -28,7 +29,7 @@ public class TwoSameShiftsInRowAtMaxTest {
 
     @Test
     public void threeShiftsInRow() {
-        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+        List<Shift> planSmien = combine(
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 2), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 3), td.testovanaZona), td.zamestnanci.get(0))
@@ -39,7 +40,7 @@ public class TwoSameShiftsInRowAtMaxTest {
 
     @Test
     public void shiftsInRowDifferentEmployees() {
-        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+        List<Shift> planSmien = combine(
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 2), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 3), td.testovanaZona), td.zamestnanci.get(1))
@@ -50,7 +51,7 @@ public class TwoSameShiftsInRowAtMaxTest {
 
     @Test
     public void threeShiftsNotInRow() {
-        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+        List<Shift> planSmien = combine(
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 2), td.testovanaZona), td.zamestnanci.get(0))
@@ -61,7 +62,7 @@ public class TwoSameShiftsInRowAtMaxTest {
 
     @Test
     public void threeDifferentShiftsInRow() {
-        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+        List<Shift> planSmien = combine(
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 2), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaR2P.vygenerujOd(LocalDate.of(2016, 5, 3), td.testovanaZona), td.zamestnanci.get(0))

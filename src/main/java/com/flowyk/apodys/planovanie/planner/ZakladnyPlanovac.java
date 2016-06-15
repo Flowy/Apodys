@@ -1,8 +1,7 @@
 package com.flowyk.apodys.planovanie.planner;
 
-import com.flowyk.apodys.bussiness.entity.PlanSmien;
 import com.flowyk.apodys.bussiness.entity.Shift;
-import com.flowyk.apodys.PredlohaSmienPreObdobie;
+import com.flowyk.apodys.bussiness.entity.PredlohaSmienPreObdobie;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import com.flowyk.apodys.planovanie.Planovac;
 
@@ -14,40 +13,36 @@ import java.util.List;
 import java.util.Objects;
 
 public class ZakladnyPlanovac implements Planovac {
-    private List<Zamestnanec> zamestnanecList;
     private PredlohaSmienPreObdobie predlohaSmienPreObdobie;
 
-    public ZakladnyPlanovac(List<Zamestnanec> zamestnanecList, PredlohaSmienPreObdobie predlohaSmienPreObdobie) {
-        Objects.requireNonNull(zamestnanecList);
-        if (zamestnanecList.size() == 0) {
-            throw new IllegalArgumentException("Zoznam zamestnancov musi obsahovat aspon jedneho zamesnanca");
-        }
-        this.zamestnanecList = zamestnanecList;
+    public ZakladnyPlanovac(PredlohaSmienPreObdobie predlohaSmienPreObdobie) {
         this.predlohaSmienPreObdobie = predlohaSmienPreObdobie;
     }
 
     @Override
-    public PlanSmien naplanuj(LocalDate zaciatok, LocalDate koniec, ZoneId timezone) {
-        PlanSmien planSmien = new PlanSmien(new ArrayList<>(), zamestnanecList);
+    public List<Shift> naplanuj(List<Zamestnanec> employees, LocalDate zaciatok, LocalDate koniec, ZoneId timezone) {
+        Objects.requireNonNull(employees);
+        if (employees.size() == 0) {
+            throw new IllegalArgumentException("Zoznam zamestnancov musi obsahovat aspon jedneho zamesnanca");
+        }
+        List<Shift> shifts = new ArrayList<>();
         LocalDate startTime = zaciatok;
         while (startTime.isBefore(koniec)) {
-            spracujSmeny(
-                    planSmien,
-                    predlohaSmienPreObdobie.vygenerujOd(startTime, timezone)
-            );
+            List<Shift> generatedShifts = predlohaSmienPreObdobie.vygenerujOd(startTime, timezone);
+            assignEmployees(generatedShifts, employees);
+            generatedShifts.forEach(shifts::add);
             startTime = startTime.plus(predlohaSmienPreObdobie.dlzkaObdobia());
         }
-        return planSmien;
+        return shifts;
     }
 
-    void spracujSmeny(PlanSmien planSmien, List<Shift> smeny) {
+    private void assignEmployees(List<Shift> shifts, List<Zamestnanec> employees) {
         Iterator<Zamestnanec> zamestnanci = null;
-        for (Shift smena: smeny) {
+        for (Shift smena: shifts) {
             if (zamestnanci == null || !zamestnanci.hasNext()) {
-                zamestnanci = zamestnanecList.iterator();
+                zamestnanci = employees.iterator();
             }
             smena.setZamestnanec(zamestnanci.next());
-            planSmien.pridatPolozku(smena);
         }
     }
 }

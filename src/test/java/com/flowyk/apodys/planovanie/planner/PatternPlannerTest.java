@@ -1,6 +1,6 @@
 package com.flowyk.apodys.planovanie.planner;
 
-import com.flowyk.apodys.bussiness.entity.PlanSmien;
+import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import com.flowyk.apodys.planovanie.Planovac;
 import com.flowyk.apodys.test.TestovacieData;
@@ -28,8 +28,9 @@ public class PatternPlannerTest {
     @Test
     public void testNaplanuj() throws Exception {
         List<Zamestnanec> zamestnanci = Arrays.asList(td.zamestnanci.get(0));
-        Planovac planovac = new PatternPlanner(zamestnanci, Arrays.asList(td.tyzden40(), td.tyzden32()));
-        PlanSmien planSmien = planovac.naplanuj(
+        Planovac planovac = new PatternPlanner(Arrays.asList(td.tyzden40(), td.tyzden32()));
+        List<Shift> planSmien = planovac.naplanuj(
+                zamestnanci,
                 LocalDate.of(2015, 6, 1),
                 LocalDate.of(2015, 6, 14),
                 td.testovanaZona);

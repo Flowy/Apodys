@@ -1,50 +1,49 @@
 package com.flowyk.apodys.planovanie.planner;
 
-import com.flowyk.apodys.bussiness.entity.PlanSmien;
-import com.flowyk.apodys.PredlohaSmienPreObdobie;
+import com.flowyk.apodys.bussiness.entity.PredlohaSmienPreObdobie;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import com.flowyk.apodys.planovanie.Planovac;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class PatternPlanner implements Planovac {
-    private List<Zamestnanec> zamestnanecList;
     private List<PredlohaSmienPreObdobie> patterns;
 
-    public PatternPlanner(List<Zamestnanec> zamestnanecList, List<PredlohaSmienPreObdobie> patterns) {
-        this.zamestnanecList = Objects.requireNonNull(zamestnanecList);
+    public PatternPlanner(List<PredlohaSmienPreObdobie> patterns) {
         this.patterns = Objects.requireNonNull(patterns);
-        if (zamestnanecList.isEmpty()) {
-            throw new IllegalArgumentException("Zoznam zamestnancov musi obsahovat aspon jedneho zamestnanca");
-        }
-        if (zamestnanecList.size() > patterns.size()) {
-            throw new IllegalArgumentException("Pocet zamestnancov nesmie byt vyssi ako pocet vzorov");
-        }
     }
 
     @Override
-    public PlanSmien naplanuj(LocalDate zaciatok, LocalDate koniec, ZoneId timezone) {
-        PlanSmien planSmien = new PlanSmien(zamestnanecList);
+    public List<Shift> naplanuj(List<Zamestnanec> employees, LocalDate zaciatok, LocalDate koniec, ZoneId timezone) {
+        if (employees.isEmpty()) {
+            throw new IllegalArgumentException("Zoznam zamestnancov musi obsahovat aspon jedneho zamestnanca");
+        }
+        if (employees.size() > patterns.size()) {
+            throw new IllegalArgumentException("Pocet zamestnancov nesmie byt vyssi ako pocet vzorov");
+        }
+
+        List<Shift> shifts = new ArrayList<>();
         LocalDate startTime = zaciatok;
         int offset = 0;
         while (startTime.isBefore(koniec)) {
             if (offset == patterns.size()) {
                 offset = 0;
             }
-            for (int i = 0; i < zamestnanecList.size(); i++) {
-                List<Shift> shifts = patterns.get((i + offset) % patterns.size()).vygenerujOd(startTime, timezone);
-                assignEmployee(shifts, zamestnanecList.get(i));
-                shifts.forEach(planSmien::pridatPolozku);
+            for (int i = 0; i < employees.size(); i++) {
+                List<Shift> employeeShifts = patterns.get((i + offset) % patterns.size()).vygenerujOd(startTime, timezone);
+                assignEmployee(employeeShifts, employees.get(i));
+                employeeShifts.forEach(shifts::add);
             }
 
             offset += 1;
             startTime = startTime.plus(patterns.get(0).dlzkaObdobia());
         }
-        return planSmien;
+        return shifts;
     }
 
     private void assignEmployee(List<Shift> shifts, Zamestnanec employee) {

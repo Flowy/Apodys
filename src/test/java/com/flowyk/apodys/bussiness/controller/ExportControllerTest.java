@@ -1,6 +1,6 @@
-package com.flowyk.apodys.ui.export;
+package com.flowyk.apodys.bussiness.controller;
 
-import com.flowyk.apodys.bussiness.entity.PlanSmien;
+import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import com.flowyk.apodys.bussiness.controller.ExportController;
 import com.flowyk.apodys.planovanie.planner.PatternPlanner;
@@ -38,12 +38,13 @@ public class ExportControllerTest {
 
     @Test
     public void testSave() throws Exception {
-        Planovac planovac = new ZakladnyPlanovac(td.zamestnanci, td.tyzdennyPlan);
-        PlanSmien planSmien = planovac.naplanuj(
+        Planovac planovac = new ZakladnyPlanovac(td.tyzdennyPlan);
+        List<Shift> shifts = planovac.naplanuj(
+                td.zamestnanci,
                 LocalDate.of(2015, 11, 30),
                 LocalDate.of(2015, 12, 6),
                 td.testovanaZona);
-        Context context = new Context(planSmien, Arrays.asList(td.predlohaN2P, td.predlohaO75, td.predlohaP1C, td.predlohaR2P));
+        Context context = new Context(shifts, td.zamestnanci, Arrays.asList(td.predlohaN2P, td.predlohaO75, td.predlohaP1C, td.predlohaR2P));
         File file = File.createTempFile("testSave", ".xml");
         new ExportController().save(file, context);
 
@@ -53,13 +54,14 @@ public class ExportControllerTest {
     @Test
     public void exportPatternPlanned() throws IOException {
         List<Zamestnanec> employees = Arrays.asList(td.zamestnanci.get(0), td.zamestnanci.get(1));
-        Planovac planovac = new PatternPlanner(employees, Arrays.asList(td.tyzden40(), td.tyzden32()));
-        PlanSmien planSmien = planovac.naplanuj(
-                LocalDate.of(2016, 6, 1),
-                LocalDate.of(2016, 6, 14),
+        Planovac planovac = new PatternPlanner(Arrays.asList(td.tyzden40(), td.tyzden32()));
+        List<Shift> shifts = planovac.naplanuj(
+                employees,
+                LocalDate.of(2016, 6, 16),
+                LocalDate.of(2016, 6, 30),
                 td.testovanaZona
         );
-        Context context = new Context(planSmien, Arrays.asList(td.predlohaN2P, td.predlohaO75, td.predlohaP1C, td.predlohaR2P));
+        Context context = new Context(shifts, td.zamestnanci, Arrays.asList(td.predlohaN2P, td.predlohaO75, td.predlohaP1C, td.predlohaR2P));
         File file = File.createTempFile("testSave", ".xml");
         new ExportController().save(file, context);
 

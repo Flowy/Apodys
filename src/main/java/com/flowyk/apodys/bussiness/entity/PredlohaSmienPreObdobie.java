@@ -1,6 +1,4 @@
-package com.flowyk.apodys;
-
-import com.flowyk.apodys.bussiness.entity.Shift;
+package com.flowyk.apodys.bussiness.entity;
 
 import java.time.LocalDate;
 import java.time.Period;

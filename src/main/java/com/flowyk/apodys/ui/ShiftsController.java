@@ -1,6 +1,6 @@
 package com.flowyk.apodys.ui;
 
-import com.flowyk.apodys.PredlohaSmeny;
+import com.flowyk.apodys.bussiness.entity.PredlohaSmeny;
 import com.flowyk.apodys.bussiness.boundary.RoosterBoundary;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;

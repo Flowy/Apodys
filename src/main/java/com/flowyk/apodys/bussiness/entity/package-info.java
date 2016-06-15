@@ -4,7 +4,7 @@
         @XmlJavaTypeAdapter(type=LocalTime.class, value=LocalTimeXmlAdapter.class),
         @XmlJavaTypeAdapter(type=Period.class, value=PeriodXmlAdapter.class)
 })
-package com.flowyk.apodys;
+package com.flowyk.apodys.bussiness.entity;
 
 import com.migesok.jaxb.adapter.javatime.DurationXmlAdapter;
 import com.migesok.jaxb.adapter.javatime.LocalTimeXmlAdapter;

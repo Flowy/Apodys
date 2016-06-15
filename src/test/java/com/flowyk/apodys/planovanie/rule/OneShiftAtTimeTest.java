@@ -1,6 +1,6 @@
 package com.flowyk.apodys.planovanie.rule;
 
-import com.flowyk.apodys.bussiness.entity.PlanSmien;
+import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.test.TestovacieData;
 import com.flowyk.apodys.planovanie.RuleInvestigator;
 import org.junit.Before;
@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.flowyk.apodys.test.TestHelper.*;
 
@@ -27,7 +28,7 @@ public class OneShiftAtTimeTest {
 
     @Test
     public void sameShiftTime() {
-        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+        List<Shift> planSmien = combine(
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0))
         );
@@ -37,7 +38,7 @@ public class OneShiftAtTimeTest {
 
     @Test
     public void overlayedShiftTime() {
-        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+        List<Shift> planSmien = combine(
                 combine(td.predlohaR2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaP1C.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0))
         );
@@ -47,7 +48,7 @@ public class OneShiftAtTimeTest {
 
     @Test
     public void oneShiftAfterAnother() {
-        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+        List<Shift> planSmien = combine(
                 combine(td.predlohaR2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0))
         );
@@ -57,7 +58,7 @@ public class OneShiftAtTimeTest {
 
     @Test
     public void sameShiftDifferentEmployees() {
-        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+        List<Shift> planSmien = combine(
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(1))
         );

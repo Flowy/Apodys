@@ -29,7 +29,8 @@ public class ExportController {
 
             Marshaller marshaller = jaxbContext.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            marshaller.marshal(new XmlDataWrapper(context.getWorkplan(), context.getShiftTemplates()), file);
+            marshaller.marshal(
+                    new XmlDataWrapper(context.getShifts(), context.getEmployees(), context.getShiftTemplates()), file);
         } catch (JAXBException e) {
             throw new IllegalStateException(e);
         }

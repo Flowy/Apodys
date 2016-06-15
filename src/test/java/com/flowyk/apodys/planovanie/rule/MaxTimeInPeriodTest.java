@@ -1,6 +1,6 @@
 package com.flowyk.apodys.planovanie.rule;
 
-import com.flowyk.apodys.bussiness.entity.PlanSmien;
+import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.test.TestovacieData;
 import com.flowyk.apodys.planovanie.RuleInvestigator;
 import org.junit.Before;
@@ -12,6 +12,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.flowyk.apodys.test.TestHelper.*;
 
@@ -29,7 +30,7 @@ public class MaxTimeInPeriodTest {
 
     @Test
     public void overridingShiftsLong() {
-        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+        List<Shift> planSmien = combine(
                 combine(td.predlohaR2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaP1C.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0))
         );
@@ -39,7 +40,7 @@ public class MaxTimeInPeriodTest {
 
     @Test
     public void manyHours() {
-        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+        List<Shift> planSmien = combine(
                 combine(td.predlohaR2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaP1C.vygenerujOd(LocalDate.of(2016, 5, 2), td.testovanaZona), td.zamestnanci.get(0))
         );
@@ -49,7 +50,7 @@ public class MaxTimeInPeriodTest {
 
     @Test
     public void fewHours() {
-        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+        List<Shift> planSmien = combine(
                 combine(td.predlohaR2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaO75.vygenerujOd(LocalDate.of(2016, 5, 2), td.testovanaZona), td.zamestnanci.get(0))
         );
@@ -59,7 +60,7 @@ public class MaxTimeInPeriodTest {
 
     @Test
     public void manyHoursDifferentEmployees() {
-        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+        List<Shift> planSmien = combine(
                 combine(td.predlohaR2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaR2P.vygenerujOd(LocalDate.of(2016, 5, 2), td.testovanaZona), td.zamestnanci.get(1))
         );

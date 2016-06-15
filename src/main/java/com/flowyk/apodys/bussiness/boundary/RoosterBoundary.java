@@ -1,6 +1,6 @@
 package com.flowyk.apodys.bussiness.boundary;
 
-import com.flowyk.apodys.PredlohaSmeny;
+import com.flowyk.apodys.bussiness.entity.PredlohaSmeny;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import com.flowyk.apodys.bussiness.entity.XmlDataWrapper;
@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.File;
-import java.util.ArrayList;
 
 @Singleton
 public class RoosterBoundary {
@@ -37,7 +36,7 @@ public class RoosterBoundary {
     public void readFrom(File file) {
         logger.info("File loaded: " + file.toString());
         XmlDataWrapper newData = exportController.read(file);
-        context.setContext(newData.getPlanSmien(), newData.getSmeny() != null ? newData.getSmeny() : new ArrayList<>());
+        context.setContext(newData.getZmeny(), newData.getEmployees(), newData.getShiftTemplates());
     }
 
     public ObservableList<Zamestnanec> getEmployees() {
@@ -45,6 +44,10 @@ public class RoosterBoundary {
     }
     public ObservableList<PredlohaSmeny> getShiftTemplates() {
         return context.getShiftTemplates();
+    }
+
+    public ObservableList<Shift> getShifts() {
+        return context.getShifts();
     }
 
     public void createEmployee(String name, String email) {
@@ -56,10 +59,6 @@ public class RoosterBoundary {
         eventBus.post(new ContextUpdated());
     }
 
-    public Iterable<Shift> getShifts() {
-        return context.getWorkplan();
-    }
-
     @Subscribe
     public void xmlLoaded(XmlLoaded event) {
         eventBus.post(new ContextUpdated());
@@ -68,7 +67,7 @@ public class RoosterBoundary {
     public void create(Shift shift, Zamestnanec employee) {
         Shift newShift = new Shift(shift);
         assign(newShift, employee);
-        context.getWorkplan().pridatPolozku(shift);
+        context.getShifts().add(shift);
     }
 
     public void assign(Shift shift, Zamestnanec employee) {

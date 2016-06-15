@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.function.Consumer;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class PlanSmien implements Iterable<Shift>, javafx.beans.Observable {
+public class PlanSmien {
 
     @XmlElementWrapper(name = "polozky")
     @XmlElements({
@@ -22,13 +22,6 @@ public class PlanSmien implements Iterable<Shift>, javafx.beans.Observable {
     @XmlElementWrapper(name = "zamestnanci")
     @XmlElement(name = "zamestnanec")
     private List<Zamestnanec> zamestnanci;
-
-    @XmlTransient
-    private List<InvalidationListener> listeners = new ArrayList<>();
-
-    @XmlElementWrapper(name = "scoreCalculators")
-    @XmlAnyElement
-    private List<RuleInvestigator> scoreCalculators;
 
     public PlanSmien() {
         this(new ArrayList<>(), new ArrayList<>());
@@ -54,12 +47,6 @@ public class PlanSmien implements Iterable<Shift>, javafx.beans.Observable {
     public void pridatPolozku(Shift polozka) {
         polozky.add(polozka);
         invalidate();
-    }
-
-    private void invalidate() {
-        for (InvalidationListener listener: listeners) {
-            listener.invalidated(this);
-        }
     }
 
     public Duration trvaniePoloziek(TypPolozkyPlanu typ) {
@@ -120,14 +107,6 @@ public class PlanSmien implements Iterable<Shift>, javafx.beans.Observable {
     }
 
     @XmlTransient
-    private static class PoradiePodlaVykonavatela implements Comparator<Shift> {
-        @Override
-        public int compare(Shift o1, Shift o2) {
-            return o1.vykonavatel().compareTo(o2.vykonavatel());
-        }
-    }
-
-    @XmlTransient
     private static class PoradiePodlaZaciatku implements Comparator<Shift> {
         @Override
         public int compare(Shift o1, Shift o2) {
@@ -147,21 +126,6 @@ public class PlanSmien implements Iterable<Shift>, javafx.beans.Observable {
             sb.append(polozka).append(System.getProperty("line.separator"));
         }
         return sb.toString();
-    }
-
-    @Override
-    public Iterator<Shift> iterator() {
-        return polozky.iterator();
-    }
-
-    @Override
-    public void forEach(Consumer<? super Shift> action) {
-        polozky.forEach(action);
-    }
-
-    @Override
-    public Spliterator<Shift> spliterator() {
-        return polozky.spliterator();
     }
 
 }

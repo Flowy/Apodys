@@ -1,12 +1,13 @@
 package com.flowyk.apodys.test;
 
-import com.flowyk.apodys.bussiness.entity.PlanSmien;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import com.flowyk.apodys.planovanie.RuleOffender;
 import org.junit.Assert;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class TestHelper {
 
@@ -15,11 +16,12 @@ public class TestHelper {
         return shift;
     }
 
-    public static PlanSmien combine(PlanSmien planSmien, Shift... shifts) {
+    public static List<Shift> combine(Shift... shifts) {
+        List<Shift> list = new ArrayList<>();
         for (Shift shift: shifts) {
-            planSmien.pridatPolozku(shift);
+            list.add(shift);
         }
-        return planSmien;
+        return list;
     }
 
     public static void assertValid(Collection<RuleOffender> crimes) {

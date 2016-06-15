@@ -1,6 +1,5 @@
 package com.flowyk.apodys.ui;
 
-import com.flowyk.apodys.bussiness.entity.PlanSmien;
 import com.flowyk.apodys.PredlohaSmeny;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
@@ -11,27 +10,26 @@ import javafx.scene.input.TransferMode;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.List;
 
 public class ShiftCell extends Label {
 
     private Shift shift;
     private LocalDate startDay;
     private Zamestnanec zamestnanec;
-    private PlanSmien planSmien;
 
-    public ShiftCell(Shift shift, PlanSmien planSmien) {
-        this(shift.zaciatok().toLocalDate(), shift.vykonavatel(), planSmien);
+    public ShiftCell(Shift shift, List<Shift> shifts) {
+        this(shift.zaciatok().toLocalDate(), shift.vykonavatel(), shifts);
         setShift(shift);
     }
 
-    public ShiftCell(LocalDate startDay, Zamestnanec zamestnanec, PlanSmien planSmien) {
+    public ShiftCell(LocalDate startDay, Zamestnanec zamestnanec, List<Shift> shifts) {
         super();
 //        if (shift == null) {
 //            setText("           ");
 //        }
         this.startDay = startDay;
         this.zamestnanec = zamestnanec;
-        this.planSmien = planSmien;
         this.setPrefWidth(60d);
 
         setOnDragOver(event -> {

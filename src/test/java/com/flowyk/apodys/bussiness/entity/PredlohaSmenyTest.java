@@ -1,6 +1,5 @@
-package com.flowyk.apodys;
+package com.flowyk.apodys.bussiness.entity;
 
-import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.test.TestovacieData;
 import org.junit.Before;
 import org.junit.Test;

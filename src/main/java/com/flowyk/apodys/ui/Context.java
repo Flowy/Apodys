@@ -1,10 +1,9 @@
 package com.flowyk.apodys.ui;
 
-import com.flowyk.apodys.bussiness.entity.PlanSmien;
-import com.flowyk.apodys.PredlohaSmeny;
+import com.flowyk.apodys.bussiness.entity.PredlohaSmeny;
+import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -13,31 +12,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Singleton
-public class Context implements Observable {
+public class Context {
 
-    private PlanSmien workplan;
+    private ObservableList<Shift> shifts;
     private ObservableList<Zamestnanec> employees;
     private ObservableList<PredlohaSmeny> shiftTemplates;
 
     private List<InvalidationListener> listeners = new ArrayList<>();
 
     public Context() {
-        this(new PlanSmien(), new ArrayList<>());
+        this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     }
 
-    public Context(PlanSmien workplan, List<PredlohaSmeny> shiftTemplates) {
-        this.setContext(workplan, shiftTemplates);
+    public Context(List<Shift> shifts, List<Zamestnanec> employees, List<PredlohaSmeny> shiftTemplates) {
+        this.setContext(shifts, employees, shiftTemplates);
     }
 
-    public void setContext(PlanSmien workplan, List<PredlohaSmeny> shiftTemplate) {
-        this.workplan = workplan;
-        setEmployees(workplan.getZamestnanci());
+    public void setContext(List<Shift> shifts, List<Zamestnanec> employees, List<PredlohaSmeny> shiftTemplate) {
+        setShifts(shifts);
+        setEmployees(employees);
         setShiftTemplates(shiftTemplate);
-        invalidate();
     }
 
-    public PlanSmien getWorkplan() {
-        return workplan;
+    public ObservableList<Shift> getShifts() {
+        return shifts;
     }
 
     public ObservableList<Zamestnanec> getEmployees() {
@@ -51,7 +49,7 @@ public class Context implements Observable {
     private void setEmployees(List<Zamestnanec> employees) {
         if (this.employees == null) {
             this.employees = FXCollections.observableList(employees);
-            this.employees.addListener((InvalidationListener) c -> invalidate());
+//            this.employees.addListener((InvalidationListener) c -> invalidate());
         } else {
             this.employees.clear();
             this.employees.addAll(employees);
@@ -62,26 +60,25 @@ public class Context implements Observable {
     private void setShiftTemplates(List<PredlohaSmeny> shiftTemplates) {
         if (this.shiftTemplates == null) {
             this.shiftTemplates = FXCollections.observableList(shiftTemplates);
-            this.shiftTemplates.addListener((InvalidationListener) listener -> invalidate());
+//            this.shiftTemplates.addListener((InvalidationListener) listener -> invalidate());
         } else {
             this.shiftTemplates.clear();
             this.shiftTemplates.addAll(shiftTemplates);
         }
     }
 
-    private void invalidate() {
-        for (InvalidationListener listener : listeners) {
-            listener.invalidated(this);
+    private void setShifts(List<Shift> shifts) {
+        if (this.shifts == null) {
+            this.shifts = FXCollections.observableList(shifts);
+        } else {
+            this.shifts.clear();
+            this.shifts.addAll(shifts);
         }
     }
 
-    @Override
-    public void addListener(InvalidationListener listener) {
-        listeners.add(listener);
-    }
-
-    @Override
-    public void removeListener(InvalidationListener listener) {
-        listeners.remove(listener);
-    }
+//    private void invalidate() {
+//        for (InvalidationListener listener : listeners) {
+//            listener.invalidated(this);
+//        }
+//    }
 }

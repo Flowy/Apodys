@@ -1,6 +1,5 @@
 package com.flowyk.apodys.planovanie.rule;
 
-import com.flowyk.apodys.bussiness.entity.PlanSmien;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 public class FreeTimeAfterShift extends BaseRuleOffenderFinder {
     private static final Logger LOG = LoggerFactory.getLogger(FreeTimeAfterShift.class);
@@ -27,10 +27,10 @@ public class FreeTimeAfterShift extends BaseRuleOffenderFinder {
     }
 
     @Override
-    protected boolean isOffender(Shift shift, PlanSmien plan) {
+    protected boolean isOffender(Shift shift, List<Shift> shifts) {
         ZonedDateTime lastMatchedTime = null;
         int matched = 0;
-        for (Shift current: plan) {
+        for (Shift current: shifts) {
             if (!current.rovnakyVykonavatel(shift) || !current.zaciatok().toLocalTime().equals(shiftStarts)) {
                 continue;
             }

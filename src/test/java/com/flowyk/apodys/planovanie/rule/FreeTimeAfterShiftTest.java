@@ -1,6 +1,6 @@
 package com.flowyk.apodys.planovanie.rule;
 
-import com.flowyk.apodys.bussiness.entity.PlanSmien;
+import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.test.TestovacieData;
 import com.flowyk.apodys.planovanie.RuleInvestigator;
 import org.junit.Before;
@@ -12,6 +12,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.flowyk.apodys.test.TestHelper.*;
 
@@ -29,7 +30,7 @@ public class FreeTimeAfterShiftTest {
 
     @Test
     public void freeTime() {
-        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+        List<Shift> planSmien = combine(
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 2), td.testovanaZona), td.zamestnanci.get(0))
         );
@@ -38,7 +39,7 @@ public class FreeTimeAfterShiftTest {
 
     @Test
     public void freeTimeTwoEmployees() {
-        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+        List<Shift> planSmien = combine(
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaR2P.vygenerujOd(LocalDate.of(2016, 5, 2), td.testovanaZona), td.zamestnanci.get(1))
         );
@@ -47,7 +48,7 @@ public class FreeTimeAfterShiftTest {
 
     @Test
     public void overloaded() {
-        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+        List<Shift> planSmien = combine(
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaR2P.vygenerujOd(LocalDate.of(2016, 5, 2), td.testovanaZona), td.zamestnanci.get(0))
         );
@@ -59,7 +60,7 @@ public class FreeTimeAfterShiftTest {
 
     @Test
     public void freeTime2() {
-        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+        List<Shift> planSmien = combine(
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 2), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 4), td.testovanaZona), td.zamestnanci.get(0))
@@ -69,7 +70,7 @@ public class FreeTimeAfterShiftTest {
 
     @Test
     public void freeTime2TwoEmployees() {
-        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+        List<Shift> planSmien = combine(
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 2), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 3), td.testovanaZona), td.zamestnanci.get(1))
@@ -79,7 +80,7 @@ public class FreeTimeAfterShiftTest {
 
     @Test
     public void overloaded2() {
-        PlanSmien planSmien = combine(new PlanSmien(new ArrayList<>(), td.zamestnanci),
+        List<Shift> planSmien = combine(
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 2), td.testovanaZona), td.zamestnanci.get(0)),
                 combine(td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 3), td.testovanaZona), td.zamestnanci.get(0))
