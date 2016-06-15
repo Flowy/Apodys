@@ -1,7 +1,7 @@
 package com.flowyk.apodys.ui;
 
 import com.flowyk.apodys.*;
-import com.flowyk.apodys.ui.export.ApodysData;
+import com.flowyk.apodys.bussiness.boundary.RoosterBoundary;
 import com.flowyk.apodys.ui.config.event.RoosterDataChange;
 import com.flowyk.apodys.ui.config.event.ContextUpdated;
 import com.google.common.collect.HashBasedTable;
@@ -19,14 +19,14 @@ public class PlanController {
 
     @Inject
     private EventBus eventBus;
+    @Inject
+    private RoosterBoundary roosterBoundary;
     @FXML
     private GridPane planGrid;
     @FXML
     private DatePicker firstDayPicker;
     @FXML
     private DatePicker lastDayPicker;
-
-    private ApodysData data;
 
     public PlanController() {
     }
@@ -36,34 +36,30 @@ public class PlanController {
         firstDayPicker.setValue(LocalDate.now());
         firstDayPicker.valueProperty().addListener(observable -> {
 //            lastDayPicker.setValue(firstDayPicker.getValue().plusWeeks(1L));
-            eventBus.post(new RoosterDataChange(parseData(data), firstDayPicker.getValue(), lastDayPicker.getValue()));
+            eventBus.post(new RoosterDataChange(parseData(), firstDayPicker.getValue(), lastDayPicker.getValue()));
         });
         lastDayPicker.setValue(LocalDate.now().plusWeeks(1L));
         lastDayPicker.valueProperty().addListener(observable -> {
-            eventBus.post(new RoosterDataChange(parseData(data), firstDayPicker.getValue(), lastDayPicker.getValue()));
+            eventBus.post(new RoosterDataChange(parseData(), firstDayPicker.getValue(), lastDayPicker.getValue()));
         });
 //        context.addListener(observable -> redraw());
     }
 
     @Subscribe
     public void dataChanged(ContextUpdated event) {
-        data = event.getApodysData();
         eventBus.post(new RoosterDataChange(
-                parseData(event.getApodysData()),
+                parseData(),
                 firstDayPicker.getValue(),
                 lastDayPicker.getValue())
         );
     }
 
 
-    private Table<Zamestnanec, LocalDate, Shift> parseData(ApodysData context) {
+    private Table<Zamestnanec, LocalDate, Shift> parseData() {
         HashBasedTable<Zamestnanec, LocalDate, Shift> data = HashBasedTable.create();
-        if (context == null) {
-            return data;
-        }
         ZonedDateTime start = ZonedDateTime.of(firstDayPicker.getValue(), LocalTime.MIDNIGHT, ZoneId.systemDefault());
         ZonedDateTime end = ZonedDateTime.of(lastDayPicker.getValue(), LocalTime.MAX, ZoneId.systemDefault());
-        for (Shift shift : context.getPlanSmien()) {
+        for (Shift shift : roosterBoundary.getShifts()) {
             if (shift.zaciatok().isAfter(end) || shift.zaciatok().isBefore(start)) {
                 continue;
             }

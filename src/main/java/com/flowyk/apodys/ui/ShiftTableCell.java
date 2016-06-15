@@ -1,6 +1,7 @@
 package com.flowyk.apodys.ui;
 
 import com.flowyk.apodys.Shift;
+import com.flowyk.apodys.bussiness.boundary.RoosterBoundary;
 import javafx.scene.control.TableCell;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
@@ -9,8 +10,13 @@ import javafx.scene.input.TransferMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
+
 public class ShiftTableCell extends TableCell<RoosterTableRow, Shift> {
     private Logger logger = LoggerFactory.getLogger(getClass());
+
+    @Inject
+    private RoosterBoundary roosterBoundary;
 
     public ShiftTableCell() {
         super();

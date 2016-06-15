@@ -1,6 +1,7 @@
 package com.flowyk.apodys.ui;
 
 import com.flowyk.apodys.PredlohaSmeny;
+import com.flowyk.apodys.bussiness.boundary.RoosterBoundary;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -14,7 +15,7 @@ import java.util.ResourceBundle;
 public class ShiftsController {
 
     @Inject
-    private Context context;
+    private RoosterBoundary roosterBoundary;
 
     @FXML
     private ListView<PredlohaSmeny> shifts;
@@ -23,9 +24,8 @@ public class ShiftsController {
 
     @FXML
     public void initialize() {
-        shifts.setItems(context.getShiftTemplates());
+        shifts.setItems(roosterBoundary.getShiftTemplates());
         shifts.setCellFactory(list -> new ShiftTemplateCell());
-//        stage.sizeToScene();
     }
 
     static class ShiftTemplateCell extends ListCell<PredlohaSmeny> {

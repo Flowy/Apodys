@@ -2,6 +2,7 @@ package com.flowyk.apodys.ui.export;
 
 import com.flowyk.apodys.PlanSmien;
 import com.flowyk.apodys.Zamestnanec;
+import com.flowyk.apodys.bussiness.controller.ExportController;
 import com.flowyk.apodys.planovanie.planner.PatternPlanner;
 import com.flowyk.apodys.test.TestovacieData;
 import com.flowyk.apodys.planovanie.Planovac;
@@ -18,7 +19,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-public class ExportServiceTest {
+public class ExportControllerTest {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     TestovacieData td;
@@ -31,7 +32,7 @@ public class ExportServiceTest {
     @Test
     public void testRead() throws Exception {
         File file = new File(this.getClass().getResource("testReadFile.xml").toURI());
-        Context context = new ExportService().read(file);
+        new ExportController().read(file);
 
     }
 
@@ -44,7 +45,7 @@ public class ExportServiceTest {
                 td.testovanaZona);
         Context context = new Context(planSmien, Arrays.asList(td.predlohaN2P, td.predlohaO75, td.predlohaP1C, td.predlohaR2P));
         File file = File.createTempFile("testSave", ".xml");
-        new ExportService().save(file, context);
+        new ExportController().save(file, context);
 
         logger.info("Result file:///" + file.getAbsolutePath());
     }
@@ -60,7 +61,7 @@ public class ExportServiceTest {
         );
         Context context = new Context(planSmien, Arrays.asList(td.predlohaN2P, td.predlohaO75, td.predlohaP1C, td.predlohaR2P));
         File file = File.createTempFile("testSave", ".xml");
-        new ExportService().save(file, context);
+        new ExportController().save(file, context);
 
         logger.info("Result file:///" + file.getAbsolutePath());
     }

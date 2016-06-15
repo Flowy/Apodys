@@ -1,8 +1,6 @@
 package com.flowyk.apodys.ui;
 
-import com.flowyk.apodys.ui.export.ExportService;
-import com.flowyk.apodys.ui.config.event.ContextUpdated;
-import com.google.common.eventbus.EventBus;
+import com.flowyk.apodys.bussiness.boundary.RoosterBoundary;
 import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -16,52 +14,34 @@ public class MenuController {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Inject
-    private Context context;
-
-    @Inject
     private Stage stage;
 
     @Inject
-    private EventBus eventBus;
-    @Inject
-    private ExportService exportService;
+    private RoosterBoundary roosterBoundary;
 
     private final static FileChooser.ExtensionFilter fileType = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
 
     public void createNewPlan(ActionEvent actionEvent) {
-        context.setContext(new Context());
-        logger.info("firing workplan changed event");
-        eventBus.post(new ContextUpdated());
+        roosterBoundary.newRooster();
     }
 
     public void saveActual(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
-
         fileChooser.getExtensionFilters().add(fileType);
-
         File file = fileChooser.showSaveDialog(stage);
 
         if (file != null) {
-            exportService.save(file, context);
+            roosterBoundary.saveTo(file);
         }
     }
 
     public void loadPlan(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
-
         fileChooser.getExtensionFilters().add(fileType);
-
         File file = fileChooser.showOpenDialog(stage);
 
         if (file != null) {
-            logger.info("File loaded: " + file.toString());
-            //TODO: load xml file
-            Context loaded = exportService.read(file);
-            context.setContext(loaded);
+            roosterBoundary.readFrom(file);
         }
-    }
-
-    public void createNewEmployee(ActionEvent actionEvent) {
-//        viewManager.goToNewEmployee();
     }
 }

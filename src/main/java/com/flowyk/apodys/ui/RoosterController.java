@@ -5,12 +5,14 @@ import com.flowyk.apodys.Zamestnanec;
 import com.flowyk.apodys.ui.config.event.RoosterDataChange;
 import com.google.common.collect.Table;
 import com.google.common.eventbus.Subscribe;
+import com.google.inject.Injector;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -19,6 +21,9 @@ public class RoosterController {
 
     @FXML
     private TableView<RoosterTableRow> roosterTable;
+
+    @Inject
+    private Injector injector;
 
     @Subscribe
     public void workplanChanged(RoosterDataChange event) {
@@ -42,7 +47,7 @@ public class RoosterController {
 
     private void addEmployeeColumn() {
         TableColumn<RoosterTableRow, Zamestnanec> employeeColumn = new TableColumn<>("Zamestnanci");
-        employeeColumn.setCellFactory(column -> new EmployeeTableCell());
+        employeeColumn.setCellFactory(column -> injector.getInstance(EmployeeTableCell.class));
         employeeColumn.setCellValueFactory(rowData -> new SimpleObjectProperty<>(
                 rowData.getValue().getKey()
         ));
@@ -61,7 +66,7 @@ public class RoosterController {
 
     private void addShiftColumn(final LocalDate date) {
         TableColumn<RoosterTableRow, Shift> shiftColumn = new TableColumn<>(date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
-        shiftColumn.setCellFactory(column -> new ShiftTableCell());
+        shiftColumn.setCellFactory(column -> injector.getInstance(ShiftTableCell.class));
 
         shiftColumn.setCellValueFactory(rowData -> {
             if (rowData.getValue().get(date) != null && rowData.getValue().getKey() != null) {

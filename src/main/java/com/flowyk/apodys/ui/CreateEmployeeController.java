@@ -1,6 +1,6 @@
 package com.flowyk.apodys.ui;
 
-import com.flowyk.apodys.Zamestnanec;
+import com.flowyk.apodys.bussiness.boundary.RoosterBoundary;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -11,7 +11,7 @@ import javax.inject.Inject;
 public class CreateEmployeeController {
 
     @Inject
-    private Context context;
+    private RoosterBoundary roosterBoundary;
 
     @FXML
     private TitledPane titledPane;
@@ -20,21 +20,8 @@ public class CreateEmployeeController {
     @FXML
     private TextField email;
 
-    @FXML
-    public void initialize() {
-//        titledPane.expandedProperty().addListener((observable, oldValue, newValue) -> {
-//            logger.info("collapsible changed to: " + newValue);
-//            if (newValue) {
-//                titledPane.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
-//            } else {
-//                titledPane.setMaxSize(20d, 20d);
-//            }
-////            stage.getScene().getRoot().requestLayout();
-//        });
-    }
-
     public void handleOk(ActionEvent actionEvent) {
-        context.getEmployees().add(new Zamestnanec(name.getText(), email.getText()));
+        roosterBoundary.createEmployee(name.getText(), email.getText());
         reset();
     }
 

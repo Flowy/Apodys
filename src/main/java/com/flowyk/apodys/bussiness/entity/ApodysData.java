@@ -1,4 +1,4 @@
-package com.flowyk.apodys.ui.export;
+package com.flowyk.apodys.bussiness.entity;
 
 import com.flowyk.apodys.PlanSmien;
 import com.flowyk.apodys.PredlohaSmeny;

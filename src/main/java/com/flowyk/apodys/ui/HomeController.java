@@ -9,9 +9,6 @@ import javax.inject.Inject;
 
 public class HomeController {
 
-    @Inject
-    private Context context;
-
     @FXML
     public void initialize() {
     }
