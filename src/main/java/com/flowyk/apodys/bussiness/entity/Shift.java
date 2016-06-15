@@ -1,5 +1,8 @@
 package com.flowyk.apodys.bussiness.entity;
 
+import javafx.beans.binding.ObjectBinding;
+import javafx.beans.property.SimpleObjectProperty;
+
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.time.Duration;
@@ -7,33 +10,26 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-@XmlAccessorType(XmlAccessType.FIELD)
-//TODO: implement observable
-public class Shift implements Serializable {
+@XmlAccessorType(XmlAccessType.NONE)
+public class Shift extends ObjectBinding<Shift> implements Serializable {
 
-    @XmlElement(required = true)
-    private ZonedDateTime zaciatok;
-
-    @XmlElement(required = true)
-    private ZonedDateTime koniec;
-
-    @XmlElement(required = true)
+    private SimpleObjectProperty<ZonedDateTime> zaciatok;
+    private SimpleObjectProperty<ZonedDateTime> koniec;
     private TypPolozkyPlanu typ;
-
-    @XmlIDREF
-    private Zamestnanec zamestnanec;
-
-    @XmlElement(required = true)
+    private SimpleObjectProperty<Zamestnanec> employee;
     private Duration countedDuration;
-
-    @XmlIDREF
-    @XmlAttribute(required = true)
-    private PredlohaSmeny predloha;
+    private SimpleObjectProperty<PredlohaSmeny> predloha;
 
     /**
      * default konstruktor pre JAXB
      */
     public Shift() {
+        this.zaciatok = new SimpleObjectProperty<>(this, "zaciatok");
+        this.koniec = new SimpleObjectProperty<>(this, "koniec");
+        this.employee = new SimpleObjectProperty<>(this, "employee");
+        this.predloha = new SimpleObjectProperty<>(this, "predloha");
+
+        bind(this.zaciatok, this.koniec, this.employee, this.predloha);
     }
 
     public Shift(ZonedDateTime zaciatok, ZonedDateTime koniec, TypPolozkyPlanu typ) {
@@ -41,13 +37,14 @@ public class Shift implements Serializable {
     }
 
     public Shift(ZonedDateTime zaciatok, ZonedDateTime koniec, TypPolozkyPlanu typ, Duration countedDuration) {
-        this.zaciatok = Objects.requireNonNull(zaciatok);
-        this.koniec = Objects.requireNonNull(koniec);
-        if (Duration.between(this.zaciatok, this.koniec).isNegative()) {
+        this();
+        this.setZaciatok(Objects.requireNonNull(zaciatok));
+        this.setKoniec(Objects.requireNonNull(koniec));
+        if (Duration.between(this.getZaciatok(), this.getKoniec()).isNegative()) {
             throw new IllegalArgumentException("End must be after start");
         }
-        this.typ = Objects.requireNonNull(typ);
-        this.countedDuration = Objects.requireNonNull(countedDuration);
+        this.setTyp(Objects.requireNonNull(typ));
+        this.setCountedDuration(Objects.requireNonNull(countedDuration));
     }
 
     /**
@@ -55,54 +52,69 @@ public class Shift implements Serializable {
      */
     public Shift(ZonedDateTime zaciatok, ZonedDateTime koniec, TypPolozkyPlanu typ, Duration countedDuration, PredlohaSmeny predloha) {
         this(zaciatok, koniec, typ, countedDuration);
-        this.predloha = Objects.requireNonNull(predloha);
+        this.setPredloha(Objects.requireNonNull(predloha));
     }
 
     public Shift(Shift origin) {
-        this(origin.zaciatok, origin.koniec, origin.typ, origin.countedDuration, origin.predloha);
-        this.zamestnanec = origin.zamestnanec;
+        this(origin.getZaciatok(), origin.getKoniec(), origin.getTyp(), origin.getCountedDuration(), origin.getPredloha());
+        this.setEmployee(origin.getEmployee());
 
     }
 
-    public TypPolozkyPlanu typ() {
+    @XmlElement(required = true)
+    public TypPolozkyPlanu getTyp() {
         return typ;
     }
-
-    public ZonedDateTime zaciatok() {
-        return zaciatok;
+    public void setTyp(TypPolozkyPlanu typ) {
+        this.typ = typ;
     }
 
-    public ZonedDateTime koniec() {
-        return koniec;
+    @XmlElement(required = true)
+    public ZonedDateTime getZaciatok() {
+        return zaciatok.getValue();
+    }
+    public void setZaciatok(ZonedDateTime zaciatok) {
+        this.zaciatok.setValue(zaciatok);
     }
 
-    public Zamestnanec vykonavatel() {
-        return zamestnanec;
+    @XmlElement(required = true)
+    public ZonedDateTime getKoniec() {
+        return koniec.getValue();
+    }
+    public void setKoniec(ZonedDateTime koniec) {
+        this.koniec.set(koniec);
     }
 
-    public Duration countedDuration() {
+    @XmlIDREF
+    public Zamestnanec getEmployee() {
+        return employee.getValue();
+    }
+    public void setEmployee(Zamestnanec employee) {
+        this.employee.set(employee);
+    }
+
+    @XmlElement(required = true)
+    public Duration getCountedDuration() {
         return countedDuration;
     }
-
-    public PredlohaSmeny predloha() {
-        return predloha;
+    public void setCountedDuration(Duration countedDuration) {
+        this.countedDuration = countedDuration;
     }
 
-    public void setZaciatok(ZonedDateTime zaciatok) {
-        this.zaciatok = zaciatok;
+    @XmlIDREF
+    @XmlAttribute(required = true)
+    public PredlohaSmeny getPredloha() {
+        return predloha.get();
+    }
+    public void setPredloha(PredlohaSmeny predloha) {
+        this.predloha.set(predloha);
     }
 
-    public void setKoniec(ZonedDateTime koniec) {
-        this.koniec = koniec;
-    }
 
-    public void setZamestnanec(Zamestnanec zamestnanec) {
-        this.zamestnanec = zamestnanec;
-    }
 
 
     public boolean prekryva(Shift origin) {
-        return prekryva(origin.zaciatok(), origin.koniec());
+        return prekryva(origin.getZaciatok(), origin.getKoniec());
     }
 
     public boolean prekryva(ZonedDateTime zaciatok, ZonedDateTime koniec) {
@@ -112,52 +124,57 @@ public class Shift implements Serializable {
     }
 
     public boolean rovnakyVykonavatel(Shift origin) {
-        return Objects.equals(origin.vykonavatel(), this.vykonavatel());
+        return Objects.equals(origin.getEmployee(), this.getEmployee());
     }
 
     public boolean rovnakaZmena(Shift origin) {
-        return Objects.equals(origin.zaciatok().toLocalTime(), this.zaciatok().toLocalTime());
+        return Objects.equals(origin.getZaciatok().toLocalTime(), this.getZaciatok().toLocalTime());
     }
 
     public boolean rovnakyTyp(Shift origin) {
-        return origin != null && Objects.equals(origin.typ(), this.typ());
+        return origin != null && Objects.equals(origin.getTyp(), this.getTyp());
     }
 
     public boolean rovnakyCas(Shift origin) {
         return origin != null &&
-                Objects.equals(origin.zaciatok().toLocalTime(), zaciatok().toLocalTime()) &&
-                Objects.equals(origin.koniec().toLocalTime(), koniec().toLocalTime());
+                Objects.equals(origin.getZaciatok().toLocalTime(), getZaciatok().toLocalTime()) &&
+                Objects.equals(origin.getKoniec().toLocalTime(), getKoniec().toLocalTime());
     }
 
     /**
      * starts after/at start and starts before end
      */
     private boolean startsIn(ZonedDateTime start, ZonedDateTime end) {
-        return !this.zaciatok().isBefore(start) && this.zaciatok().isBefore(end);
+        return !this.getZaciatok().isBefore(start) && this.getZaciatok().isBefore(end);
     }
 
     /**
      * ends after start and before/at end
      */
     private boolean endsIn(ZonedDateTime start, ZonedDateTime end) {
-        return this.koniec().isAfter(start) && !this.koniec().isAfter(end);
+        return this.getKoniec().isAfter(start) && !this.getKoniec().isAfter(end);
     }
 
     /**
      * starts before start and after end
      */
     private boolean isOver(ZonedDateTime start, ZonedDateTime end) {
-        return this.zaciatok().isBefore(start) && this.koniec().isAfter(end);
+        return this.getZaciatok().isBefore(start) && this.getKoniec().isAfter(end);
     }
 
     @Override
     public String toString() {
         DateTimeFormatter dateTime = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         return "Shift{" +
-                "zaciatok=" + zaciatok.format(dateTime) +
-                ", koniec=" + koniec.format(dateTime) +
-                ", typ=" + typ +
-                ", zamestnanec=" + zamestnanec +
+                "zaciatok=" + getZaciatok().format(dateTime) +
+                ", koniec=" + getKoniec().format(dateTime) +
+                ", typ=" + getTyp() +
+                ", zamestnanec=" + getEmployee() +
                 '}';
+    }
+
+    @Override
+    protected Shift computeValue() {
+        return this;
     }
 }

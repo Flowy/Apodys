@@ -31,20 +31,20 @@ public class FreeTimeAfterShift extends BaseRuleOffenderFinder {
         ZonedDateTime lastMatchedTime = null;
         int matched = 0;
         for (Shift current: shifts) {
-            if (!current.rovnakyVykonavatel(shift) || !current.zaciatok().toLocalTime().equals(shiftStarts)) {
+            if (!current.rovnakyVykonavatel(shift) || !current.getZaciatok().toLocalTime().equals(shiftStarts)) {
                 continue;
             }
             if (shift.equals(current)) {
                 break;
             }
-            if (matched > 0 && lastMatchedTime.plusDays(1L).isEqual(current.zaciatok())) {
-                lastMatchedTime = current.zaciatok();
+            if (matched > 0 && lastMatchedTime.plusDays(1L).isEqual(current.getZaciatok())) {
+                lastMatchedTime = current.getZaciatok();
                 matched += 1;
             } else {
-                lastMatchedTime = current.zaciatok();
+                lastMatchedTime = current.getZaciatok();
                 matched = 1;
             }
-            if (matched == freeAfterRepeating && shift.zaciatok().isBefore(current.koniec().plus(expectedFreeTime))) {
+            if (matched == freeAfterRepeating && shift.getZaciatok().isBefore(current.getKoniec().plus(expectedFreeTime))) {
                 return true;
             }
         }

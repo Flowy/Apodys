@@ -36,7 +36,6 @@ public class PlanController {
     public void initialize() {
         firstDayPicker.setValue(LocalDate.now());
         firstDayPicker.valueProperty().addListener(observable -> {
-//            lastDayPicker.setValue(firstDayPicker.getValue().plusWeeks(1L));
             eventBus.post(new RoosterDataChange(parseData(), firstDayPicker.getValue(), lastDayPicker.getValue()));
         });
         lastDayPicker.setValue(LocalDate.now().plusWeeks(1L));
@@ -61,10 +60,10 @@ public class PlanController {
         ZonedDateTime start = ZonedDateTime.of(firstDayPicker.getValue(), LocalTime.MIDNIGHT, ZoneId.systemDefault());
         ZonedDateTime end = ZonedDateTime.of(lastDayPicker.getValue(), LocalTime.MAX, ZoneId.systemDefault());
         for (Shift shift : roosterBoundary.getShifts()) {
-            if (shift.zaciatok().isAfter(end) || shift.zaciatok().isBefore(start)) {
+            if (shift.getZaciatok().isAfter(end) || shift.getZaciatok().isBefore(start)) {
                 continue;
             }
-            data.put(shift.vykonavatel(), shift.zaciatok().toLocalDate(), shift);
+            data.put(shift.getEmployee(), shift.getZaciatok().toLocalDate(), shift);
         }
         return data;
     }

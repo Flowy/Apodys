@@ -22,17 +22,17 @@ public class MaxTimeInPeriod extends BaseRuleOffenderFinder {
 
     @Override
     protected boolean isOffender(Shift shift, List<Shift> shifts) {
-        ZonedDateTime periodMin = shift.zaciatok().minus(period);
+        ZonedDateTime periodMin = shift.getZaciatok().minus(period);
         Duration workedTimeBeforeShift = Duration.ZERO;
         for (Shift current: shifts) {
-            if (!current.rovnakyVykonavatel(shift) || current.zaciatok().isBefore(periodMin)) {
+            if (!current.rovnakyVykonavatel(shift) || current.getZaciatok().isBefore(periodMin)) {
                 continue;
             }
-            if (current.zaciatok().isAfter(shift.zaciatok())) {
+            if (current.getZaciatok().isAfter(shift.getZaciatok())) {
                 LOG.debug("Breaking the streak, expecting shifts ordered by time");
                 break;
             }
-            workedTimeBeforeShift = workedTimeBeforeShift.plus(current.countedDuration());
+            workedTimeBeforeShift = workedTimeBeforeShift.plus(current.getCountedDuration());
         }
         if (workedTimeBeforeShift.compareTo(maxTime) >= 0) {
             return true;

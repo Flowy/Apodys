@@ -48,7 +48,7 @@ public class PatternPlanner implements Planovac {
 
     private void assignEmployee(List<Shift> shifts, Zamestnanec employee) {
         for (Shift shift: shifts) {
-            shift.setZamestnanec(employee);
+            shift.setEmployee(employee);
         }
     }
 

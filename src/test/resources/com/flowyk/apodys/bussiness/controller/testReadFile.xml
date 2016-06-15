@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xmlDataWrapper>
+    <zmeny>
+        <zmena predloha="R2P">
+            <countedDuration>PT12H</countedDuration>
+            <employee>Papa Smurf</employee>
+            <koniec>2016-06-16T18:00:00+02:00[Europe/Bratislava]</koniec>
+            <typ>SMENA</typ>
+            <zaciatok>2016-06-16T06:00:00+02:00[Europe/Bratislava]</zaciatok>
+        </zmena>
+        <zmena predloha="R2P">
+            <countedDuration>PT12H</countedDuration>
+            <employee>Papa Smurf</employee>
+            <koniec>2016-06-17T18:00:00+02:00[Europe/Bratislava]</koniec>
+            <typ>SMENA</typ>
+            <zaciatok>2016-06-17T06:00:00+02:00[Europe/Bratislava]</zaciatok>
+        </zmena>
+        <zmena predloha="07,5">
+            <countedDuration>PT8H</countedDuration>
+            <employee>Papa Smurf</employee>
+            <koniec>2016-06-18T22:00:00+02:00[Europe/Bratislava]</koniec>
+            <typ>SMENA</typ>
+            <zaciatok>2016-06-18T14:00:00+02:00[Europe/Bratislava]</zaciatok>
+        </zmena>
+        <zmena predloha="07,5">
+            <countedDuration>PT8H</countedDuration>
+            <employee>Papa Smurf</employee>
+            <koniec>2016-06-19T22:00:00+02:00[Europe/Bratislava]</koniec>
+            <typ>SMENA</typ>
+            <zaciatok>2016-06-19T14:00:00+02:00[Europe/Bratislava]</zaciatok>
+        </zmena>
+        <zmena predloha="R2P">
+            <countedDuration>PT12H</countedDuration>
+            <employee>Gargamel</employee>
+            <koniec>2016-06-16T18:00:00+02:00[Europe/Bratislava]</koniec>
+            <typ>SMENA</typ>
+            <zaciatok>2016-06-16T06:00:00+02:00[Europe/Bratislava]</zaciatok>
+        </zmena>
+        <zmena predloha="R2P">
+            <countedDuration>PT12H</countedDuration>
+            <employee>Gargamel</employee>
+            <koniec>2016-06-17T18:00:00+02:00[Europe/Bratislava]</koniec>
+            <typ>SMENA</typ>
+            <zaciatok>2016-06-17T06:00:00+02:00[Europe/Bratislava]</zaciatok>
+        </zmena>
+        <zmena predloha="07,5">
+            <countedDuration>PT8H</countedDuration>
+            <employee>Gargamel</employee>
+            <koniec>2016-06-18T22:00:00+02:00[Europe/Bratislava]</koniec>
+            <typ>SMENA</typ>
+            <zaciatok>2016-06-18T14:00:00+02:00[Europe/Bratislava]</zaciatok>
+        </zmena>
+        <zmena predloha="R2P">
+            <countedDuration>PT12H</countedDuration>
+            <employee>Papa Smurf</employee>
+            <koniec>2016-06-23T18:00:00+02:00[Europe/Bratislava]</koniec>
+            <typ>SMENA</typ>
+            <zaciatok>2016-06-23T06:00:00+02:00[Europe/Bratislava]</zaciatok>
+        </zmena>
+        <zmena predloha="R2P">
+            <countedDuration>PT12H</countedDuration>
+            <employee>Papa Smurf</employee>
+            <koniec>2016-06-24T18:00:00+02:00[Europe/Bratislava]</koniec>
+            <typ>SMENA</typ>
+            <zaciatok>2016-06-24T06:00:00+02:00[Europe/Bratislava]</zaciatok>
+        </zmena>
+        <zmena predloha="07,5">
+            <countedDuration>PT8H</countedDuration>
+            <employee>Papa Smurf</employee>
+            <koniec>2016-06-25T22:00:00+02:00[Europe/Bratislava]</koniec>
+            <typ>SMENA</typ>
+            <zaciatok>2016-06-25T14:00:00+02:00[Europe/Bratislava]</zaciatok>
+        </zmena>
+        <zmena predloha="R2P">
+            <countedDuration>PT12H</countedDuration>
+            <employee>Gargamel</employee>
+            <koniec>2016-06-23T18:00:00+02:00[Europe/Bratislava]</koniec>
+            <typ>SMENA</typ>
+            <zaciatok>2016-06-23T06:00:00+02:00[Europe/Bratislava]</zaciatok>
+        </zmena>
+        <zmena predloha="R2P">
+            <countedDuration>PT12H</countedDuration>
+            <employee>Gargamel</employee>
+            <koniec>2016-06-24T18:00:00+02:00[Europe/Bratislava]</koniec>
+            <typ>SMENA</typ>
+            <zaciatok>2016-06-24T06:00:00+02:00[Europe/Bratislava]</zaciatok>
+        </zmena>
+        <zmena predloha="07,5">
+            <countedDuration>PT8H</countedDuration>
+            <employee>Gargamel</employee>
+            <koniec>2016-06-25T22:00:00+02:00[Europe/Bratislava]</koniec>
+            <typ>SMENA</typ>
+            <zaciatok>2016-06-25T14:00:00+02:00[Europe/Bratislava]</zaciatok>
+        </zmena>
+        <zmena predloha="07,5">
+            <countedDuration>PT8H</countedDuration>
+            <employee>Gargamel</employee>
+            <koniec>2016-06-26T22:00:00+02:00[Europe/Bratislava]</koniec>
+            <typ>SMENA</typ>
+            <zaciatok>2016-06-26T14:00:00+02:00[Europe/Bratislava]</zaciatok>
+        </zmena>
+    </zmeny>
+    <zamestnanci>
+        <zamestnanec name="Papa Smurf" email="flowyk+testPapaSmurf@gmail.com"/>
+        <zamestnanec name="Gargamel" email="flowyk+testGargamel@gmail.com"/>
+        <zamestnanec name="Darth Vader" email="flowyk+testDdarthVader@gmail.com"/>
+        <zamestnanec name="Alf" email="flowyk+testAlf@gmail.com"/>
+        <zamestnanec name="Tinky-Winky" email="flowyk+testTinkyWinky@gmail.com"/>
+        <zamestnanec name="Elmo" email="flowyk+testElmo@gmail.com"/>
+        <zamestnanec name="Cookie Monster" email="flowyk+testCookieMonster@gmail.com"/>
+        <zamestnanec name="Bart Simpson" email="flowyk+test@gmail.com"/>
+        <zamestnanec name="Homer Simpson" email="flowyk+test@gmail.com"/>
+        <zamestnanec name="Marge Simpson" email="flowyk+test@gmail.com"/>
+        <zamestnanec name="Maggie Simpson" email="flowyk+test@gmail.com"/>
+        <zamestnanec name="Lisa Simpson" email="flowyk+test@gmail.com"/>
+        <zamestnanec name="Ned Flanders" email="flowyk+test@gmail.com"/>
+    </zamestnanci>
+    <predlohy>
+        <predlohaZmeny nazov="N2P" startTime="18:00:00" endTime="06:00:00" timeSpan="P1D" countedDuration="PT12H"/>
+        <predlohaZmeny nazov="07,5" startTime="14:00:00" endTime="22:00:00" timeSpan="P0D" countedDuration="PT8H"/>
+        <predlohaZmeny nazov="P1C" startTime="09:00:00" endTime="21:00:00" timeSpan="P0D" countedDuration="PT12H"/>
+        <predlohaZmeny nazov="R2P" startTime="06:00:00" endTime="18:00:00" timeSpan="P0D" countedDuration="PT12H"/>
+    </predlohy>
+</xmlDataWrapper>

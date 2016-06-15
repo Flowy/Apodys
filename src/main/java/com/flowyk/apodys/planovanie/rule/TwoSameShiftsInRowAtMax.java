@@ -15,14 +15,14 @@ public class TwoSameShiftsInRowAtMax extends BaseRuleOffenderFinder {
 
     @Override
     protected boolean isOffender(Shift shift, List<Shift> shifts) {
-        LocalDate firstDate = shift.zaciatok().toLocalDate().minusDays(2L);
-        LocalDate secondDate = shift.zaciatok().toLocalDate().minusDays(1L);
+        LocalDate firstDate = shift.getZaciatok().toLocalDate().minusDays(2L);
+        LocalDate secondDate = shift.getZaciatok().toLocalDate().minusDays(1L);
 
         boolean firstDay = false;
         boolean secondDay = false;
 
         for (Shift test : shifts) {
-            LocalDate testDate = test.zaciatok().toLocalDate();
+            LocalDate testDate = test.getZaciatok().toLocalDate();
             if (testDate.isAfter(secondDate)) {
                 LOG.debug("Breaking the streak, expecting shifts ordered by time");
                 break;

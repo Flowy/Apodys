@@ -36,7 +36,8 @@ public class RoosterBoundary {
     public void readFrom(File file) {
         logger.info("File loaded: " + file.toString());
         XmlDataWrapper newData = exportController.read(file);
-        context.setContext(newData.getZmeny(), newData.getEmployees(), newData.getShiftTemplates());
+        context.setContext(newData.getShifts(), newData.getEmployees(), newData.getShiftTemplates());
+        eventBus.post(new ContextUpdated());
     }
 
     public ObservableList<Zamestnanec> getEmployees() {
@@ -59,11 +60,6 @@ public class RoosterBoundary {
         eventBus.post(new ContextUpdated());
     }
 
-    @Subscribe
-    public void xmlLoaded(XmlLoaded event) {
-        eventBus.post(new ContextUpdated());
-    }
-
     public void create(Shift shift, Zamestnanec employee) {
         Shift newShift = new Shift(shift);
         assign(newShift, employee);
@@ -71,7 +67,7 @@ public class RoosterBoundary {
     }
 
     public void assign(Shift shift, Zamestnanec employee) {
-        shift.setZamestnanec(employee);
+        shift.setEmployee(employee);
     }
 
 }

@@ -111,7 +111,7 @@ public class ShiftTableCell extends TableCell<RoosterTableRow, Shift> {
             setText(null);
             setStyle("");
         } else {
-            setText(item.predloha().getNazov());
+            setText(item.getPredloha().getNazov());
         }
     }
 

@@ -42,7 +42,7 @@ public class ZakladnyPlanovac implements Planovac {
             if (zamestnanci == null || !zamestnanci.hasNext()) {
                 zamestnanci = employees.iterator();
             }
-            smena.setZamestnanec(zamestnanci.next());
+            smena.setEmployee(zamestnanci.next());
         }
     }
 }

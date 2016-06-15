@@ -12,7 +12,7 @@ import java.util.List;
 public class TestHelper {
 
     public static Shift combine(Shift shift, Zamestnanec employee) {
-        shift.setZamestnanec(employee);
+        shift.setEmployee(employee);
         return shift;
     }
 

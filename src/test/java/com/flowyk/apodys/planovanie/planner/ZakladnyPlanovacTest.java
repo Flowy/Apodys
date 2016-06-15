@@ -32,7 +32,7 @@ public class ZakladnyPlanovacTest {
                 LocalDate.of(2015, 12, 27),
                 td.testovanaZona);
         for (Shift polozka : planSmien) {
-            assertNotNull(polozka.vykonavatel());
+            assertNotNull(polozka.getEmployee());
         }
     }
 }

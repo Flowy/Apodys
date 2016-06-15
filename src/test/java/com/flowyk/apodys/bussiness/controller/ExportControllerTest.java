@@ -1,13 +1,14 @@
 package com.flowyk.apodys.bussiness.controller;
 
 import com.flowyk.apodys.bussiness.entity.Shift;
+import com.flowyk.apodys.bussiness.entity.XmlDataWrapper;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
-import com.flowyk.apodys.bussiness.controller.ExportController;
 import com.flowyk.apodys.planovanie.planner.PatternPlanner;
 import com.flowyk.apodys.test.TestovacieData;
 import com.flowyk.apodys.planovanie.Planovac;
 import com.flowyk.apodys.planovanie.planner.ZakladnyPlanovac;
 import com.flowyk.apodys.ui.Context;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -32,7 +33,9 @@ public class ExportControllerTest {
     @Test
     public void testRead() throws Exception {
         File file = new File(this.getClass().getResource("testReadFile.xml").toURI());
-        new ExportController().read(file);
+        XmlDataWrapper data = new ExportController().read(file);
+
+        data.getShifts().forEach(shift -> Assert.assertNotNull(shift.getEmployee()));
 
     }
 

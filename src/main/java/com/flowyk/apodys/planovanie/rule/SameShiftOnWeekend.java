@@ -28,11 +28,11 @@ public class SameShiftOnWeekend extends BaseRuleOffenderFinder {
     }
 
     private boolean isSaturday(Shift shift) {
-        return shift.zaciatok().getDayOfWeek().equals(DayOfWeek.SATURDAY);
+        return shift.getZaciatok().getDayOfWeek().equals(DayOfWeek.SATURDAY);
     }
 
     private boolean isSunday(Shift shift) {
-        return shift.zaciatok().getDayOfWeek().equals(DayOfWeek.SUNDAY);
+        return shift.getZaciatok().getDayOfWeek().equals(DayOfWeek.SUNDAY);
     }
 
     private boolean isCounterpart(Shift shift, Shift test) {
@@ -46,7 +46,7 @@ public class SameShiftOnWeekend extends BaseRuleOffenderFinder {
     }
 
     private boolean sameStart(Shift shift, Shift test) {
-        return shift.zaciatok().toLocalTime().equals(test.zaciatok().toLocalTime());
+        return shift.getZaciatok().toLocalTime().equals(test.getZaciatok().toLocalTime());
     }
 
 }

@@ -34,7 +34,7 @@ public class XmlDataWrapper {
         this.predlohy = Objects.requireNonNull(shiftTemplates);
     }
 
-    public List<Shift> getZmeny() {
+    public List<Shift> getShifts() {
         return shifts;
     }
 
