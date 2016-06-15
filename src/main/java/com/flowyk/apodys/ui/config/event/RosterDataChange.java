@@ -1,24 +1,23 @@
 package com.flowyk.apodys.ui.config.event;
 
-import com.flowyk.apodys.bussiness.entity.Shift;
-import com.flowyk.apodys.bussiness.entity.Zamestnanec;
-import com.google.common.collect.Table;
+import com.flowyk.apodys.ui.RosterTableRow;
+import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
 
 public class RosterDataChange {
 
-    private Table<Zamestnanec, LocalDate, Shift> data;
+    private ObservableList<RosterTableRow> data;
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public RosterDataChange(Table<Zamestnanec, LocalDate, Shift> data, LocalDate startDate, LocalDate endDate) {
+    public RosterDataChange(ObservableList<RosterTableRow> data, LocalDate startDate, LocalDate endDate) {
         this.data = data;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public Table<Zamestnanec, LocalDate, Shift> getData() {
+    public ObservableList<RosterTableRow> getData() {
         return data;
     }
 

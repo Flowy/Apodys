@@ -61,20 +61,19 @@ public class RosterBoundary {
         eventBus.post(new ContextUpdated());
     }
 
-    public void override(Shift shift, PredlohaSmeny shiftTemplate) {
+    public Shift override(Shift shift, PredlohaSmeny shiftTemplate) {
         context.getShifts().remove(shift);
-        create(shiftTemplate, shift.getZaciatok().toLocalDate(), shift.getEmployee());
+        return create(shiftTemplate, shift.getZaciatok().toLocalDate(), shift.getEmployee());
     }
 
-    public void create(PredlohaSmeny shiftTemplate, LocalDate startDate, Zamestnanec employee) {
+    public Shift create(PredlohaSmeny shiftTemplate, LocalDate startDate, Zamestnanec employee) {
         Shift shift = shiftTemplate.vygenerujOd(startDate);
         shift.setEmployee(employee);
         context.getShifts().add(shift);
-        eventBus.post(new ContextUpdated());
+        return shift;
     }
 
     public void remove(Shift shift) {
         context.getShifts().remove(shift);
-        eventBus.post(new ContextUpdated());
     }
 }

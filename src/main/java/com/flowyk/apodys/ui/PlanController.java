@@ -9,6 +9,8 @@ import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.GridPane;
@@ -55,7 +57,7 @@ public class PlanController {
     }
 
 
-    private Table<Zamestnanec, LocalDate, Shift> parseData() {
+    private ObservableList<RosterTableRow> parseData() {
         HashBasedTable<Zamestnanec, LocalDate, Shift> data = HashBasedTable.create();
         ZonedDateTime start = ZonedDateTime.of(firstDayPicker.getValue(), LocalTime.MIDNIGHT, ZoneId.systemDefault());
         ZonedDateTime end = ZonedDateTime.of(lastDayPicker.getValue(), LocalTime.MAX, ZoneId.systemDefault());
@@ -65,7 +67,13 @@ public class PlanController {
             }
             data.put(shift.getEmployee(), shift.getZaciatok().toLocalDate(), shift);
         }
-        return data;
+
+        ObservableList<RosterTableRow> rows = FXCollections.observableArrayList();
+        for (Zamestnanec key : data.rowKeySet()) {
+            rows.add(new RosterTableRow(key, data.row(key)));
+        }
+
+        return rows;
     }
 
 

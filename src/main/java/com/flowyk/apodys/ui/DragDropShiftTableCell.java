@@ -14,8 +14,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 
 public class DragDropShiftTableCell extends TableCell<RosterTableRow, Shift> {
     private Logger logger = LoggerFactory.getLogger(getClass());
@@ -23,11 +21,18 @@ public class DragDropShiftTableCell extends TableCell<RosterTableRow, Shift> {
     @Inject
     private RosterBoundary rosterBoundary;
 
+    private LocalDate columnHeader;
+
     public DragDropShiftTableCell() {
         super();
 
         setOnDragDetected(event -> {
             logger.debug("drag detected, source: " + event.getSource());
+            if (isEmpty() || getItem() == null) {
+                event.consume();
+                return;
+            }
+
             Dragboard db;
             if (event.isAltDown()) {
                 db = startDragAndDrop(TransferMode.COPY);
@@ -65,16 +70,14 @@ public class DragDropShiftTableCell extends TableCell<RosterTableRow, Shift> {
             if (db.hasContent(DragAndDropDataTypes.SHIFT_TEMPLATE)) {
                 PredlohaSmeny template = (PredlohaSmeny) db.getContent(DragAndDropDataTypes.SHIFT_TEMPLATE);
                 logger.debug("Drag dropped with template: " + template);
-                Zamestnanec employee = ((RosterTableRow) (((DragDropShiftTableCell) event.getGestureTarget()).getTableRow().getItem())).getKey();
-                LocalDate startDate = LocalDate.parse(
-                        ((DragDropShiftTableCell) event.getGestureTarget()).getTableColumn().getText(),
-                        DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
-                );
+                Zamestnanec employee = ((RosterTableRow) getTableRow().getItem()).getKey();
+                Shift newShift = null;
                 if (getItem() == null) {
-                    rosterBoundary.create(template, startDate, employee);
+                    newShift = rosterBoundary.create(template, columnHeader, employee);
                 } else {
-                    rosterBoundary.override(getItem(), template);
+                    newShift = rosterBoundary.override(getItem(), template);
                 }
+                updateItem(newShift, false);
                 event.setDropCompleted(true);
             } else {
                 logger.debug("Drag dropped with unsupported content types: " + db.getContentTypes());
@@ -87,8 +90,13 @@ public class DragDropShiftTableCell extends TableCell<RosterTableRow, Shift> {
             if (event.getTransferMode() == TransferMode.MOVE) {
                 logger.debug("Removing shift " + event.getGestureSource());
                 rosterBoundary.remove(getItem());
+                updateItem(null, true);
             }
         });
+    }
+
+    public void setColumnHeader(LocalDate columnHeader) {
+        this.columnHeader = columnHeader;
     }
 
     private boolean isDroppable(DragEvent event) {

@@ -6,8 +6,10 @@ import com.flowyk.apodys.ui.config.event.RosterDataChange;
 import com.google.common.collect.Table;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Injector;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -25,24 +27,22 @@ public class RosterController {
     @Inject
     private Injector injector;
 
+    @FXML
+    public void initialize() {
+        rosterTable.getSelectionModel().setCellSelectionEnabled(true);
+    }
+
     @Subscribe
     public void workplanChanged(RosterDataChange event) {
         rosterTable.getColumns().clear();
         draw(event.getData(), event.getStartDate(), event.getEndDate());
     }
 
-    private void draw(Table<Zamestnanec, LocalDate, Shift> data, LocalDate startDate, LocalDate endDate) {
+    private void draw(ObservableList<RosterTableRow> rows, LocalDate startDate, LocalDate endDate) {
         addEmployeeColumn();
         addShiftColumns(startDate, endDate);
 
-        rosterTable.getSelectionModel().setCellSelectionEnabled(true);
-//        rosterTable.setEditable(true);
-
-        rosterTable.setItems(FXCollections.observableArrayList());
-        for (Zamestnanec key : data.rowKeySet()) {
-            rosterTable.getItems().add(new RosterTableRow(key, data.row(key)));
-        }
-        rosterTable.getItems().add(new RosterTableRow());
+        rosterTable.setItems(rows);
     }
 
     private void addEmployeeColumn() {
@@ -53,6 +53,9 @@ public class RosterController {
         ));
         employeeColumn.setSortable(false);
         employeeColumn.setEditable(false);
+
+        employeeColumn.getStyleClass().add("employee");
+
         rosterTable.getColumns().add(employeeColumn);
     }
 
@@ -66,15 +69,15 @@ public class RosterController {
 
     private void addShiftColumn(final LocalDate date) {
         TableColumn<RosterTableRow, Shift> shiftColumn = new TableColumn<>(date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
-        shiftColumn.setCellFactory(column -> injector.getInstance(DragDropShiftTableCell.class));
+        shiftColumn.setCellFactory(column -> {
+            DragDropShiftTableCell cell = injector.getInstance(DragDropShiftTableCell.class);
+            cell.setColumnHeader(date);
+            return cell;
+        });
 
         shiftColumn.setCellValueFactory(rowData -> {
             Shift value = rowData.getValue().get(date);
-            if (value != null && rowData.getValue().getKey() != null) {
-                return new SimpleObjectProperty<>(value);
-            } else {
-                return null;
-            }
+            return new ReadOnlyObjectWrapper<>(value);
         });
         shiftColumn.setSortable(false);
         shiftColumn.setEditable(false);
