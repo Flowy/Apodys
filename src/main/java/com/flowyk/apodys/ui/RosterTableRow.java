@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RosterTableRow extends TableRow<Zamestnanec, LocalDate, Shift> {
+    public RosterTableRow(Zamestnanec employee) {
+        super(employee, new HashMap<>());
+    }
     public RosterTableRow(Zamestnanec zamestnanec, Map<LocalDate, Shift> cells) {
         super(zamestnanec, cells);
     }

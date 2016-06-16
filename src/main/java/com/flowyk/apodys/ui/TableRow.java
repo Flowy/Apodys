@@ -21,6 +21,10 @@ public class TableRow<ROW_KEY, COLUMN_KEY, CELL> {
         return cells.get(key);
     }
 
+    public void putCell(COLUMN_KEY column, CELL cell) {
+        cells.put(column, cell);
+    }
+
     public Collection<CELL> getCells() {
         return cells.values();
     }
