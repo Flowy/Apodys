@@ -3,12 +3,10 @@ package com.flowyk.apodys.ui;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import com.flowyk.apodys.ui.config.event.RosterDataChange;
-import com.google.common.collect.Table;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Injector;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -70,7 +68,7 @@ public class RosterController {
     private void addShiftColumn(final LocalDate date) {
         TableColumn<RosterTableRow, Shift> shiftColumn = new TableColumn<>(date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
         shiftColumn.setCellFactory(column -> {
-            DragDropShiftTableCell cell = injector.getInstance(DragDropShiftTableCell.class);
+            ShiftTableCell cell = injector.getInstance(DragDropShiftTableCell.class);
             cell.setColumnHeader(date);
             return cell;
         });

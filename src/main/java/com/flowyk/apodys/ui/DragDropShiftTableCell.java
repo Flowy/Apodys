@@ -15,15 +15,11 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import java.time.LocalDate;
 
-public class DragDropShiftTableCell extends TableCell<RosterTableRow, Shift> {
+public class DragDropShiftTableCell extends ShiftTableCell {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Inject
-    private RosterBoundary rosterBoundary;
-
-    private LocalDate columnHeader;
-
-    public DragDropShiftTableCell() {
+    public DragDropShiftTableCell(RosterBoundary rosterBoundary) {
         super();
 
         setOnDragDetected(event -> {
@@ -95,28 +91,12 @@ public class DragDropShiftTableCell extends TableCell<RosterTableRow, Shift> {
         });
     }
 
-    public void setColumnHeader(LocalDate columnHeader) {
-        this.columnHeader = columnHeader;
-    }
-
     private boolean isDroppable(DragEvent event) {
         boolean same = event.getGestureSource() == event.getGestureTarget();
         if (same) return false;
         //noinspection UnnecessaryLocalVariable
         boolean isShiftTemplate = event.getDragboard().hasContent(DragAndDropDataTypes.SHIFT_TEMPLATE);
         return isShiftTemplate;
-    }
-
-    @Override
-    protected void updateItem(Shift item, boolean empty) {
-        super.updateItem(item, empty);
-
-        if (item == null || empty) {
-            setText(null);
-            setStyle("");
-        } else {
-            setText(item.getPredloha().getNazov());
-        }
     }
 
 
