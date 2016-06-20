@@ -18,8 +18,9 @@ public class ApplicationModule extends AbstractModule {
     protected void configure() {
         bind(Stage.class).toInstance(stage);
 
-        EventBus eventBus = new EventBus();
+        EventBus eventBus = new EventBus(new LoggingSubscriberExceptionHandler());
         eventBus.register(new DeadEventHandler());
+
         bind(EventBus.class).toInstance(eventBus);
     }
 }

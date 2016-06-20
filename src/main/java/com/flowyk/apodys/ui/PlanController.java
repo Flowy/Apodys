@@ -5,7 +5,6 @@ import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import com.flowyk.apodys.ui.config.event.RosterDataChange;
 import com.flowyk.apodys.ui.config.event.ContextUpdated;
-import com.google.common.collect.HashBasedTable;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import javafx.collections.FXCollections;
@@ -33,8 +32,6 @@ public class PlanController {
     private DatePicker firstDayPicker;
     @FXML
     private DatePicker lastDayPicker;
-    @FXML
-    private ComboBox<Zamestnanec> selectEmployee;
 
     private ObservableList<RosterTableRow> rows = FXCollections.observableArrayList();
 
@@ -65,8 +62,6 @@ public class PlanController {
                 firstDayPicker.getValue(),
                 lastDayPicker.getValue())
         );
-
-        selectEmployee.setItems(rosterBoundary.getEmployees());
     }
 
     private ObservableList<RosterTableRow> parseData() {
@@ -86,13 +81,4 @@ public class PlanController {
 
         return FXCollections.observableArrayList(map.values());
     }
-
-    @FXML
-    public void addEmployee(ActionEvent event) {
-        Zamestnanec selectedEmployee = selectEmployee.getSelectionModel().getSelectedItem();
-        if (selectedEmployee != null) {
-            rows.add(new RosterTableRow(selectedEmployee));
-        }
-    }
-
 }
