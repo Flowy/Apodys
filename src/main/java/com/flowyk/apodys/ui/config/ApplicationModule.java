@@ -5,6 +5,7 @@ import com.google.inject.AbstractModule;
 import javafx.stage.Stage;
 
 import javax.inject.Singleton;
+import java.util.ResourceBundle;
 
 public class ApplicationModule extends AbstractModule {
 

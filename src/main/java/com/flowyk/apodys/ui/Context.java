@@ -3,22 +3,19 @@ package com.flowyk.apodys.ui;
 import com.flowyk.apodys.bussiness.entity.PredlohaSmeny;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
-import javafx.beans.InvalidationListener;
+import com.flowyk.apodys.planovanie.RuleOffender;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
 
-@Singleton
 public class Context {
 
     private ObservableList<Shift> shifts;
     private ObservableList<Zamestnanec> employees;
     private ObservableList<PredlohaSmeny> shiftTemplates;
-
-    private List<InvalidationListener> listeners = new ArrayList<>();
+    private ObservableList<RuleOffender> errors = FXCollections.observableArrayList();
 
     public Context() {
         this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
@@ -32,6 +29,7 @@ public class Context {
         setShifts(shifts);
         setEmployees(employees);
         setShiftTemplates(shiftTemplate);
+        errors.clear();
     }
 
     public ObservableList<Shift> getShifts() {
@@ -44,6 +42,10 @@ public class Context {
 
     public ObservableList<PredlohaSmeny> getShiftTemplates() {
         return shiftTemplates;
+    }
+
+    public ObservableList<RuleOffender> getErrors() {
+        return errors;
     }
 
     private void setEmployees(List<Zamestnanec> employees) {
@@ -75,10 +77,4 @@ public class Context {
             this.shifts.addAll(shifts);
         }
     }
-
-//    private void invalidate() {
-//        for (InvalidationListener listener : listeners) {
-//            listener.invalidated(this);
-//        }
-//    }
 }

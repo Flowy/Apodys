@@ -9,4 +9,10 @@
     -fx-background-color: -fx-table-cell-border-color, derive(-fx-control-inner-background,-15%);
 }
 
+.table-row-cell .rule-offender {
+    -fx-background-color: -fx-table-cell-border-color, derive(pink,-10%);
+}
+.table-row-cell .rule-offender:odd {
+    -fx-background-color: -fx-table-cell-border-color, derive(pink,-15%);
+}
 

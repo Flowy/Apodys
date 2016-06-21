@@ -1,5 +1,6 @@
 package com.flowyk.apodys.planovanie.rule;
 
+import com.flowyk.apodys.bussiness.entity.LocalizationUnit;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,12 @@ import java.util.List;
 
 public class SameShiftOnWeekend extends BaseRuleOffenderFinder {
     private static final Logger LOG = LoggerFactory.getLogger(SameShiftOnWeekend.class);
+
+    private LocalizationUnit crime;
+
+    public SameShiftOnWeekend() {
+        crime = new LocalizationUnit("crime.SameShiftOnWeekend");
+    }
 
     @Override
     protected boolean isOffender(Shift shift, List<Shift> shifts) {
@@ -49,4 +56,8 @@ public class SameShiftOnWeekend extends BaseRuleOffenderFinder {
         return shift.getZaciatok().toLocalTime().equals(test.getZaciatok().toLocalTime());
     }
 
+    @Override
+    public LocalizationUnit getCrime() {
+        return crime;
+    }
 }

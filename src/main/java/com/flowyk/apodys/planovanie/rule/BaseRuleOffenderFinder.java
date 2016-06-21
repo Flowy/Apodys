@@ -15,7 +15,7 @@ public abstract class BaseRuleOffenderFinder implements RuleInvestigator {
         List<RuleOffender> offenders = new ArrayList<>();
         for (Shift shift: shifts) {
             if (isOffender(shift, shifts)) {
-                offenders.add(new RuleOffender(shift));
+                offenders.add(new RuleOffender(this, shift));
             }
         }
         return offenders;

@@ -1,5 +1,6 @@
 package com.flowyk.apodys.ui;
 
+import com.flowyk.apodys.bussiness.boundary.Messages;
 import com.flowyk.apodys.bussiness.entity.PredlohaSmeny;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
@@ -19,8 +20,8 @@ public class DragDropShiftTableCell extends ShiftTableCell {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Inject
-    public DragDropShiftTableCell(RosterBoundary rosterBoundary) {
-        super();
+    public DragDropShiftTableCell(RosterBoundary rosterBoundary, Messages messages) {
+        super(messages);
 
         setOnDragDetected(event -> {
             logger.debug("drag detected, source: " + event.getSource());

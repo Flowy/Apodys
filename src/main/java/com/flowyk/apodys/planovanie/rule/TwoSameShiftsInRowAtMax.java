@@ -1,5 +1,6 @@
 package com.flowyk.apodys.planovanie.rule;
 
+import com.flowyk.apodys.bussiness.entity.LocalizationUnit;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,12 @@ import java.util.List;
  */
 public class TwoSameShiftsInRowAtMax extends BaseRuleOffenderFinder {
     private static final Logger LOG = LoggerFactory.getLogger(TwoSameShiftsInRowAtMax.class);
+
+    private LocalizationUnit crime;
+
+    public TwoSameShiftsInRowAtMax() {
+        crime = new LocalizationUnit("crime.TwoSameShiftsInRowAtMax");
+    }
 
     @Override
     protected boolean isOffender(Shift shift, List<Shift> shifts) {
@@ -38,5 +45,10 @@ public class TwoSameShiftsInRowAtMax extends BaseRuleOffenderFinder {
 
     private boolean sameShifts(Shift shift, Shift test) {
         return shift.rovnakyVykonavatel(test) && shift.rovnakaZmena(test);
+    }
+
+    @Override
+    public LocalizationUnit getCrime() {
+        return crime;
     }
 }

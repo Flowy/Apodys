@@ -21,25 +21,11 @@ public class EmployeesController {
 
     @FXML
     public void initialize() {
-        employees.setItems(rosterBoundary.getEmployees());
         employees.setCellFactory(list -> new ZamestnanecCell());
-//        stage.sizeToScene();
+        employees.setItems(rosterBoundary.getEmployees());
     }
 
     static class ZamestnanecCell extends ListCell<Zamestnanec> {
-
-        public ZamestnanecCell() {
-//            this.setOnDragDetected(event -> {
-//                logger.info("drag detected, source: " + event.getSource());
-//                Dragboard db = ((ListCell) event.getSource()).startDragAndDrop(TransferMode.ANY);
-//
-//                ClipboardContent content = new ClipboardContent();
-//                content.put(new DataFormat("textDataFormat"), "text");
-//                db.setContent(content);
-//
-//                event.consume();
-//            });
-        }
 
         @Override
         protected void updateItem(Zamestnanec item, boolean empty) {
@@ -53,8 +39,4 @@ public class EmployeesController {
             }
         }
     }
-
-    public void onDragDetected(Event event) {
-    }
-
 }

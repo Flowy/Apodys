@@ -1,5 +1,6 @@
 package com.flowyk.apodys.ui;
 
+import com.flowyk.apodys.bussiness.boundary.RosterBoundary;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import com.flowyk.apodys.ui.config.event.RosterDataChange;
@@ -25,9 +26,16 @@ public class RosterController {
     @Inject
     private Injector injector;
 
+    @Inject
+    private RosterBoundary rosterBoundary;
+
+    @Inject
+    private ErrorsChangedListener errorsChangedListener;
+
     @FXML
     public void initialize() {
         rosterTable.getSelectionModel().setCellSelectionEnabled(true);
+        rosterBoundary.getErrors().addListener(errorsChangedListener);
     }
 
     @Subscribe
@@ -70,6 +78,7 @@ public class RosterController {
         shiftColumn.setCellFactory(column -> {
             ShiftTableCell cell = injector.getInstance(DragDropShiftTableCell.class);
             cell.setColumnHeader(date);
+            errorsChangedListener.addListeningCell(cell);
             return cell;
         });
 

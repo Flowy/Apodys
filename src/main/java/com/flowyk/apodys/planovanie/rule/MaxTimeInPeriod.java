@@ -1,5 +1,6 @@
 package com.flowyk.apodys.planovanie.rule;
 
+import com.flowyk.apodys.bussiness.entity.LocalizationUnit;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,10 +15,12 @@ public class MaxTimeInPeriod extends BaseRuleOffenderFinder {
 
     private Duration maxTime;
     private Period period;
+    private LocalizationUnit crime;
 
     public MaxTimeInPeriod(Duration maxTime, Period period) {
         this.maxTime = maxTime;
         this.period = period;
+        crime = new LocalizationUnit("crime.MaxTimeInPeriod", maxTime.toHours(), period.getDays());
     }
 
     @Override
@@ -39,5 +42,10 @@ public class MaxTimeInPeriod extends BaseRuleOffenderFinder {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public LocalizationUnit getCrime() {
+        return crime;
     }
 }

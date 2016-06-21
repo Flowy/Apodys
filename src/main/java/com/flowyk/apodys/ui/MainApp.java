@@ -1,5 +1,6 @@
 package com.flowyk.apodys.ui;
 
+import com.flowyk.apodys.bussiness.boundary.Messages;
 import com.flowyk.apodys.ui.config.ApplicationModule;
 import com.flowyk.apodys.ui.config.GuiceControllerLoader;
 import com.google.inject.Guice;
@@ -22,17 +23,18 @@ public class MainApp extends javafx.application.Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         Injector injector = Guice.createInjector(new ApplicationModule(primaryStage));
 
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.Messages", Locale.getDefault());
+        Messages messages = injector.getInstance(Messages.class);
 
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("home.fxml"),
-                resourceBundle,
+                messages.getResourceBundle(),
                 null,
                 injector.getInstance(GuiceControllerLoader.class));
         Parent root = loader.load();
 
-        primaryStage.setTitle(resourceBundle.getString("app_title"));
+        primaryStage.setTitle(messages.getString("app_title"));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

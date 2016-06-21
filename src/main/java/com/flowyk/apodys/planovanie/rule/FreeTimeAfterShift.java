@@ -1,12 +1,12 @@
 package com.flowyk.apodys.planovanie.rule;
 
+import com.flowyk.apodys.bussiness.entity.LocalizationUnit;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.Duration;
-import java.time.LocalTime;
-import java.time.ZonedDateTime;
+import java.time.*;
+import java.util.Collection;
 import java.util.List;
 
 public class FreeTimeAfterShift extends BaseRuleOffenderFinder {
@@ -15,6 +15,7 @@ public class FreeTimeAfterShift extends BaseRuleOffenderFinder {
     private int freeAfterRepeating;
     private LocalTime shiftStarts;
     private Duration expectedFreeTime;
+    private LocalizationUnit crime;
 
     public FreeTimeAfterShift(LocalTime shiftStarts, Duration expectedFreeTime) {
         this(1, shiftStarts, expectedFreeTime);
@@ -24,6 +25,7 @@ public class FreeTimeAfterShift extends BaseRuleOffenderFinder {
         this.freeAfterRepeating = freeAfterRepeating;
         this.shiftStarts = shiftStarts;
         this.expectedFreeTime = expectedFreeTime;
+        this.crime = new LocalizationUnit("crime.FreeTimeAfterShift", shiftStarts.getHour(), expectedFreeTime.toHours(), freeAfterRepeating);
     }
 
     @Override
@@ -49,5 +51,10 @@ public class FreeTimeAfterShift extends BaseRuleOffenderFinder {
             }
         }
         return false;
+    }
+
+    @Override
+    public LocalizationUnit getCrime() {
+        return crime;
     }
 }

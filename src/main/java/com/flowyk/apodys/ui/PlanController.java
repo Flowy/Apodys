@@ -7,6 +7,8 @@ import com.flowyk.apodys.ui.config.event.RosterDataChange;
 import com.flowyk.apodys.ui.config.event.ContextUpdated;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -47,6 +49,13 @@ public class PlanController {
         lastDayPicker.setValue(LocalDate.now().plusWeeks(1L));
         lastDayPicker.valueProperty().addListener(observable -> {
             update();
+        });
+
+        rosterBoundary.getEmployees().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                update();
+            }
         });
     }
 
