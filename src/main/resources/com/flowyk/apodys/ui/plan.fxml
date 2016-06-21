@@ -13,6 +13,7 @@
                         showWeekNumbers="true"/>
             <DatePicker fx:id="lastDayPicker"
                         showWeekNumbers="true"/>
+            <fx:include source="shiftTemplates.fxml"/>
         </HBox>
     </top>
     <center>

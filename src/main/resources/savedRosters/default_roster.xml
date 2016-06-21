@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xmlExport>
+    <zmeny/>
+    <zamestnanci/>
+    <predlohy>
+        <predlohaZmeny nazov="R2P" startTime="06:00:00" endTime="18:00:00" timeSpan="P0D" countedDuration="PT12H"/>
+        <predlohaZmeny nazov="P1C" startTime="09:00:00" endTime="21:00:00" timeSpan="P0D" countedDuration="PT12H"/>
+        <predlohaZmeny nazov="07,5" startTime="14:00:00" endTime="22:00:00" timeSpan="P0D" countedDuration="PT8H"/>
+        <predlohaZmeny nazov="N2P" startTime="18:00:00" endTime="06:00:00" timeSpan="P1D" countedDuration="PT12H"/>
+    </predlohy>
+</xmlExport>

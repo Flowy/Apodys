@@ -1,7 +1,8 @@
-package com.flowyk.apodys.ui;
+package com.flowyk.apodys.ui.controllers;
 
 import com.flowyk.apodys.bussiness.entity.PredlohaSmeny;
 import com.flowyk.apodys.bussiness.boundary.RosterBoundary;
+import com.flowyk.apodys.ui.DragAndDropDataTypes;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -12,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import java.util.ResourceBundle;
 
-public class ShiftsController {
+public class ShiftTemplatesController {
 
     @Inject
     private RosterBoundary rosterBoundary;

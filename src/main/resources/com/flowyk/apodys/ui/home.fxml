@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.BorderPane?>
 <BorderPane fx:controller="com.flowyk.apodys.ui.HomeController"
             stylesheets="/com/flowyk/apodys/ui/home.css"
@@ -11,11 +10,4 @@
     <center>
         <fx:include source="plan.fxml"/>
     </center>
-    <right>
-        <VBox>
-            <fx:include source="employees.fxml"/>
-            <fx:include source="create_employee.fxml" />
-            <fx:include source="shifts.fxml"/>
-        </VBox>
-    </right>
 </BorderPane>

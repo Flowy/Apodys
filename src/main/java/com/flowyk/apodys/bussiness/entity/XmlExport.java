@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XmlDataWrapper {
+public class XmlExport {
 
     @XmlElementWrapper(name = "zmeny", required = true)
     @XmlElement(name = "zmena")
@@ -24,11 +24,11 @@ public class XmlDataWrapper {
     /**
      * JAXB constructor
      */
-    public XmlDataWrapper() {
+    public XmlExport() {
         this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     }
 
-    public XmlDataWrapper(List<Shift> shifts, List<Zamestnanec> employees, List<PredlohaSmeny> shiftTemplates) {
+    public XmlExport(List<Shift> shifts, List<Zamestnanec> employees, List<PredlohaSmeny> shiftTemplates) {
         this.shifts = Objects.requireNonNull(shifts);
         this.employees = Objects.requireNonNull(employees);
         this.predlohy = Objects.requireNonNull(shiftTemplates);

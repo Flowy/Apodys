@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<xmlDataWrapper>
+<xmlExport>
     <zmeny>
         <zmena predloha="R2P">
             <countedDuration>PT12H</countedDuration>
@@ -121,4 +121,4 @@
         <predlohaZmeny nazov="P1C" startTime="09:00:00" endTime="21:00:00" timeSpan="P0D" countedDuration="PT12H"/>
         <predlohaZmeny nazov="R2P" startTime="06:00:00" endTime="18:00:00" timeSpan="P0D" countedDuration="PT12H"/>
     </predlohy>
-</xmlDataWrapper>
+</xmlExport>
