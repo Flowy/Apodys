@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * shift can't be repeated more than once in a row for employee
@@ -21,7 +23,7 @@ public class TwoSameShiftsInRowAtMax extends BaseRuleOffenderFinder {
     }
 
     @Override
-    protected boolean isOffender(Shift shift, List<Shift> shifts) {
+    protected boolean isOffender(Shift shift, Set<Shift> shifts) {
         LocalDate firstDate = shift.getZaciatok().toLocalDate().minusDays(2L);
         LocalDate secondDate = shift.getZaciatok().toLocalDate().minusDays(1L);
 
@@ -44,7 +46,7 @@ public class TwoSameShiftsInRowAtMax extends BaseRuleOffenderFinder {
     }
 
     private boolean sameShifts(Shift shift, Shift test) {
-        return shift.rovnakyVykonavatel(test) && shift.rovnakaZmena(test);
+        return Objects.equals(shift.getZaciatok().toLocalTime(), test.getZaciatok().toLocalTime());
     }
 
     @Override

@@ -1,11 +1,7 @@
 package com.flowyk.apodys.bussiness.controller;
 
-import com.flowyk.apodys.bussiness.entity.PredlohaSmeny;
-import com.flowyk.apodys.bussiness.entity.Shift;
-import com.flowyk.apodys.bussiness.entity.XmlExport;
-import com.flowyk.apodys.bussiness.entity.Zamestnanec;
+import com.flowyk.apodys.bussiness.entity.*;
 import com.flowyk.apodys.planovanie.RuleOffender;
-import com.flowyk.apodys.ui.config.event.ContextUpdated;
 import com.google.common.eventbus.EventBus;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,8 +19,7 @@ public class Context {
     private final Export export;
     private final EventBus eventBus;
 
-    private ObservableList<Shift> shifts = FXCollections.observableArrayList();
-    private ObservableList<Zamestnanec> employees = FXCollections.observableArrayList();
+    private ObservableList<EmployeeShifts> employeeShifts = FXCollections.observableArrayList();
     private ObservableList<PredlohaSmeny> shiftTemplates = FXCollections.observableArrayList();
     private ObservableList<RuleOffender> errors = FXCollections.observableArrayList();
 
@@ -34,14 +29,17 @@ public class Context {
         this.export = export;
     }
 
-    public ObservableList<Shift> getShifts() {
-        return shifts;
-    }
+//    public ObservableList<Shift> getShifts() {
+//        return shifts;
+//    }
 
-    public ObservableList<Zamestnanec> getEmployees() {
-        return employees;
-    }
+//    public ObservableList<Zamestnanec> getEmployees() {
+//        return employees;
+//    }
 
+    public ObservableList<EmployeeShifts> getEmployeeShifts() {
+        return employeeShifts;
+    }
     public ObservableList<PredlohaSmeny> getShiftTemplates() {
         return shiftTemplates;
     }
@@ -51,24 +49,25 @@ public class Context {
     }
 
     public void saveTo(File file) {
-        export.save(file, new XmlExport(getShifts(), getEmployees(), getShiftTemplates()));
+//        TODO export
+//        export.save(file, new XmlExport(getShifts(), getEmployees(), getShiftTemplates()));
     }
 
     public void load(File file) {
         logger.info("File loaded: " + file.toString());
         XmlExport newData = export.read(file);
 
-        this.shifts.clear();
-        this.shifts.addAll(newData.getShifts());
-
-        this.employees.clear();
-        this.employees.addAll(newData.getEmployees());
+//        TODO export
+//        this.shifts.clear();
+//        this.shifts.addAll(newData.getShifts());
+//
+//        this.employees.clear();
+//        this.employees.addAll(newData.getEmployees());
 
         this.shiftTemplates.clear();
         this.shiftTemplates.addAll(newData.getShiftTemplates());
 
         errors.clear();
-        eventBus.post(new ContextUpdated());
     }
 
     public void resetToDefault() {

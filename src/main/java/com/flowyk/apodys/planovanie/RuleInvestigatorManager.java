@@ -1,5 +1,6 @@
 package com.flowyk.apodys.planovanie;
 
+import com.flowyk.apodys.bussiness.entity.EmployeeShifts;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.planovanie.rule.FreeTimeAfterShift;
 import com.flowyk.apodys.planovanie.rule.MaxTimeInPeriod;
@@ -26,10 +27,10 @@ public class RuleInvestigatorManager {
         );
     }
 
-    public Collection<RuleOffender> findOffenders(List<Shift> shifts) {
+    public Collection<RuleOffender> findOffenders(List<EmployeeShifts> employeeShifts) {
         List<RuleOffender> offenders = new ArrayList<>();
         for (RuleInvestigator investigator : investigators) {
-            offenders.addAll(investigator.findOffenders(shifts));
+            offenders.addAll(investigator.findOffenders(employeeShifts));
         }
         return offenders;
     }

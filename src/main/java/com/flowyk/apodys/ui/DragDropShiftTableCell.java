@@ -1,6 +1,7 @@
 package com.flowyk.apodys.ui;
 
 import com.flowyk.apodys.bussiness.boundary.Messages;
+import com.flowyk.apodys.bussiness.entity.EmployeeShifts;
 import com.flowyk.apodys.bussiness.entity.PredlohaSmeny;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
@@ -67,7 +68,7 @@ public class DragDropShiftTableCell extends ShiftTableCell {
             if (db.hasContent(DragAndDropDataTypes.SHIFT_TEMPLATE)) {
                 PredlohaSmeny template = (PredlohaSmeny) db.getContent(DragAndDropDataTypes.SHIFT_TEMPLATE);
                 logger.debug("Drag dropped with template: " + template);
-                Zamestnanec employee = ((RosterTableRow) getTableRow().getItem()).getKey();
+                Zamestnanec employee = ((EmployeeShifts) getTableRow().getItem()).getEmployee();
                 Shift newShift = null;
                 if (getItem() == null) {
                     newShift = rosterBoundary.create(template, columnHeader, employee);

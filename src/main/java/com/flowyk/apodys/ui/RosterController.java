@@ -1,17 +1,19 @@
 package com.flowyk.apodys.ui;
 
 import com.flowyk.apodys.bussiness.boundary.RosterBoundary;
+import com.flowyk.apodys.bussiness.controller.Context;
+import com.flowyk.apodys.bussiness.entity.EmployeeShifts;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
-import com.flowyk.apodys.ui.config.event.RosterDataChange;
-import com.google.common.eventbus.Subscribe;
 import com.google.inject.Injector;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
@@ -21,7 +23,11 @@ import java.time.format.FormatStyle;
 public class RosterController {
 
     @FXML
-    private TableView<RosterTableRow> rosterTable;
+    private TableView<EmployeeShifts> rosterTable;
+    @FXML
+    private DatePicker firstDayPicker;
+    @FXML
+    private DatePicker lastDayPicker;
 
     @Inject
     private Injector injector;
@@ -31,32 +37,39 @@ public class RosterController {
 
     @Inject
     private ErrorsChangedListener errorsChangedListener;
+    @Inject
+    private Context context;
 
     @FXML
     public void initialize() {
         rosterTable.getSelectionModel().setCellSelectionEnabled(true);
+
+        firstDayPicker.setValue(LocalDate.now());
+        firstDayPicker.valueProperty().addListener(observable -> {
+            refreshColumns();
+        });
+        lastDayPicker.setValue(LocalDate.now().plusWeeks(1L));
+        lastDayPicker.valueProperty().addListener(observable -> {
+            refreshColumns();
+        });
+
         rosterBoundary.getErrors().addListener(errorsChangedListener);
+        refreshColumns();
+        rosterTable.setItems(context.getEmployeeShifts());
     }
 
-    @Subscribe
-    public void workplanChanged(RosterDataChange event) {
+    private void refreshColumns() {
         rosterTable.getColumns().clear();
-        draw(event.getData(), event.getStartDate(), event.getEndDate());
-    }
 
-    private void draw(ObservableList<RosterTableRow> rows, LocalDate startDate, LocalDate endDate) {
         addEmployeeColumn();
-        addShiftColumns(startDate, endDate);
+        addShiftColumns(firstDayPicker.getValue(), lastDayPicker.getValue());
 
-        rosterTable.setItems(rows);
     }
 
     private void addEmployeeColumn() {
-        TableColumn<RosterTableRow, Zamestnanec> employeeColumn = new TableColumn<>("Zamestnanci");
+        TableColumn<EmployeeShifts, Zamestnanec> employeeColumn = new TableColumn<>("Zamestnanci");
         employeeColumn.setCellFactory(column -> injector.getInstance(EmployeeTableCell.class));
-        employeeColumn.setCellValueFactory(rowData -> new SimpleObjectProperty<>(
-                rowData.getValue().getKey()
-        ));
+        employeeColumn.setCellValueFactory(new PropertyValueFactory<>("employee"));
         employeeColumn.setSortable(false);
         employeeColumn.setEditable(false);
 
@@ -74,7 +87,7 @@ public class RosterController {
     }
 
     private void addShiftColumn(final LocalDate date) {
-        TableColumn<RosterTableRow, Shift> shiftColumn = new TableColumn<>(date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
+        TableColumn<EmployeeShifts, Shift> shiftColumn = new TableColumn<>(date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
         shiftColumn.setCellFactory(column -> {
             ShiftTableCell cell = injector.getInstance(DragDropShiftTableCell.class);
             cell.setColumnHeader(date);
@@ -83,7 +96,7 @@ public class RosterController {
         });
 
         shiftColumn.setCellValueFactory(rowData -> {
-            Shift value = rowData.getValue().get(date);
+            Shift value = rowData.getValue().getShift(date);
             return new ReadOnlyObjectWrapper<>(value);
         });
         shiftColumn.setSortable(false);

@@ -1,9 +1,10 @@
 package com.flowyk.apodys.ui;
 
+import com.flowyk.apodys.bussiness.entity.EmployeeShifts;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import javafx.scene.control.TableCell;
 
-public class EmployeeTableCell extends TableCell<RosterTableRow, Zamestnanec> {
+public class EmployeeTableCell extends TableCell<EmployeeShifts, Zamestnanec> {
 
     @Override
     protected void updateItem(Zamestnanec item, boolean empty) {

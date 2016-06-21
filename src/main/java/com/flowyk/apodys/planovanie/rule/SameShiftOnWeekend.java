@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.DayOfWeek;
-import java.util.List;
+import java.util.Set;
 
 public class SameShiftOnWeekend extends BaseRuleOffenderFinder {
     private static final Logger LOG = LoggerFactory.getLogger(SameShiftOnWeekend.class);
@@ -18,7 +18,7 @@ public class SameShiftOnWeekend extends BaseRuleOffenderFinder {
     }
 
     @Override
-    protected boolean isOffender(Shift shift, List<Shift> shifts) {
+    protected boolean isOffender(Shift shift, Set<Shift> shifts) {
         if (!isSaturday(shift) && !isSunday(shift)) {
             LOG.debug("Shift not in weekend, does not need a counterpart: {}", shift);
             return false;
@@ -45,14 +45,13 @@ public class SameShiftOnWeekend extends BaseRuleOffenderFinder {
     private boolean isCounterpart(Shift shift, Shift test) {
         if ((isSaturday(shift) && isSunday(test)) ||
                 (isSaturday(test) && isSunday(shift))) {
-            return shift.rovnakyVykonavatel(test) &&
-                    sameStart(shift, test);
+            return sameStartTime(shift, test);
         } else {
             return false;
         }
     }
 
-    private boolean sameStart(Shift shift, Shift test) {
+    private boolean sameStartTime(Shift shift, Shift test) {
         return shift.getZaciatok().toLocalTime().equals(test.getZaciatok().toLocalTime());
     }
 

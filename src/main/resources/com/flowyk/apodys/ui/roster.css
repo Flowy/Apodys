@@ -16,3 +16,6 @@
     -fx-background-color: -fx-table-cell-border-color, derive(pink,-15%);
 }
 
+.table-row-cell .dropReady {
+    -fx-background-color: beige;
+}

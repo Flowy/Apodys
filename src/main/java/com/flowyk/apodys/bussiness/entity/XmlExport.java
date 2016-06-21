@@ -9,13 +9,10 @@ import java.util.Objects;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class XmlExport {
 
-    @XmlElementWrapper(name = "zmeny", required = true)
-    @XmlElement(name = "zmena")
-    private List<Shift> shifts;
 
     @XmlElementWrapper(name = "zamestnanci", required = true)
     @XmlElement(name = "zamestnanec")
-    private List<Zamestnanec> employees;
+    private List<EmployeeShifts> employeeShifts;
 
     @XmlElementWrapper(name = "predlohy", required = true)
     @XmlElement(name = "predlohaZmeny")
@@ -25,21 +22,16 @@ public class XmlExport {
      * JAXB constructor
      */
     public XmlExport() {
-        this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        this(new ArrayList<>(), new ArrayList<>());
     }
 
-    public XmlExport(List<Shift> shifts, List<Zamestnanec> employees, List<PredlohaSmeny> shiftTemplates) {
-        this.shifts = Objects.requireNonNull(shifts);
-        this.employees = Objects.requireNonNull(employees);
+    public XmlExport(List<EmployeeShifts> employeeShifts, List<PredlohaSmeny> shiftTemplates) {
+        this.employeeShifts = employeeShifts;
         this.predlohy = Objects.requireNonNull(shiftTemplates);
     }
 
-    public List<Shift> getShifts() {
-        return shifts;
-    }
-
-    public List<Zamestnanec> getEmployees() {
-        return employees;
+    public List<EmployeeShifts> getEmployeeShifts() {
+        return employeeShifts;
     }
 
     public List<PredlohaSmeny> getShiftTemplates() {

@@ -6,8 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.*;
-import java.util.Collection;
-import java.util.List;
+import java.util.Set;
 
 public class FreeTimeAfterShift extends BaseRuleOffenderFinder {
     private static final Logger LOG = LoggerFactory.getLogger(FreeTimeAfterShift.class);
@@ -29,11 +28,11 @@ public class FreeTimeAfterShift extends BaseRuleOffenderFinder {
     }
 
     @Override
-    protected boolean isOffender(Shift shift, List<Shift> shifts) {
+    protected boolean isOffender(Shift shift, Set<Shift> shifts) {
         ZonedDateTime lastMatchedTime = null;
         int matched = 0;
-        for (Shift current: shifts) {
-            if (!current.rovnakyVykonavatel(shift) || !current.getZaciatok().toLocalTime().equals(shiftStarts)) {
+        for (Shift current : shifts) {
+            if (!current.getZaciatok().toLocalTime().equals(shiftStarts)) {
                 continue;
             }
             if (shift.equals(current)) {

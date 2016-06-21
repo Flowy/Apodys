@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.Objects;
 
 @XmlAccessorType(XmlAccessType.NONE)
@@ -13,7 +14,6 @@ public class Shift implements Serializable {
     private ZonedDateTime zaciatok;
     private ZonedDateTime koniec;
     private TypPolozkyPlanu typ;
-    private Zamestnanec employee;
     private Duration countedDuration;
     private PredlohaSmeny predloha;
 
@@ -48,8 +48,6 @@ public class Shift implements Serializable {
 
     public Shift(Shift origin) {
         this(origin.getZaciatok(), origin.getKoniec(), origin.getTyp(), origin.getCountedDuration(), origin.getPredloha());
-        this.setEmployee(origin.getEmployee());
-
     }
 
     @XmlElement(required = true)
@@ -76,14 +74,6 @@ public class Shift implements Serializable {
         this.koniec = koniec;
     }
 
-    @XmlIDREF
-    public Zamestnanec getEmployee() {
-        return employee;
-    }
-    public void setEmployee(Zamestnanec employee) {
-        this.employee = employee;
-    }
-
     @XmlElement(required = true)
     public Duration getCountedDuration() {
         return countedDuration;
@@ -101,58 +91,6 @@ public class Shift implements Serializable {
         this.predloha = predloha;
     }
 
-
-
-
-    public boolean prekryva(Shift origin) {
-        return prekryva(origin.getZaciatok(), origin.getKoniec());
-    }
-
-    public boolean prekryva(ZonedDateTime zaciatok, ZonedDateTime koniec) {
-        return startsIn(zaciatok, koniec) ||
-                endsIn(zaciatok, koniec) ||
-                isOver(zaciatok, koniec);
-    }
-
-    public boolean rovnakyVykonavatel(Shift origin) {
-        return Objects.equals(origin.getEmployee(), this.getEmployee());
-    }
-
-    public boolean rovnakaZmena(Shift origin) {
-        return Objects.equals(origin.getZaciatok().toLocalTime(), this.getZaciatok().toLocalTime());
-    }
-
-    public boolean rovnakyTyp(Shift origin) {
-        return origin != null && Objects.equals(origin.getTyp(), this.getTyp());
-    }
-
-    public boolean rovnakyCas(Shift origin) {
-        return origin != null &&
-                Objects.equals(origin.getZaciatok().toLocalTime(), getZaciatok().toLocalTime()) &&
-                Objects.equals(origin.getKoniec().toLocalTime(), getKoniec().toLocalTime());
-    }
-
-    /**
-     * starts after/at start and starts before end
-     */
-    private boolean startsIn(ZonedDateTime start, ZonedDateTime end) {
-        return !this.getZaciatok().isBefore(start) && this.getZaciatok().isBefore(end);
-    }
-
-    /**
-     * ends after start and before/at end
-     */
-    private boolean endsIn(ZonedDateTime start, ZonedDateTime end) {
-        return this.getKoniec().isAfter(start) && !this.getKoniec().isAfter(end);
-    }
-
-    /**
-     * starts before start and after end
-     */
-    private boolean isOver(ZonedDateTime start, ZonedDateTime end) {
-        return this.getZaciatok().isBefore(start) && this.getKoniec().isAfter(end);
-    }
-
     @Override
     public String toString() {
         DateTimeFormatter dateTime = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
@@ -160,7 +98,8 @@ public class Shift implements Serializable {
                 "zaciatok=" + getZaciatok().format(dateTime) +
                 ", koniec=" + getKoniec().format(dateTime) +
                 ", typ=" + getTyp() +
-                ", zamestnanec=" + getEmployee() +
                 '}';
     }
+
+    public final static Comparator<Shift> START_TIME_COMPARATOR = (o1, o2) -> o1.getZaciatok().compareTo(o2.getZaciatok());
 }

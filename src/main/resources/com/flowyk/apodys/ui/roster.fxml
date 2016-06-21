@@ -7,8 +7,16 @@
             xmlns:fx="http://javafx.com/fxml/1"
             stylesheets="/com/flowyk/apodys/ui/roster.css"
             fx:controller="com.flowyk.apodys.ui.RosterController">
+    <top>
+        <HBox>
+            <DatePicker fx:id="firstDayPicker"
+                        showWeekNumbers="true"/>
+            <DatePicker fx:id="lastDayPicker"
+                        showWeekNumbers="true"/>
+            <fx:include source="shiftTemplates.fxml"/>
+        </HBox>
+    </top>
     <center>
-
         <TableView fx:id="rosterTable">
         </TableView>
     </center>

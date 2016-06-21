@@ -6,7 +6,6 @@ import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import com.flowyk.apodys.planovanie.RuleInvestigatorManager;
 import com.flowyk.apodys.planovanie.RuleOffender;
 import com.flowyk.apodys.bussiness.controller.Context;
-import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,16 +27,12 @@ public class RosterBoundary {
         bindShiftsInvalidated();
     }
 
-    public ObservableList<Zamestnanec> getEmployees() {
-        return context.getEmployees();
-    }
+//    public ObservableList<Zamestnanec> getEmployees() {
+//        return context.getEmployees();
+//    }
 
     public ObservableList<PredlohaSmeny> getShiftTemplates() {
         return context.getShiftTemplates();
-    }
-
-    public ObservableList<Shift> getShifts() {
-        return context.getShifts();
     }
 
     public ObservableList<RuleOffender> getErrors() {
@@ -45,28 +40,35 @@ public class RosterBoundary {
     }
 
     public void createEmployee(String name, String email) {
-        context.getEmployees().add(new Zamestnanec(name, email));
+//        TODO
+//        context.getEmployees().add(new Zamestnanec(name, email));
     }
 
     public Shift override(Shift shift, PredlohaSmeny shiftTemplate) {
-        context.getShifts().remove(shift);
-        return create(shiftTemplate, shift.getZaciatok().toLocalDate(), shift.getEmployee());
+//        TODO
+//        context.getShifts().remove(shift);
+//        return create(shiftTemplate, shift.getZaciatok().toLocalDate(), shift.getEmployee());
+        return null;
     }
 
     public Shift create(PredlohaSmeny shiftTemplate, LocalDate startDate, Zamestnanec employee) {
-        Shift shift = shiftTemplate.vygenerujOd(startDate);
-        shift.setEmployee(employee);
-        context.getShifts().add(shift);
-        return shift;
+//        Shift shift = shiftTemplate.vygenerujOd(startDate);
+//        shift.setEmployee(employee);
+//        context.getShifts().add(shift);
+//        return shift;
+//        TODO
+        return null;
     }
 
     public void remove(Shift shift) {
-        context.getShifts().remove(shift);
+//        TODO
+//        context.getShifts().remove(shift);
     }
 
     private void bindShiftsInvalidated() {
-        InvalidationListener shiftsInvalidatedListener = observable -> findErrorsInShifts();
-        context.getShifts().addListener(shiftsInvalidatedListener);
+//        TODO
+//        InvalidationListener shiftsInvalidatedListener = observable -> findErrorsInShifts();
+//        context.getShifts().addListener(shiftsInvalidatedListener);
     }
 
     private RuleInvestigatorManager manager;
@@ -77,14 +79,7 @@ public class RosterBoundary {
         }
 
         getErrors().clear();
-        getErrors().addAll(manager.findOffenders(getShifts().sorted((o1, o2) -> {
-            int timeCompare = o1.getZaciatok().compareTo(o2.getZaciatok());
-            if (timeCompare != 0) {
-                return timeCompare;
-            }
-            int employeeCompare = o1.getEmployee().compareTo(o2.getEmployee());
-            return employeeCompare;
-        })));
+        getErrors().addAll(manager.findOffenders(context.getEmployeeShifts()));
         logger.debug("Found {} errors", getErrors().size());
     }
 }
