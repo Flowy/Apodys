@@ -1,119 +1,268 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xmlExport>
-    <zmeny>
-        <zmena predloha="R2P">
-            <countedDuration>PT12H</countedDuration>
-            <employee>Papa Smurf</employee>
-            <koniec>2016-06-16T18:00:00+02:00[Europe/Bratislava]</koniec>
-            <typ>SMENA</typ>
-            <zaciatok>2016-06-16T06:00:00+02:00[Europe/Bratislava]</zaciatok>
-        </zmena>
-        <zmena predloha="R2P">
-            <countedDuration>PT12H</countedDuration>
-            <employee>Papa Smurf</employee>
-            <koniec>2016-06-17T18:00:00+02:00[Europe/Bratislava]</koniec>
-            <typ>SMENA</typ>
-            <zaciatok>2016-06-17T06:00:00+02:00[Europe/Bratislava]</zaciatok>
-        </zmena>
-        <zmena predloha="07,5">
-            <countedDuration>PT8H</countedDuration>
-            <employee>Papa Smurf</employee>
-            <koniec>2016-06-18T22:00:00+02:00[Europe/Bratislava]</koniec>
-            <typ>SMENA</typ>
-            <zaciatok>2016-06-18T14:00:00+02:00[Europe/Bratislava]</zaciatok>
-        </zmena>
-        <zmena predloha="07,5">
-            <countedDuration>PT8H</countedDuration>
-            <employee>Papa Smurf</employee>
-            <koniec>2016-06-19T22:00:00+02:00[Europe/Bratislava]</koniec>
-            <typ>SMENA</typ>
-            <zaciatok>2016-06-19T14:00:00+02:00[Europe/Bratislava]</zaciatok>
-        </zmena>
-        <zmena predloha="R2P">
-            <countedDuration>PT12H</countedDuration>
-            <employee>Gargamel</employee>
-            <koniec>2016-06-16T18:00:00+02:00[Europe/Bratislava]</koniec>
-            <typ>SMENA</typ>
-            <zaciatok>2016-06-16T06:00:00+02:00[Europe/Bratislava]</zaciatok>
-        </zmena>
-        <zmena predloha="R2P">
-            <countedDuration>PT12H</countedDuration>
-            <employee>Gargamel</employee>
-            <koniec>2016-06-17T18:00:00+02:00[Europe/Bratislava]</koniec>
-            <typ>SMENA</typ>
-            <zaciatok>2016-06-17T06:00:00+02:00[Europe/Bratislava]</zaciatok>
-        </zmena>
-        <zmena predloha="07,5">
-            <countedDuration>PT8H</countedDuration>
-            <employee>Gargamel</employee>
-            <koniec>2016-06-18T22:00:00+02:00[Europe/Bratislava]</koniec>
-            <typ>SMENA</typ>
-            <zaciatok>2016-06-18T14:00:00+02:00[Europe/Bratislava]</zaciatok>
-        </zmena>
-        <zmena predloha="R2P">
-            <countedDuration>PT12H</countedDuration>
-            <employee>Papa Smurf</employee>
-            <koniec>2016-06-23T18:00:00+02:00[Europe/Bratislava]</koniec>
-            <typ>SMENA</typ>
-            <zaciatok>2016-06-23T06:00:00+02:00[Europe/Bratislava]</zaciatok>
-        </zmena>
-        <zmena predloha="R2P">
-            <countedDuration>PT12H</countedDuration>
-            <employee>Papa Smurf</employee>
-            <koniec>2016-06-24T18:00:00+02:00[Europe/Bratislava]</koniec>
-            <typ>SMENA</typ>
-            <zaciatok>2016-06-24T06:00:00+02:00[Europe/Bratislava]</zaciatok>
-        </zmena>
-        <zmena predloha="07,5">
-            <countedDuration>PT8H</countedDuration>
-            <employee>Papa Smurf</employee>
-            <koniec>2016-06-25T22:00:00+02:00[Europe/Bratislava]</koniec>
-            <typ>SMENA</typ>
-            <zaciatok>2016-06-25T14:00:00+02:00[Europe/Bratislava]</zaciatok>
-        </zmena>
-        <zmena predloha="R2P">
-            <countedDuration>PT12H</countedDuration>
-            <employee>Gargamel</employee>
-            <koniec>2016-06-23T18:00:00+02:00[Europe/Bratislava]</koniec>
-            <typ>SMENA</typ>
-            <zaciatok>2016-06-23T06:00:00+02:00[Europe/Bratislava]</zaciatok>
-        </zmena>
-        <zmena predloha="R2P">
-            <countedDuration>PT12H</countedDuration>
-            <employee>Gargamel</employee>
-            <koniec>2016-06-24T18:00:00+02:00[Europe/Bratislava]</koniec>
-            <typ>SMENA</typ>
-            <zaciatok>2016-06-24T06:00:00+02:00[Europe/Bratislava]</zaciatok>
-        </zmena>
-        <zmena predloha="07,5">
-            <countedDuration>PT8H</countedDuration>
-            <employee>Gargamel</employee>
-            <koniec>2016-06-25T22:00:00+02:00[Europe/Bratislava]</koniec>
-            <typ>SMENA</typ>
-            <zaciatok>2016-06-25T14:00:00+02:00[Europe/Bratislava]</zaciatok>
-        </zmena>
-        <zmena predloha="07,5">
-            <countedDuration>PT8H</countedDuration>
-            <employee>Gargamel</employee>
-            <koniec>2016-06-26T22:00:00+02:00[Europe/Bratislava]</koniec>
-            <typ>SMENA</typ>
-            <zaciatok>2016-06-26T14:00:00+02:00[Europe/Bratislava]</zaciatok>
-        </zmena>
-    </zmeny>
     <zamestnanci>
-        <zamestnanec name="Papa Smurf" email="flowyk+testPapaSmurf@gmail.com"/>
-        <zamestnanec name="Gargamel" email="flowyk+testGargamel@gmail.com"/>
-        <zamestnanec name="Darth Vader" email="flowyk+testDdarthVader@gmail.com"/>
-        <zamestnanec name="Alf" email="flowyk+testAlf@gmail.com"/>
-        <zamestnanec name="Tinky-Winky" email="flowyk+testTinkyWinky@gmail.com"/>
-        <zamestnanec name="Elmo" email="flowyk+testElmo@gmail.com"/>
-        <zamestnanec name="Cookie Monster" email="flowyk+testCookieMonster@gmail.com"/>
-        <zamestnanec name="Bart Simpson" email="flowyk+test@gmail.com"/>
-        <zamestnanec name="Homer Simpson" email="flowyk+test@gmail.com"/>
-        <zamestnanec name="Marge Simpson" email="flowyk+test@gmail.com"/>
-        <zamestnanec name="Maggie Simpson" email="flowyk+test@gmail.com"/>
-        <zamestnanec name="Lisa Simpson" email="flowyk+test@gmail.com"/>
-        <zamestnanec name="Ned Flanders" email="flowyk+test@gmail.com"/>
+        <zamestnanec>
+            <employee name="Papa Smurf" email="flowyk+testPapaSmurf@gmail.com"/>
+            <zmeny>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-06-22T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-06-22T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-06-23T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-06-23T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="07,5">
+                    <countedDuration>PT8H</countedDuration>
+                    <koniec>2016-06-24T22:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-06-24T14:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="07,5">
+                    <countedDuration>PT8H</countedDuration>
+                    <koniec>2016-06-25T22:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-06-25T14:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-06-29T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-06-29T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-06-30T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-06-30T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="07,5">
+                    <countedDuration>PT8H</countedDuration>
+                    <koniec>2016-07-01T22:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-01T14:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-07-06T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-06T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-07-07T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-07T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="07,5">
+                    <countedDuration>PT8H</countedDuration>
+                    <koniec>2016-07-08T22:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-08T14:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="07,5">
+                    <countedDuration>PT8H</countedDuration>
+                    <koniec>2016-07-09T22:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-09T14:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-07-13T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-13T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-07-14T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-14T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="07,5">
+                    <countedDuration>PT8H</countedDuration>
+                    <koniec>2016-07-15T22:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-15T14:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-07-20T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-20T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-07-21T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-21T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="07,5">
+                    <countedDuration>PT8H</countedDuration>
+                    <koniec>2016-07-22T22:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-22T14:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="07,5">
+                    <countedDuration>PT8H</countedDuration>
+                    <koniec>2016-07-23T22:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-23T14:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-07-27T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-27T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-07-28T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-28T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="07,5">
+                    <countedDuration>PT8H</countedDuration>
+                    <koniec>2016-07-29T22:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-29T14:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+            </zmeny>
+        </zamestnanec>
+        <zamestnanec>
+            <employee name="Gargamel" email="flowyk+testGargamel@gmail.com"/>
+            <zmeny>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-06-22T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-06-22T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-06-23T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-06-23T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="07,5">
+                    <countedDuration>PT8H</countedDuration>
+                    <koniec>2016-06-24T22:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-06-24T14:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-06-29T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-06-29T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-06-30T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-06-30T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="07,5">
+                    <countedDuration>PT8H</countedDuration>
+                    <koniec>2016-07-01T22:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-01T14:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="07,5">
+                    <countedDuration>PT8H</countedDuration>
+                    <koniec>2016-07-02T22:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-02T14:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-07-06T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-06T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-07-07T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-07T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="07,5">
+                    <countedDuration>PT8H</countedDuration>
+                    <koniec>2016-07-08T22:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-08T14:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-07-13T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-13T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-07-14T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-14T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="07,5">
+                    <countedDuration>PT8H</countedDuration>
+                    <koniec>2016-07-15T22:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-15T14:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="07,5">
+                    <countedDuration>PT8H</countedDuration>
+                    <koniec>2016-07-16T22:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-16T14:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-07-20T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-20T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-07-21T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-21T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="07,5">
+                    <countedDuration>PT8H</countedDuration>
+                    <koniec>2016-07-22T22:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-22T14:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-07-27T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-27T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="R2P">
+                    <countedDuration>PT12H</countedDuration>
+                    <koniec>2016-07-28T18:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-28T06:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="07,5">
+                    <countedDuration>PT8H</countedDuration>
+                    <koniec>2016-07-29T22:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-29T14:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+                <zmena predloha="07,5">
+                    <countedDuration>PT8H</countedDuration>
+                    <koniec>2016-07-30T22:00:00+02:00[Europe/Berlin]</koniec>
+                    <typ>SMENA</typ>
+                    <zaciatok>2016-07-30T14:00:00+02:00[Europe/Berlin]</zaciatok>
+                </zmena>
+            </zmeny>
+        </zamestnanec>
     </zamestnanci>
     <predlohy>
         <predlohaZmeny nazov="N2P" startTime="18:00:00" endTime="06:00:00" timeSpan="P1D" countedDuration="PT12H"/>

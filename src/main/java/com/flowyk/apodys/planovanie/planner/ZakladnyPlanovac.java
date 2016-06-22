@@ -1,14 +1,12 @@
 package com.flowyk.apodys.planovanie.planner;
 
-import com.flowyk.apodys.bussiness.entity.Shift;
+import com.flowyk.apodys.bussiness.entity.EmployeeShifts;
 import com.flowyk.apodys.bussiness.entity.PredlohaSmienPreObdobie;
-import com.flowyk.apodys.bussiness.entity.Zamestnanec;
+import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.planovanie.Planovac;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,29 +18,23 @@ public class ZakladnyPlanovac implements Planovac {
     }
 
     @Override
-    public List<Shift> naplanuj(List<Zamestnanec> employees, LocalDate zaciatok, LocalDate koniec, ZoneId timezone) {
-        Objects.requireNonNull(employees);
-        if (employees.size() == 0) {
+    public void naplanuj(List<EmployeeShifts> employeeShifts, LocalDate zaciatok, LocalDate koniec) {
+        Objects.requireNonNull(employeeShifts);
+        if (employeeShifts.size() == 0) {
             throw new IllegalArgumentException("Zoznam zamestnancov musi obsahovat aspon jedneho zamesnanca");
         }
         List<Shift> shifts = new ArrayList<>();
         LocalDate startTime = zaciatok;
+        int i = 0;
         while (startTime.isBefore(koniec)) {
-            List<Shift> generatedShifts = predlohaSmienPreObdobie.vygenerujOd(startTime, timezone);
-            assignEmployees(generatedShifts, employees);
+            List<Shift> generatedShifts = predlohaSmienPreObdobie.vygenerujOd(startTime);
+            employeeShifts.get(i).getShifts().addAll(generatedShifts);
             generatedShifts.forEach(shifts::add);
             startTime = startTime.plus(predlohaSmienPreObdobie.dlzkaObdobia());
-        }
-        return shifts;
-    }
-
-    private void assignEmployees(List<Shift> shifts, List<Zamestnanec> employees) {
-        Iterator<Zamestnanec> zamestnanci = null;
-        for (Shift smena: shifts) {
-            if (zamestnanci == null || !zamestnanci.hasNext()) {
-                zamestnanci = employees.iterator();
+            i += 1;
+            if (i == employeeShifts.size()) {
+                i = 0;
             }
-            smena.setEmployee(zamestnanci.next());
         }
     }
 }

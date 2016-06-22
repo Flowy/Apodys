@@ -1,8 +1,8 @@
 @XmlJavaTypeAdapters({
-        @XmlJavaTypeAdapter(type=ZonedDateTime.class, value=ZonedDateTimeXmlAdapter.class),
-        @XmlJavaTypeAdapter(type=Duration.class, value=DurationXmlAdapter.class),
-        @XmlJavaTypeAdapter(type=LocalTime.class, value=LocalTimeXmlAdapter.class),
-        @XmlJavaTypeAdapter(type=Period.class, value=PeriodXmlAdapter.class)
+        @XmlJavaTypeAdapter(type = ZonedDateTime.class, value = ZonedDateTimeXmlAdapter.class),
+        @XmlJavaTypeAdapter(type = Duration.class, value = DurationXmlAdapter.class),
+        @XmlJavaTypeAdapter(type = LocalTime.class, value = LocalTimeXmlAdapter.class),
+        @XmlJavaTypeAdapter(type = Period.class, value = PeriodXmlAdapter.class)
 })
 package com.flowyk.apodys.bussiness.entity;
 

@@ -3,8 +3,6 @@ package com.flowyk.apodys.planovanie.rule;
 import com.flowyk.apodys.bussiness.entity.LocalizationUnit;
 import com.flowyk.apodys.bussiness.entity.Shift;
 
-import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.Set;
 
 public class OneShiftAtTime extends BaseRuleOffenderFinder {
@@ -17,7 +15,7 @@ public class OneShiftAtTime extends BaseRuleOffenderFinder {
 
     @Override
     protected boolean isOffender(Shift shift, Set<Shift> shifts) {
-        for (Shift test: shifts) {
+        for (Shift test : shifts) {
             if (shift.equals(test)) {
                 break;
             }

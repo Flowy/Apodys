@@ -1,12 +1,11 @@
 package com.flowyk.apodys.ui;
 
 import com.flowyk.apodys.bussiness.boundary.Messages;
+import com.flowyk.apodys.bussiness.boundary.RosterBoundary;
 import com.flowyk.apodys.bussiness.entity.EmployeeShifts;
 import com.flowyk.apodys.bussiness.entity.PredlohaSmeny;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
-import com.flowyk.apodys.bussiness.boundary.RosterBoundary;
-import javafx.scene.control.TableCell;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -15,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import java.time.LocalDate;
 
 public class DragDropShiftTableCell extends ShiftTableCell {
     private Logger logger = LoggerFactory.getLogger(getClass());

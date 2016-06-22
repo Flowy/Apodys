@@ -1,14 +1,12 @@
 package com.flowyk.apodys.bussiness.controller;
 
-import com.flowyk.apodys.bussiness.entity.Shift;
+import com.flowyk.apodys.bussiness.entity.EmployeeShifts;
 import com.flowyk.apodys.bussiness.entity.XmlExport;
-import com.flowyk.apodys.bussiness.entity.Zamestnanec;
-import com.flowyk.apodys.planovanie.planner.PatternPlanner;
-import com.flowyk.apodys.test.TestovacieData;
 import com.flowyk.apodys.planovanie.Planovac;
+import com.flowyk.apodys.planovanie.planner.PatternPlanner;
 import com.flowyk.apodys.planovanie.planner.ZakladnyPlanovac;
+import com.flowyk.apodys.test.TestovacieData;
 import com.google.common.eventbus.EventBus;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -20,16 +18,21 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.flowyk.apodys.test.TestHelper.combine;
+
 public class ExportTest {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     TestovacieData td;
     Export export;
+    Context context;
 
     @Before
     public void setUp() throws Exception {
         td = new TestovacieData();
         export = new Export();
+        context = new Context(new EventBus(), new Export());
+        context.getShiftTemplates().addAll(td.predlohaN2P, td.predlohaO75, td.predlohaP1C, td.predlohaR2P);
     }
 
     @Test
@@ -44,17 +47,13 @@ public class ExportTest {
     //TODO: move somewhere else - this is test of planner
     @Test
     public void testSave() throws Exception {
+        List<EmployeeShifts> employeeShifts = context.getEmployeeShifts();
+        employeeShifts.addAll(combine(td.zamestnanci));
         Planovac planovac = new ZakladnyPlanovac(td.tyzdennyPlan);
-        List<Shift> shifts = planovac.naplanuj(
-                td.zamestnanci,
+        planovac.naplanuj(
+                employeeShifts,
                 LocalDate.of(2015, 11, 30),
-                LocalDate.of(2015, 12, 6),
-                td.testovanaZona);
-        Context context = new Context(new EventBus(), new Export());
-//        TODO
-//        context.getEmployees().addAll(td.zamestnanci);
-//        context.getShifts().addAll(shifts);
-        context.getShiftTemplates().addAll(td.predlohaN2P, td.predlohaO75, td.predlohaP1C, td.predlohaR2P);
+                LocalDate.of(2015, 12, 6));
         File file = File.createTempFile("testSave", ".xml");
         context.saveTo(file);
 
@@ -63,19 +62,13 @@ public class ExportTest {
 
     @Test
     public void exportPatternPlanned() throws IOException {
-        List<Zamestnanec> employees = Arrays.asList(td.zamestnanci.get(0), td.zamestnanci.get(1));
+        List<EmployeeShifts> employeeShifts = context.getEmployeeShifts();
+        employeeShifts.addAll(combine(Arrays.asList(td.zamestnanci.get(0), td.zamestnanci.get(1))));
         Planovac planovac = new PatternPlanner(Arrays.asList(td.tyzden40(), td.tyzden32()));
-        List<Shift> shifts = planovac.naplanuj(
-                employees,
-                LocalDate.of(2016, 6, 16),
-                LocalDate.of(2016, 6, 30),
-                td.testovanaZona
-        );
-        Context context = new Context(new EventBus(), new Export());
-//        TODO
-//        context.getEmployees().addAll(td.zamestnanci);
-//        context.getShifts().addAll(shifts);
-        context.getShiftTemplates().addAll(td.predlohaN2P, td.predlohaO75, td.predlohaP1C, td.predlohaR2P);
+        planovac.naplanuj(
+                employeeShifts,
+                LocalDate.of(2016, 6, 22),
+                LocalDate.of(2016, 7, 30));
         File file = File.createTempFile("testSave", ".xml");
         context.saveTo(file);
 

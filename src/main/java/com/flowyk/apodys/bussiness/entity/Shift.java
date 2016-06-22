@@ -54,6 +54,7 @@ public class Shift implements Serializable {
     public TypPolozkyPlanu getTyp() {
         return typ;
     }
+
     public void setTyp(TypPolozkyPlanu typ) {
         this.typ = typ;
     }
@@ -62,6 +63,7 @@ public class Shift implements Serializable {
     public ZonedDateTime getZaciatok() {
         return zaciatok;
     }
+
     public void setZaciatok(ZonedDateTime zaciatok) {
         this.zaciatok = zaciatok;
     }
@@ -70,6 +72,7 @@ public class Shift implements Serializable {
     public ZonedDateTime getKoniec() {
         return koniec;
     }
+
     public void setKoniec(ZonedDateTime koniec) {
         this.koniec = koniec;
     }
@@ -78,6 +81,7 @@ public class Shift implements Serializable {
     public Duration getCountedDuration() {
         return countedDuration;
     }
+
     public void setCountedDuration(Duration countedDuration) {
         this.countedDuration = countedDuration;
     }
@@ -87,6 +91,7 @@ public class Shift implements Serializable {
     public PredlohaSmeny getPredloha() {
         return predloha;
     }
+
     public void setPredloha(PredlohaSmeny predloha) {
         this.predloha = predloha;
     }

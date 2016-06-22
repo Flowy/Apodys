@@ -11,8 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ShiftTableCell extends TableCell<EmployeeShifts, Shift> {
     private Logger logger = LoggerFactory.getLogger(getClass());

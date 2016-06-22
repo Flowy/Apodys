@@ -5,23 +5,25 @@ import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
 
 @XmlAccessorType(XmlAccessType.NONE)
 public class EmployeeShifts {
-    private SimpleObjectProperty<Zamestnanec> employee;
-    private ObservableSet<Shift> shifts;
+    private SimpleObjectProperty<Zamestnanec> employee = new SimpleObjectProperty<>();
+    private ObservableSet<Shift> shifts = FXCollections.observableSet(new TreeSet<>(Shift.START_TIME_COMPARATOR));
 
     public EmployeeShifts() {
-
     }
 
     public EmployeeShifts(Zamestnanec employee) {
-        this.employee = new SimpleObjectProperty<>(employee);
-        this.shifts = FXCollections.observableSet(new TreeSet<>(Shift.START_TIME_COMPARATOR));
+        setEmployee(employee);
     }
 
     public Shift getShift(LocalDate date) {
@@ -42,7 +44,12 @@ public class EmployeeShifts {
         return shifts;
     }
 
-    @XmlIDREF
+    public void setShifts(Collection<Shift> shifts) {
+        this.shifts.clear();
+        this.shifts.addAll(shifts);
+    }
+
+    @XmlElement(required = true)
     public Zamestnanec getEmployee() {
         return employee.getValue();
     }

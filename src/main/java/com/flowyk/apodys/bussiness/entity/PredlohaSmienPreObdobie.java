@@ -16,10 +16,10 @@ public class PredlohaSmienPreObdobie {
         this.dlzkaObdobia = dlzkaObdobia;
     }
 
-    public List<Shift> vygenerujOd(LocalDate datum, ZoneId zona) {
+    public List<Shift> vygenerujOd(LocalDate datum) {
         List<Shift> vysledok = new ArrayList<>(supisPredloh.size());
-        for (PredlohaSmenyPreObdobie predloha: supisPredloh) {
-            vysledok.add(predloha.vygenerujOd(datum, zona));
+        for (PredlohaSmenyPreObdobie predloha : supisPredloh) {
+            vysledok.add(predloha.vygenerujOd(datum));
         }
         return vysledok;
     }
@@ -30,7 +30,7 @@ public class PredlohaSmienPreObdobie {
 
     public Collection<? extends Shift> vygenerujOdDo(LocalDate start, LocalDate end, ZoneId timezone) {
         List<Shift> vysledok = new ArrayList<>(supisPredloh.size());
-        for (PredlohaSmenyPreObdobie predloha: supisPredloh) {
+        for (PredlohaSmenyPreObdobie predloha : supisPredloh) {
             if (start.plus(predloha.getStartDay()).isAfter(end)) {
                 break;
             } else {
@@ -49,9 +49,9 @@ public class PredlohaSmienPreObdobie {
         }
 
         @Override
-        public Shift vygenerujOd(LocalDate datum, ZoneId zona) {
+        public Shift vygenerujOd(LocalDate datum) {
             LocalDate posunutyDatum = datum.plus(startDay);
-            return super.vygenerujOd(posunutyDatum, zona);
+            return super.vygenerujOd(posunutyDatum);
         }
 
         public Period getStartDay() {

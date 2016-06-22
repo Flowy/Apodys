@@ -97,6 +97,7 @@ public class TestovacieData {
         PredlohaSmienPreObdobie zmeny = new PredlohaSmienPreObdobie(tyzden, Period.ofDays(7));
         return zmeny;
     }
+
     public PredlohaSmienPreObdobie tyzden32() {
         List<PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie> tyzden = new ArrayList<>();
         tyzden.add(new PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie(predlohaR2P, Period.ofDays(0)));

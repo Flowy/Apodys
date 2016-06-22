@@ -5,7 +5,9 @@ import com.flowyk.apodys.bussiness.entity.Shift;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.*;
+import java.time.Duration;
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.Set;
 
 public class FreeTimeAfterShift extends BaseRuleOffenderFinder {

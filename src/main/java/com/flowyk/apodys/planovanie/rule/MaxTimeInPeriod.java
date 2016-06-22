@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 import java.time.Period;
 import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.Set;
 
 public class MaxTimeInPeriod extends BaseRuleOffenderFinder {
@@ -28,7 +27,7 @@ public class MaxTimeInPeriod extends BaseRuleOffenderFinder {
     protected boolean isOffender(Shift shift, Set<Shift> shifts) {
         ZonedDateTime periodMin = shift.getZaciatok().minus(period);
         Duration workedTimeBeforeShift = Duration.ZERO;
-        for (Shift current: shifts) {
+        for (Shift current : shifts) {
             if (current.getZaciatok().isBefore(periodMin)) {
                 continue;
             }

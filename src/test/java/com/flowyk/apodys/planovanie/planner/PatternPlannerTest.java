@@ -1,7 +1,6 @@
 package com.flowyk.apodys.planovanie.planner;
 
-import com.flowyk.apodys.bussiness.entity.Shift;
-import com.flowyk.apodys.bussiness.entity.Zamestnanec;
+import com.flowyk.apodys.bussiness.entity.EmployeeShifts;
 import com.flowyk.apodys.planovanie.Planovac;
 import com.flowyk.apodys.test.TestovacieData;
 import org.junit.Before;
@@ -11,9 +10,10 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
+import static com.flowyk.apodys.test.TestHelper.combine;
 
 public class PatternPlannerTest {
     private static final Logger LOG = LoggerFactory.getLogger("test");
@@ -27,16 +27,12 @@ public class PatternPlannerTest {
 
     @Test
     public void testNaplanuj() throws Exception {
-        List<Zamestnanec> zamestnanci = Arrays.asList(td.zamestnanci.get(0));
+        List<EmployeeShifts> employeeShifts = combine(Collections.singletonList(td.zamestnanci.get(0)));
         Planovac planovac = new PatternPlanner(Arrays.asList(td.tyzden40(), td.tyzden32()));
-        List<Shift> planSmien = planovac.naplanuj(
-                zamestnanci,
+        planovac.naplanuj(
+                employeeShifts,
                 LocalDate.of(2015, 6, 1),
-                LocalDate.of(2015, 6, 14),
-                td.testovanaZona);
-//        for (Shift polozka : planSmien) {
-//            assertNotNull(polozka.vykonavatel());
-//        }
+                LocalDate.of(2015, 6, 14));
     }
 
 }

@@ -4,8 +4,6 @@ import org.junit.Test;
 
 import java.util.prefs.Preferences;
 
-import static org.junit.Assert.*;
-
 public class EmailTest {
 
     @Test

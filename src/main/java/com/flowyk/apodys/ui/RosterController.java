@@ -7,8 +7,6 @@ import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import com.google.inject.Injector;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;

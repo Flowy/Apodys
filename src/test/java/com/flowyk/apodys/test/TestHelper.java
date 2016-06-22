@@ -1,5 +1,6 @@
 package com.flowyk.apodys.test;
 
+import com.flowyk.apodys.bussiness.entity.EmployeeShifts;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import com.flowyk.apodys.planovanie.RuleOffender;
@@ -11,17 +12,20 @@ import java.util.List;
 
 public class TestHelper {
 
-    public static Shift combine(Shift shift, Zamestnanec employee) {
-        shift.setEmployee(employee);
-        return shift;
+    public static EmployeeShifts combine(Zamestnanec employee, Shift... shifts) {
+        EmployeeShifts result = new EmployeeShifts(employee);
+        for (Shift shift : shifts) {
+            result.getShifts().add(shift);
+        }
+        return result;
     }
 
-    public static List<Shift> combine(Shift... shifts) {
-        List<Shift> list = new ArrayList<>();
-        for (Shift shift: shifts) {
-            list.add(shift);
+    public static List<EmployeeShifts> combine(Collection<Zamestnanec> employees) {
+        List<EmployeeShifts> result = new ArrayList<>();
+        for (Zamestnanec employee : employees) {
+            result.add(new EmployeeShifts(employee));
         }
-        return list;
+        return result;
     }
 
     public static void assertValid(Collection<RuleOffender> crimes) {

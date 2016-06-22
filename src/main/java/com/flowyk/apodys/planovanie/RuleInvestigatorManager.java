@@ -1,7 +1,6 @@
 package com.flowyk.apodys.planovanie;
 
 import com.flowyk.apodys.bussiness.entity.EmployeeShifts;
-import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.planovanie.rule.FreeTimeAfterShift;
 import com.flowyk.apodys.planovanie.rule.MaxTimeInPeriod;
 import com.flowyk.apodys.planovanie.rule.SameShiftOnWeekend;
@@ -10,7 +9,10 @@ import com.flowyk.apodys.planovanie.rule.TwoSameShiftsInRowAtMax;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.time.Period;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 public class RuleInvestigatorManager {
 

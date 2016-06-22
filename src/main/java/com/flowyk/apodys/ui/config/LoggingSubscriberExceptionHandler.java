@@ -5,7 +5,7 @@ import com.google.common.eventbus.SubscriberExceptionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LoggingSubscriberExceptionHandler implements SubscriberExceptionHandler{
+public class LoggingSubscriberExceptionHandler implements SubscriberExceptionHandler {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override

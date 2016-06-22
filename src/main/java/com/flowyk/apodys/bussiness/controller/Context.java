@@ -1,8 +1,12 @@
 package com.flowyk.apodys.bussiness.controller;
 
-import com.flowyk.apodys.bussiness.entity.*;
+import com.flowyk.apodys.bussiness.entity.EmployeeShifts;
+import com.flowyk.apodys.bussiness.entity.PredlohaSmeny;
+import com.flowyk.apodys.bussiness.entity.XmlExport;
+import com.flowyk.apodys.planovanie.RuleInvestigatorManager;
 import com.flowyk.apodys.planovanie.RuleOffender;
 import com.google.common.eventbus.EventBus;
+import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.slf4j.Logger;
@@ -23,23 +27,21 @@ public class Context {
     private ObservableList<PredlohaSmeny> shiftTemplates = FXCollections.observableArrayList();
     private ObservableList<RuleOffender> errors = FXCollections.observableArrayList();
 
+    private RuleInvestigatorManager manager;
+
     @Inject
     public Context(EventBus eventBus, Export export) {
         this.eventBus = eventBus;
         this.export = export;
+
+        InvalidationListener shiftsInvalidatedListener = observable -> findErrorsInShifts();
+        this.employeeShifts.addListener(shiftsInvalidatedListener);
     }
-
-//    public ObservableList<Shift> getShifts() {
-//        return shifts;
-//    }
-
-//    public ObservableList<Zamestnanec> getEmployees() {
-//        return employees;
-//    }
 
     public ObservableList<EmployeeShifts> getEmployeeShifts() {
         return employeeShifts;
     }
+
     public ObservableList<PredlohaSmeny> getShiftTemplates() {
         return shiftTemplates;
     }
@@ -49,20 +51,15 @@ public class Context {
     }
 
     public void saveTo(File file) {
-//        TODO export
-//        export.save(file, new XmlExport(getShifts(), getEmployees(), getShiftTemplates()));
+        export.save(file, new XmlExport(this.employeeShifts, this.shiftTemplates));
     }
 
     public void load(File file) {
         logger.info("File loaded: " + file.toString());
         XmlExport newData = export.read(file);
 
-//        TODO export
-//        this.shifts.clear();
-//        this.shifts.addAll(newData.getShifts());
-//
-//        this.employees.clear();
-//        this.employees.addAll(newData.getEmployees());
+        this.employeeShifts.clear();
+        this.employeeShifts.addAll(newData.getEmployeeShifts());
 
         this.shiftTemplates.clear();
         this.shiftTemplates.addAll(newData.getShiftTemplates());
@@ -73,5 +70,15 @@ public class Context {
     public void resetToDefault() {
         File file = new File(getClass().getClassLoader().getResource("savedRosters/default_roster.xml").getFile());
         load(file);
+    }
+
+    private void findErrorsInShifts() {
+        if (manager == null) {
+            manager = new RuleInvestigatorManager();
+        }
+
+        getErrors().clear();
+        getErrors().addAll(manager.findOffenders(getEmployeeShifts()));
+        logger.debug("Found {} errors", getErrors().size());
     }
 }

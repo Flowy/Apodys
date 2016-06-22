@@ -11,8 +11,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import javax.inject.Singleton;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 @Singleton
 public class MainApp extends javafx.application.Application {

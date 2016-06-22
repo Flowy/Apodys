@@ -24,7 +24,7 @@ public class SameShiftOnWeekend extends BaseRuleOffenderFinder {
             return false;
         }
 
-        for (Shift current: shifts) {
+        for (Shift current : shifts) {
             if (isCounterpart(shift, current)) {
                 LOG.debug("Found counterpart for the shift {}; counterpart: {}", shift, current);
                 return false;

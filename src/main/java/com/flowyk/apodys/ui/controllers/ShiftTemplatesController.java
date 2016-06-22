@@ -1,12 +1,14 @@
 package com.flowyk.apodys.ui.controllers;
 
-import com.flowyk.apodys.bussiness.entity.PredlohaSmeny;
 import com.flowyk.apodys.bussiness.boundary.RosterBoundary;
+import com.flowyk.apodys.bussiness.entity.PredlohaSmeny;
 import com.flowyk.apodys.ui.DragAndDropDataTypes;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.input.*;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
