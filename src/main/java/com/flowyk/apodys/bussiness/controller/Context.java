@@ -2,11 +2,12 @@ package com.flowyk.apodys.bussiness.controller;
 
 import com.flowyk.apodys.bussiness.entity.EmployeeShifts;
 import com.flowyk.apodys.bussiness.entity.PredlohaSmeny;
+import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.XmlExport;
-import com.flowyk.apodys.planovanie.RuleInvestigatorManager;
 import com.flowyk.apodys.planovanie.RuleOffender;
-import com.google.common.eventbus.EventBus;
 import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.binding.ListBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.slf4j.Logger;
@@ -21,21 +22,40 @@ public class Context {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     private final Export export;
-    private final EventBus eventBus;
+    private final RuleInvestigatorManager manager;
 
     private ObservableList<EmployeeShifts> employeeShifts = FXCollections.observableArrayList();
     private ObservableList<PredlohaSmeny> shiftTemplates = FXCollections.observableArrayList();
-    private ObservableList<RuleOffender> errors = FXCollections.observableArrayList();
+    private ListBinding<RuleOffender> errors;
 
-    private RuleInvestigatorManager manager;
+
+    private InvalidationListener shiftsInvalidatedListener = new InvalidationListener() {
+        @Override
+        public void invalidated(Observable observable) {
+            errors.invalidate();
+        }
+    };
+    private InvalidationListener employeeShiftsListener = observable -> {
+        ObservableList<EmployeeShifts> employeeShiftsList = (ObservableList<EmployeeShifts>) observable;
+        employeeShiftsList.forEach(employeeShifts1 -> {
+            employeeShifts1.shiftsProperty().removeListener(shiftsInvalidatedListener);
+            employeeShifts1.shiftsProperty().addListener(shiftsInvalidatedListener);
+        });
+    };
 
     @Inject
-    public Context(EventBus eventBus, Export export) {
-        this.eventBus = eventBus;
+    public Context(Export export, RuleInvestigatorManager ruleInvestigatorManager) {
         this.export = export;
+        this.manager = ruleInvestigatorManager;
 
-        InvalidationListener shiftsInvalidatedListener = observable -> findErrorsInShifts();
-        this.employeeShifts.addListener(shiftsInvalidatedListener);
+        this.employeeShifts.addListener(employeeShiftsListener);
+
+        errors = new ListBinding<RuleOffender>() {
+            @Override
+            protected ObservableList<RuleOffender> computeValue() {
+                return FXCollections.observableArrayList(ruleInvestigatorManager.findOffenders(getEmployeeShifts()));
+            }
+        };
     }
 
     public ObservableList<EmployeeShifts> getEmployeeShifts() {
@@ -72,13 +92,13 @@ public class Context {
         load(file);
     }
 
-    private void findErrorsInShifts() {
-        if (manager == null) {
-            manager = new RuleInvestigatorManager();
-        }
-
-        getErrors().clear();
-        getErrors().addAll(manager.findOffenders(getEmployeeShifts()));
-        logger.debug("Found {} errors", getErrors().size());
-    }
+//    private void findErrorsInShifts() {
+//        if (manager == null) {
+//            manager = new RuleInvestigatorManager();
+//        }
+//
+//        getErrors().clear();
+//        getErrors().addAll(manager.findOffenders(getEmployeeShifts()));
+//        logger.debug("Found {} errors", getErrors().size());
+//    }
 }

@@ -1,16 +1,13 @@
 package com.flowyk.apodys.ui;
 
-import com.flowyk.apodys.bussiness.boundary.RosterBoundary;
 import com.flowyk.apodys.bussiness.controller.Context;
 import com.flowyk.apodys.bussiness.entity.EmployeeShifts;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
 import com.google.inject.Injector;
-import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.binding.ObjectBinding;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import javax.inject.Inject;
@@ -31,9 +28,6 @@ public class RosterController {
     private Injector injector;
 
     @Inject
-    private RosterBoundary rosterBoundary;
-
-    @Inject
     private ErrorsChangedListener errorsChangedListener;
     @Inject
     private Context context;
@@ -51,7 +45,7 @@ public class RosterController {
             refreshColumns();
         });
 
-        rosterBoundary.getErrors().addListener(errorsChangedListener);
+        context.getErrors().addListener(errorsChangedListener);
         refreshColumns();
         rosterTable.setItems(context.getEmployeeShifts());
     }
@@ -93,9 +87,15 @@ public class RosterController {
             return cell;
         });
 
-        shiftColumn.setCellValueFactory(rowData -> {
-            Shift value = rowData.getValue().getShift(date);
-            return new ReadOnlyObjectWrapper<>(value);
+        shiftColumn.setCellValueFactory(rowData -> new ObjectBinding<Shift>() {
+            //the cell will refresh if shifts are changed
+            {
+                bind(rowData.getValue().shiftsProperty());
+            }
+            @Override
+            protected Shift computeValue() {
+                return rowData.getValue().getShift(date);
+            }
         });
         shiftColumn.setSortable(false);
         shiftColumn.setEditable(false);

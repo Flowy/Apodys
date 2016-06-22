@@ -1,6 +1,6 @@
 package com.flowyk.apodys.ui;
 
-import com.flowyk.apodys.bussiness.boundary.Messages;
+import com.flowyk.apodys.bussiness.controller.Messages;
 import com.flowyk.apodys.bussiness.entity.EmployeeShifts;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.planovanie.RuleOffender;

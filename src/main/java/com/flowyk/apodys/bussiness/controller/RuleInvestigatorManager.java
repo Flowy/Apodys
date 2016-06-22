@@ -1,11 +1,14 @@
-package com.flowyk.apodys.planovanie;
+package com.flowyk.apodys.bussiness.controller;
 
 import com.flowyk.apodys.bussiness.entity.EmployeeShifts;
+import com.flowyk.apodys.planovanie.RuleInvestigator;
+import com.flowyk.apodys.planovanie.RuleOffender;
 import com.flowyk.apodys.planovanie.rule.FreeTimeAfterShift;
 import com.flowyk.apodys.planovanie.rule.MaxTimeInPeriod;
 import com.flowyk.apodys.planovanie.rule.SameShiftOnWeekend;
 import com.flowyk.apodys.planovanie.rule.TwoSameShiftsInRowAtMax;
 
+import javax.inject.Singleton;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.time.Period;
@@ -14,6 +17,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+@Singleton
 public class RuleInvestigatorManager {
 
     private List<RuleInvestigator> investigators;
@@ -30,6 +34,14 @@ public class RuleInvestigatorManager {
     }
 
     public Collection<RuleOffender> findOffenders(List<EmployeeShifts> employeeShifts) {
+        List<RuleOffender> offenders = new ArrayList<>();
+        for (RuleInvestigator investigator : investigators) {
+            offenders.addAll(investigator.findOffenders(employeeShifts));
+        }
+        return offenders;
+    }
+
+    public Collection<RuleOffender> findOffenders(EmployeeShifts employeeShifts) {
         List<RuleOffender> offenders = new ArrayList<>();
         for (RuleInvestigator investigator : investigators) {
             offenders.addAll(investigator.findOffenders(employeeShifts));

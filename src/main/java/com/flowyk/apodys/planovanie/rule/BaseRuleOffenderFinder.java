@@ -16,10 +16,17 @@ public abstract class BaseRuleOffenderFinder implements RuleInvestigator {
     public Collection<RuleOffender> findOffenders(List<EmployeeShifts> employeeShiftsList) {
         List<RuleOffender> offenders = new ArrayList<>();
         for (EmployeeShifts employeeShifts : employeeShiftsList) {
-            for (Shift shift : employeeShifts.getShifts()) {
-                if (isOffender(shift, employeeShifts.getShifts())) {
-                    offenders.add(new RuleOffender(this, shift));
-                }
+            offenders.addAll(findOffenders(employeeShifts));
+        }
+        return offenders;
+    }
+
+    @Override
+    public Collection<RuleOffender> findOffenders(EmployeeShifts employeeShifts) {
+        List<RuleOffender> offenders = new ArrayList<>();
+        for (Shift shift : employeeShifts.getShifts()) {
+            if (isOffender(shift, employeeShifts.getShifts())) {
+                offenders.add(new RuleOffender(this, shift));
             }
         }
         return offenders;

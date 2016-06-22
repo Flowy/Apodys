@@ -16,7 +16,7 @@ import java.util.TreeSet;
 
 @XmlAccessorType(XmlAccessType.NONE)
 public class EmployeeShifts {
-    private SimpleObjectProperty<Zamestnanec> employee = new SimpleObjectProperty<>();
+    private SimpleObjectProperty<Zamestnanec> employee = new SimpleObjectProperty<>(this, "employee");
     private ObservableSet<Shift> shifts = FXCollections.observableSet(new TreeSet<>(Shift.START_TIME_COMPARATOR));
 
     public EmployeeShifts() {

@@ -34,11 +34,11 @@ public class FreeTimeAfterShift extends BaseRuleOffenderFinder {
         ZonedDateTime lastMatchedTime = null;
         int matched = 0;
         for (Shift current : shifts) {
-            if (!current.getZaciatok().toLocalTime().equals(shiftStarts)) {
-                continue;
-            }
             if (shift.equals(current)) {
                 break;
+            }
+            if (!current.getZaciatok().toLocalTime().equals(shiftStarts)) {
+                continue;
             }
             if (matched > 0 && lastMatchedTime.plusDays(1L).isEqual(current.getZaciatok())) {
                 lastMatchedTime = current.getZaciatok();

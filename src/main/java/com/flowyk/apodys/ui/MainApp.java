@@ -1,6 +1,6 @@
 package com.flowyk.apodys.ui;
 
-import com.flowyk.apodys.bussiness.boundary.Messages;
+import com.flowyk.apodys.bussiness.controller.Messages;
 import com.flowyk.apodys.ui.config.ApplicationModule;
 import com.flowyk.apodys.ui.config.GuiceControllerLoader;
 import com.google.inject.Guice;

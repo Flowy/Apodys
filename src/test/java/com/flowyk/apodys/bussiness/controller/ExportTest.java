@@ -31,7 +31,7 @@ public class ExportTest {
     public void setUp() throws Exception {
         td = new TestovacieData();
         export = new Export();
-        context = new Context(new EventBus(), new Export());
+        context = new Context(new Export(), new RuleInvestigatorManager());
         context.getShiftTemplates().addAll(td.predlohaN2P, td.predlohaO75, td.predlohaP1C, td.predlohaR2P);
     }
 

@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.List;
 
 public interface RuleInvestigator {
+    Collection<RuleOffender> findOffenders(EmployeeShifts shifts);
     Collection<RuleOffender> findOffenders(List<EmployeeShifts> shifts);
 
     LocalizationUnit getCrime();

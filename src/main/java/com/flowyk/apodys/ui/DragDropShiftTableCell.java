@@ -1,11 +1,11 @@
 package com.flowyk.apodys.ui;
 
-import com.flowyk.apodys.bussiness.boundary.Messages;
-import com.flowyk.apodys.bussiness.boundary.RosterBoundary;
+import com.flowyk.apodys.bussiness.controller.Context;
+import com.flowyk.apodys.bussiness.controller.Messages;
 import com.flowyk.apodys.bussiness.entity.EmployeeShifts;
 import com.flowyk.apodys.bussiness.entity.PredlohaSmeny;
 import com.flowyk.apodys.bussiness.entity.Shift;
-import com.flowyk.apodys.bussiness.entity.Zamestnanec;
+import com.sun.javafx.binding.ListExpressionHelper;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -19,7 +19,7 @@ public class DragDropShiftTableCell extends ShiftTableCell {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Inject
-    public DragDropShiftTableCell(RosterBoundary rosterBoundary, Messages messages) {
+    public DragDropShiftTableCell(Context context, Messages messages) {
         super(messages);
 
         setOnDragDetected(event -> {
@@ -30,11 +30,7 @@ public class DragDropShiftTableCell extends ShiftTableCell {
             }
 
             Dragboard db;
-            if (event.isAltDown()) {
-                db = startDragAndDrop(TransferMode.COPY);
-            } else {
-                db = startDragAndDrop(TransferMode.MOVE);
-            }
+            db = startDragAndDrop(TransferMode.MOVE);
             ClipboardContent content = new ClipboardContent();
             content.put(DragAndDropDataTypes.SHIFT_TEMPLATE, getItem().getPredloha());
             db.setContent(content);
@@ -65,15 +61,17 @@ public class DragDropShiftTableCell extends ShiftTableCell {
             Dragboard db = event.getDragboard();
             if (db.hasContent(DragAndDropDataTypes.SHIFT_TEMPLATE)) {
                 PredlohaSmeny template = (PredlohaSmeny) db.getContent(DragAndDropDataTypes.SHIFT_TEMPLATE);
+
                 logger.debug("Drag dropped with template: " + template);
-                Zamestnanec employee = ((EmployeeShifts) getTableRow().getItem()).getEmployee();
-                Shift newShift = null;
-                if (getItem() == null) {
-                    newShift = rosterBoundary.create(template, columnHeader, employee);
-                } else {
-                    newShift = rosterBoundary.override(getItem(), template);
+                EmployeeShifts row = (EmployeeShifts) getTableRow().getItem();
+
+                Shift originShift = row.getShift(columnHeader);
+                if (originShift != null) {
+                    row.getShifts().remove(originShift);
                 }
-                updateItem(newShift, false);
+                Shift newShift = template.vygenerujOd(columnHeader);
+                row.getShifts().add(newShift);
+
                 event.setDropCompleted(true);
             } else {
                 logger.debug("Drag dropped with unsupported content types: " + db.getContentTypes());
@@ -84,16 +82,19 @@ public class DragDropShiftTableCell extends ShiftTableCell {
 
         setOnDragDone(event -> {
             if (event.getTransferMode() == TransferMode.MOVE) {
-                logger.debug("Removing shift " + event.getGestureSource());
-                rosterBoundary.remove(getItem());
-                updateItem(null, true);
+                logger.debug("Removing shift " + getItem());
+                EmployeeShifts row = (EmployeeShifts) getTableRow().getItem();
+                row.getShifts().remove(getItem());
             }
         });
     }
 
     private boolean isDroppable(DragEvent event) {
+        //TODO: not droppable if row have no employee
         boolean same = event.getGestureSource() == event.getGestureTarget();
         if (same) return false;
+        boolean isShift = event.getDragboard().hasContent(DragAndDropDataTypes.SHIFT);
+        if (isShift) return true;
         //noinspection UnnecessaryLocalVariable
         boolean isShiftTemplate = event.getDragboard().hasContent(DragAndDropDataTypes.SHIFT_TEMPLATE);
         return isShiftTemplate;

@@ -1,4 +1,4 @@
-package com.flowyk.apodys.bussiness.boundary;
+package com.flowyk.apodys.bussiness.controller;
 
 import com.flowyk.apodys.bussiness.entity.LocalizationUnit;
 
