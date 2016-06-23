@@ -31,13 +31,14 @@ public class MaxTimeInPeriod extends BaseRuleOffenderFinder {
             if (current.getZaciatok().isBefore(periodMin)) {
                 continue;
             }
-            if (current.getZaciatok().isAfter(shift.getZaciatok())) {
+            if (current == shift) {
                 LOG.debug("Breaking the streak, expecting shifts ordered by time");
                 break;
             }
             workedTimeBeforeShift = workedTimeBeforeShift.plus(current.getCountedDuration());
         }
-        if (workedTimeBeforeShift.compareTo(maxTime) >= 0) {
+        Duration workedTimeWithShift = workedTimeBeforeShift.plus(shift.getCountedDuration());
+        if (workedTimeWithShift.compareTo(maxTime) >= 0) {
             return true;
         } else {
             return false;

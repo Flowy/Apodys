@@ -2,6 +2,8 @@ package com.flowyk.apodys.ui.controllers;
 
 import com.flowyk.apodys.bussiness.controller.Context;
 import com.flowyk.apodys.bussiness.controller.Messages;
+import com.flowyk.apodys.bussiness.controller.RuleInvestigatorManager;
+import com.flowyk.apodys.ui.ErrorsChangedListener;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -21,11 +23,12 @@ public class MenuController {
 
     @Inject
     private Stage stage;
-
     @Inject
     private Context context;
     @Inject
     private Messages messages;
+    @Inject
+    private RuleInvestigatorManager ruleInvestigatorManager;
 
     private final static FileChooser.ExtensionFilter fileType = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
 
@@ -74,5 +77,9 @@ public class MenuController {
         });
 
         dialog.showAndWait().ifPresent(result -> context.addEmployee(result, null));
+    }
+
+    public void findErrors(ActionEvent event) {
+        ruleInvestigatorManager.recalculate();
     }
 }

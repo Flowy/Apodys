@@ -9,4 +9,7 @@
     <Menu text="%employees">
         <MenuItem text="%create_new_employee" onAction="#createNewEmployee"/>
     </Menu>
+    <Menu text="%error_finding">
+        <MenuItem text="%check_errors" onAction="#findErrors"/>
+    </Menu>
 </MenuBar>

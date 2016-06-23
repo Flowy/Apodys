@@ -2,7 +2,6 @@ package com.flowyk.apodys;
 
 import com.flowyk.apodys.bussiness.controller.Context;
 import com.flowyk.apodys.bussiness.controller.Export;
-import com.flowyk.apodys.bussiness.controller.RuleInvestigatorManager;
 import com.flowyk.apodys.bussiness.entity.PredlohaSmeny;
 
 import java.io.File;
@@ -16,7 +15,7 @@ import java.util.List;
 
 public class GenerateDefaultRoster {
     public static void main(String[] args) throws URISyntaxException, IOException {
-        Context context = new Context(new Export(), new RuleInvestigatorManager());
+        Context context = new Context(new Export());
         context.getShiftTemplates().addAll(generateTemplates());
         File file = File.createTempFile("default_roster", ".xml");
 

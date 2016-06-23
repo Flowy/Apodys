@@ -1,6 +1,7 @@
 package com.flowyk.apodys.ui;
 
 import com.flowyk.apodys.bussiness.controller.Context;
+import com.flowyk.apodys.bussiness.controller.RuleInvestigatorManager;
 import com.flowyk.apodys.bussiness.entity.EmployeeShifts;
 import com.flowyk.apodys.bussiness.entity.Shift;
 import com.flowyk.apodys.bussiness.entity.Zamestnanec;
@@ -31,6 +32,8 @@ public class RosterController {
     private ErrorsChangedListener errorsChangedListener;
     @Inject
     private Context context;
+    @Inject
+    private RuleInvestigatorManager ruleInvestigatorManager;
 
     @FXML
     public void initialize() {
@@ -45,7 +48,7 @@ public class RosterController {
             refreshColumns();
         });
 
-        context.getErrors().addListener(errorsChangedListener);
+        ruleInvestigatorManager.getErrors().addListener(errorsChangedListener);
         refreshColumns();
         rosterTable.setItems(context.getEmployeeShifts());
     }

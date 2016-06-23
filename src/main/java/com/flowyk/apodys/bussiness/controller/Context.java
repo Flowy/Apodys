@@ -19,40 +19,14 @@ public class Context {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     private final Export export;
-    private final RuleInvestigatorManager manager;
 
     private ObservableList<EmployeeShifts> employeeShifts = FXCollections.observableArrayList();
     private ObservableList<PredlohaSmeny> shiftTemplates = FXCollections.observableArrayList();
-    private ListBinding<RuleOffender> errors;
-
-
-    private InvalidationListener shiftsInvalidatedListener = new InvalidationListener() {
-        @Override
-        public void invalidated(Observable observable) {
-            errors.invalidate();
-        }
-    };
-    private InvalidationListener employeeShiftsListener = observable -> {
-        ObservableList<EmployeeShifts> employeeShiftsList = (ObservableList<EmployeeShifts>) observable;
-        employeeShiftsList.forEach(employeeShifts1 -> {
-            employeeShifts1.shiftsProperty().removeListener(shiftsInvalidatedListener);
-            employeeShifts1.shiftsProperty().addListener(shiftsInvalidatedListener);
-        });
-    };
 
     @Inject
-    public Context(Export export, RuleInvestigatorManager ruleInvestigatorManager) {
+    public Context(Export export) {
         this.export = export;
-        this.manager = ruleInvestigatorManager;
 
-        this.employeeShifts.addListener(employeeShiftsListener);
-
-        errors = new ListBinding<RuleOffender>() {
-            @Override
-            protected ObservableList<RuleOffender> computeValue() {
-                return FXCollections.observableArrayList(ruleInvestigatorManager.findOffenders(getEmployeeShifts()));
-            }
-        };
     }
 
     public ObservableList<EmployeeShifts> getEmployeeShifts() {
@@ -61,10 +35,6 @@ public class Context {
 
     public ObservableList<PredlohaSmeny> getShiftTemplates() {
         return shiftTemplates;
-    }
-
-    public ObservableList<RuleOffender> getErrors() {
-        return errors;
     }
 
     public void saveTo(File file) {
@@ -80,8 +50,6 @@ public class Context {
 
         this.shiftTemplates.clear();
         this.shiftTemplates.addAll(newData.getShiftTemplates());
-
-        errors.clear();
     }
 
     public void resetToDefault() {
@@ -92,14 +60,4 @@ public class Context {
     public void addEmployee(String name, String email) {
         this.employeeShifts.add(new EmployeeShifts(new Zamestnanec(name, email)));
     }
-
-//    private void findErrorsInShifts() {
-//        if (manager == null) {
-//            manager = new RuleInvestigatorManager();
-//        }
-//
-//        getErrors().clear();
-//        getErrors().addAll(manager.findOffenders(getEmployeeShifts()));
-//        logger.debug("Found {} errors", getErrors().size());
-//    }
 }
