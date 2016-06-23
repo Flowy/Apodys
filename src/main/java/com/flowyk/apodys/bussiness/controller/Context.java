@@ -1,9 +1,6 @@
 package com.flowyk.apodys.bussiness.controller;
 
-import com.flowyk.apodys.bussiness.entity.EmployeeShifts;
-import com.flowyk.apodys.bussiness.entity.PredlohaSmeny;
-import com.flowyk.apodys.bussiness.entity.Shift;
-import com.flowyk.apodys.bussiness.entity.XmlExport;
+import com.flowyk.apodys.bussiness.entity.*;
 import com.flowyk.apodys.planovanie.RuleOffender;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -90,6 +87,10 @@ public class Context {
     public void resetToDefault() {
         File file = new File(getClass().getClassLoader().getResource("savedRosters/default_roster.xml").getFile());
         load(file);
+    }
+
+    public void addEmployee(String name, String email) {
+        this.employeeShifts.add(new EmployeeShifts(new Zamestnanec(name, email)));
     }
 
 //    private void findErrorsInShifts() {
