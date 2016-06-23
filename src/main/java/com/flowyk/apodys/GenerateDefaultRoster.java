@@ -29,7 +29,7 @@ public class GenerateDefaultRoster {
         List<PredlohaSmeny> result = new ArrayList<>();
         result.add(new PredlohaSmeny("R2P", LocalTime.of(6, 0), LocalTime.of(18, 0), Duration.ofHours(12L)));
         result.add(new PredlohaSmeny("P1C", LocalTime.of(9, 0), LocalTime.of(21, 0), Duration.ofHours(12L)));
-        result.add(new PredlohaSmeny("07,5", LocalTime.of(14, 0), LocalTime.of(22, 0), Duration.ofHours(8L)));
+        result.add(new PredlohaSmeny("O7,5", LocalTime.of(14, 0), LocalTime.of(22, 0), Duration.ofHours(8L)));
         result.add(new PredlohaSmeny("N2P", LocalTime.of(18, 0), LocalTime.of(6, 0), Period.ofDays(1), Duration.ofHours(12L)));
         return result;
     }

@@ -12,4 +12,7 @@
     <Menu text="%error_finding">
         <MenuItem text="%check_errors" onAction="#findErrors"/>
     </Menu>
+    <Menu text="%export">
+        <MenuItem text="%shift_overview" onAction="#exportShifts"/>
+    </Menu>
 </MenuBar>

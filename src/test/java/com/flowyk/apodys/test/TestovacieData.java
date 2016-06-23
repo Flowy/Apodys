@@ -20,7 +20,7 @@ public class TestovacieData {
     public TestovacieData() {
         predlohaR2P = new PredlohaSmeny("R2P", LocalTime.of(6, 0), LocalTime.of(18, 0), Duration.ofHours(12L));
         predlohaP1C = new PredlohaSmeny("P1C", LocalTime.of(9, 0), LocalTime.of(21, 0), Duration.ofHours(12L));
-        predlohaO75 = new PredlohaSmeny("07,5", LocalTime.of(14, 0), LocalTime.of(22, 0), Duration.ofHours(8L));
+        predlohaO75 = new PredlohaSmeny("O7,5", LocalTime.of(14, 0), LocalTime.of(22, 0), Duration.ofHours(8L));
         predlohaN2P = new PredlohaSmeny("N2P", LocalTime.of(18, 0), LocalTime.of(6, 0), Period.ofDays(1), Duration.ofHours(12L));
         testovanaZona = ZoneId.of("Europe/Bratislava");
 
