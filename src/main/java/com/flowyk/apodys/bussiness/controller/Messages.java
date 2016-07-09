@@ -16,8 +16,11 @@ public class Messages {
         resourceBundle = ResourceBundle.getBundle("i18n.Messages", Locale.getDefault());
     }
 
+    public String parse(String key, Object... args) {
+        return MessageFormat.format(getString(key), args);
+    }
     public String parse(LocalizationUnit localizationUnit) {
-        return MessageFormat.format(getString(localizationUnit.getKey()), localizationUnit.getArguments());
+        return parse(localizationUnit.getKey(), localizationUnit.getArguments());
 //        (new MessageFormat(getString(localizationUnit.getKey()))).format(localizationUnit.getArguments(), new StringBuffer(), null).toString()
     }
 

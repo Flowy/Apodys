@@ -2,9 +2,7 @@ package com.flowyk.apodys.bussiness.entity;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class PredlohaSmienPreObdobie {
@@ -19,7 +17,10 @@ public class PredlohaSmienPreObdobie {
     public List<Shift> vygenerujOd(LocalDate datum) {
         List<Shift> vysledok = new ArrayList<>(supisPredloh.size());
         for (PredlohaSmenyPreObdobie predloha : supisPredloh) {
-            vysledok.add(predloha.vygenerujOd(datum));
+            Shift shift = predloha.vygenerujOd(datum);
+            if (shift != null) {
+                vysledok.add(shift);
+            }
         }
         return vysledok;
     }
@@ -40,7 +41,7 @@ public class PredlohaSmienPreObdobie {
 //        return vysledok;
 //    }
 
-    public static class PredlohaSmenyPreObdobie implements PredlohaSmeny{
+    public static class PredlohaSmenyPreObdobie implements PredlohaSmeny {
         private Period startDay;
         private PredlohaSmeny predloha;
 
@@ -56,7 +57,9 @@ public class PredlohaSmienPreObdobie {
 
         @Override
         public Shift vygenerujOd(LocalDate datum) {
-
+            if (predloha == null) {
+                return null;
+            }
             LocalDate posunutyDatum = datum.plus(startDay);
             return predloha.vygenerujOd(posunutyDatum);
         }

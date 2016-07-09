@@ -3,14 +3,23 @@ package com.flowyk.apodys.ui.controllers;
 import com.flowyk.apodys.bussiness.controller.Context;
 import com.flowyk.apodys.bussiness.controller.Messages;
 import com.flowyk.apodys.bussiness.controller.RuleInvestigatorManager;
+import com.flowyk.apodys.bussiness.entity.EmployeeShifts;
+import com.flowyk.apodys.bussiness.entity.LocalizationUnit;
+import com.flowyk.apodys.bussiness.entity.PredlohaSmeny;
 import com.flowyk.apodys.bussiness.entity.PredlohaSmienPreObdobie;
 import com.flowyk.apodys.csv.TimeOverview;
+import com.flowyk.apodys.planovanie.Planovac;
+import com.flowyk.apodys.planovanie.planner.PatternPlanner;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -138,17 +147,22 @@ public class MenuController {
         ButtonType cancelButton = new ButtonType(messages.getString("cancel"), ButtonBar.ButtonData.CANCEL_CLOSE);
         shiftDialog.getDialogPane().getButtonTypes().addAll(continueButton, cancelButton);
 
-        HBox shiftsBox = new HBox(10);
+        Pane shiftsBox = new VBox(10);
         List<PredlohaSmienPreObdobie> shiftPatterns = new ArrayList<>();
-        List<PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie> week = new ArrayList<>();
 
-        for (int i = 0; i < 7; i++) {
-            PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie predloha = new PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie(null, Period.ofDays(1));
-            week.add(predloha);
+        ObservableList<PredlohaSmeny> choices = FXCollections.observableArrayList();
+        choices.add(new VoidShiftTemplate(messages.getString("unplanned_template")));
+        choices.addAll(context.getShiftTemplates());
+
+        addTitleRow(shiftsBox);
+
+        for (int week = 0; week < 13; week++) {
+            addNewWeekRow(choices, shiftsBox, shiftPatterns);
         }
-        VBox weekBox = new VBox(10);
-        weekBox.getChildren().add(new Label("Týždeň"));
-//        weekBox.getChildren().add(new ChoiceBox())
+
+//        Button addNewWeekButton = new Button(messages.getString("add_new_week"));
+//        addNewWeekButton.setOnAction(addNewWeekEvent -> addNewWeekRow(choices, shiftsBox, shiftPatterns));
+//        shiftsBox.getChildren().add(addNewWeekButton);
 
         shiftDialog.getDialogPane().setContent(shiftsBox);
 
@@ -163,19 +177,83 @@ public class MenuController {
         ButtonType planButton = new ButtonType(messages.getString("start_planning"), ButtonBar.ButtonData.OK_DONE);
         timeDialog.getDialogPane().getButtonTypes().addAll(planButton, cancelButton);
 
+        Label startDateLabel = new Label(messages.getString("start_day"));
         DatePicker startDate = new DatePicker(LocalDate.now());
         startDate.setShowWeekNumbers(true);
 
+        Label endDateLabel = new Label(messages.getString("end_day"));
         DatePicker endDate = new DatePicker(LocalDate.now());
         endDate.setShowWeekNumbers(true);
 
-        timeDialog.getDialogPane().setContent(new HBox(10));
+        timeDialog.getDialogPane().setContent(new HBox(10, startDateLabel, startDate, endDateLabel, endDate));
 
         pressedButton = timeDialog.showAndWait().orElse(cancelButton);
         if (pressedButton == cancelButton) {
             return;
         }
-        //TODO: plan shifts with given data
+
+        Planovac planovac = new PatternPlanner(shiftPatterns);
+        planovac.naplanuj(
+                context.getEmployeeShifts(),
+                startDate.getValue(),
+                endDate.getValue()
+        );
+    }
+
+    private void addTitleRow(Pane shiftsBox) {
+        Pane row = new HBox(10);
+        Label weekTitle = new Label();
+        weekTitle.setPrefWidth(70);
+
+        Label monday = new Label(messages.getString("monday"));
+        monday.setPrefWidth(100);
+        Label tuesday = new Label(messages.getString("tuesday"));
+        tuesday.setPrefWidth(100);
+        Label wednesday = new Label(messages.getString("wednesday"));
+        wednesday.setPrefWidth(100);
+        Label thursday = new Label(messages.getString("thursday"));
+        thursday.setPrefWidth(100);
+        Label friday = new Label(messages.getString("friday"));
+        friday.setPrefWidth(100);
+        Label saturday = new Label(messages.getString("saturday"));
+        saturday.setPrefWidth(100);
+        Label sunday = new Label(messages.getString("sunday"));
+        sunday.setPrefWidth(100);
+        row.getChildren().addAll(weekTitle, monday, tuesday, wednesday, thursday, friday, saturday, sunday);
+        shiftsBox.getChildren().add(row);
+    }
+
+    private void addNewWeekRow(ObservableList<PredlohaSmeny> choices, Pane shiftsBox, List<PredlohaSmienPreObdobie> shiftPatterns) {
+        List<PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie> weekValues = new ArrayList<>();
+        Pane weekBox = new HBox(10);
+
+        Label label = new Label(messages.parse(new LocalizationUnit("week_number", shiftPatterns.size() + 1)));
+        label.setPrefWidth(70);
+        weekBox.getChildren().add(label);
+        for (int weekDay = 0; weekDay < 7; weekDay++) {
+            PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie predloha = new PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie(null, Period.ofDays(weekDay));
+            weekValues.add(predloha);
+            ChoiceBox<PredlohaSmeny> choice = new ChoiceBox<>(choices);
+            choice.valueProperty().addListener((observable, oldValue, newValue) -> {
+                predloha.setPredloha(newValue);
+            });
+            choice.setConverter(new StringConverter<PredlohaSmeny>() {
+                @Override
+                public String toString(PredlohaSmeny object) {
+                    return object.getNazov();
+                }
+
+                @Override
+                public PredlohaSmeny fromString(String string) {
+                    //not editable -> does not need to convert from string
+                    return null;
+                }
+            });
+            choice.setPrefWidth(100);
+            weekBox.getChildren().add(choice);
+        }
+        shiftsBox.getChildren().add(weekBox);
+        shiftPatterns.add(new PredlohaSmienPreObdobie(weekValues, Period.ofDays(7)));
 
     }
 
