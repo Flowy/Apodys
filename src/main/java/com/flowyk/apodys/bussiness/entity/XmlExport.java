@@ -16,7 +16,7 @@ public class XmlExport {
 
     @XmlElementWrapper(name = "predlohy", required = true)
     @XmlElement(name = "predlohaZmeny")
-    private List<PredlohaSmeny> predlohy;
+    private List<PredlohaSmenyImpl> predlohy;
 
     /**
      * JAXB constructor
@@ -25,7 +25,7 @@ public class XmlExport {
         this(new ArrayList<>(), new ArrayList<>());
     }
 
-    public XmlExport(List<EmployeeShifts> employeeShifts, List<PredlohaSmeny> shiftTemplates) {
+    public XmlExport(List<EmployeeShifts> employeeShifts, List<PredlohaSmenyImpl> shiftTemplates) {
         this.employeeShifts = employeeShifts;
         this.predlohy = Objects.requireNonNull(shiftTemplates);
     }
@@ -34,7 +34,7 @@ public class XmlExport {
         return employeeShifts;
     }
 
-    public List<PredlohaSmeny> getShiftTemplates() {
+    public List<PredlohaSmenyImpl> getShiftTemplates() {
         return predlohy;
     }
 }

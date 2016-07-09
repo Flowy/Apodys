@@ -30,8 +30,8 @@ public class MaxTimeInPeriodTest {
     @Test
     public void overridingShiftsLong() {
         EmployeeShifts planSmien = combine(td.zamestnanci.get(0),
-                td.predlohaR2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona),
-                td.predlohaP1C.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona)
+                td.predlohaR2P.vygenerujOd(LocalDate.of(2016, 5, 1)),
+                td.predlohaP1C.vygenerujOd(LocalDate.of(2016, 5, 1))
         );
 
         assertBroken(investigator.findOffenders(Collections.singletonList(planSmien)));
@@ -40,8 +40,8 @@ public class MaxTimeInPeriodTest {
     @Test
     public void manyHours() {
         EmployeeShifts planSmien = combine(td.zamestnanci.get(0),
-                td.predlohaR2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona),
-                td.predlohaP1C.vygenerujOd(LocalDate.of(2016, 5, 2), td.testovanaZona)
+                td.predlohaR2P.vygenerujOd(LocalDate.of(2016, 5, 1)),
+                td.predlohaP1C.vygenerujOd(LocalDate.of(2016, 5, 2))
         );
 
         assertBroken(investigator.findOffenders(Collections.singletonList(planSmien)));
@@ -50,8 +50,8 @@ public class MaxTimeInPeriodTest {
     @Test
     public void fewHours() {
         EmployeeShifts planSmien = combine(td.zamestnanci.get(0),
-                td.predlohaR2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona),
-                td.predlohaO75.vygenerujOd(LocalDate.of(2016, 5, 2), td.testovanaZona)
+                td.predlohaR2P.vygenerujOd(LocalDate.of(2016, 5, 1)),
+                td.predlohaO75.vygenerujOd(LocalDate.of(2016, 5, 2))
         );
 
         assertValid(investigator.findOffenders(Collections.singletonList(planSmien)));

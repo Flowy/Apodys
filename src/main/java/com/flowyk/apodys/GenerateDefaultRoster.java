@@ -3,6 +3,7 @@ package com.flowyk.apodys;
 import com.flowyk.apodys.bussiness.controller.Context;
 import com.flowyk.apodys.bussiness.controller.Export;
 import com.flowyk.apodys.bussiness.entity.PredlohaSmeny;
+import com.flowyk.apodys.bussiness.entity.PredlohaSmenyImpl;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,12 +26,12 @@ public class GenerateDefaultRoster {
 
     }
 
-    private static List<PredlohaSmeny> generateTemplates() {
-        List<PredlohaSmeny> result = new ArrayList<>();
-        result.add(new PredlohaSmeny("R2P", LocalTime.of(6, 0), LocalTime.of(18, 0), Duration.ofHours(12L)));
-        result.add(new PredlohaSmeny("P1C", LocalTime.of(9, 0), LocalTime.of(21, 0), Duration.ofHours(12L)));
-        result.add(new PredlohaSmeny("O7,5", LocalTime.of(14, 0), LocalTime.of(22, 0), Duration.ofHours(8L)));
-        result.add(new PredlohaSmeny("N2P", LocalTime.of(18, 0), LocalTime.of(6, 0), Period.ofDays(1), Duration.ofHours(12L)));
+    private static List<PredlohaSmenyImpl> generateTemplates() {
+        List<PredlohaSmenyImpl> result = new ArrayList<>();
+        result.add(new PredlohaSmenyImpl("R2P", LocalTime.of(6, 0), LocalTime.of(18, 0), Duration.ofHours(12L)));
+        result.add(new PredlohaSmenyImpl("P1C", LocalTime.of(9, 0), LocalTime.of(21, 0), Duration.ofHours(12L)));
+        result.add(new PredlohaSmenyImpl("O7,5", LocalTime.of(14, 0), LocalTime.of(22, 0), Duration.ofHours(8L)));
+        result.add(new PredlohaSmenyImpl("N2P", LocalTime.of(18, 0), LocalTime.of(6, 0), Period.ofDays(1), Duration.ofHours(12L)));
         return result;
     }
 }

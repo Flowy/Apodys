@@ -15,7 +15,7 @@ public class Shift implements Serializable {
     private ZonedDateTime koniec;
     private TypPolozkyPlanu typ;
     private Duration countedDuration;
-    private PredlohaSmeny predloha;
+    private PredlohaSmenyImpl predloha;
 
     /**
      * default konstruktor pre JAXB
@@ -41,7 +41,7 @@ public class Shift implements Serializable {
     /**
      * konstruktor pre predlohy
      */
-    public Shift(ZonedDateTime zaciatok, ZonedDateTime koniec, TypPolozkyPlanu typ, Duration countedDuration, PredlohaSmeny predloha) {
+    public Shift(ZonedDateTime zaciatok, ZonedDateTime koniec, TypPolozkyPlanu typ, Duration countedDuration, PredlohaSmenyImpl predloha) {
         this(zaciatok, koniec, typ, countedDuration);
         this.setPredloha(Objects.requireNonNull(predloha));
     }
@@ -88,11 +88,11 @@ public class Shift implements Serializable {
 
     @XmlIDREF
     @XmlAttribute(required = true)
-    public PredlohaSmeny getPredloha() {
+    public PredlohaSmenyImpl getPredloha() {
         return predloha;
     }
 
-    public void setPredloha(PredlohaSmeny predloha) {
+    public void setPredloha(PredlohaSmenyImpl predloha) {
         this.predloha = predloha;
     }
 

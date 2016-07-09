@@ -8,8 +8,8 @@ import java.util.Collection;
 import java.util.List;
 
 public class PredlohaSmienPreObdobie {
-    List<PredlohaSmenyPreObdobie> supisPredloh;
-    Period dlzkaObdobia;
+    private List<PredlohaSmenyPreObdobie> supisPredloh;
+    private Period dlzkaObdobia;
 
     public PredlohaSmienPreObdobie(List<PredlohaSmenyPreObdobie> supis, Period dlzkaObdobia) {
         this.supisPredloh = supis;
@@ -28,30 +28,45 @@ public class PredlohaSmienPreObdobie {
         return dlzkaObdobia;
     }
 
-    public Collection<? extends Shift> vygenerujOdDo(LocalDate start, LocalDate end, ZoneId timezone) {
-        List<Shift> vysledok = new ArrayList<>(supisPredloh.size());
-        for (PredlohaSmenyPreObdobie predloha : supisPredloh) {
-            if (start.plus(predloha.getStartDay()).isAfter(end)) {
-                break;
-            } else {
-                vysledok.add(predloha.vygenerujOd(start, timezone));
-            }
-        }
-        return vysledok;
-    }
+//    public Collection<? extends Shift> vygenerujOdDo(LocalDate start, LocalDate end) {
+//        List<Shift> vysledok = new ArrayList<>(supisPredloh.size());
+//        for (PredlohaSmenyPreObdobie predloha : supisPredloh) {
+//            if (start.plus(predloha.getStartDay()).isAfter(end)) {
+//                break;
+//            } else {
+//                vysledok.add(predloha.vygenerujOd(start));
+//            }
+//        }
+//        return vysledok;
+//    }
 
-    public static class PredlohaSmenyPreObdobie extends PredlohaSmeny {
-        Period startDay;
+    public static class PredlohaSmenyPreObdobie implements PredlohaSmeny{
+        private Period startDay;
+        private PredlohaSmeny predloha;
 
         public PredlohaSmenyPreObdobie(PredlohaSmeny predloha, Period startDay) {
-            super(predloha.nazov, predloha.startTime, predloha.endTime, predloha.timeSpan, predloha.countedDuration);
+            this.predloha = predloha;
             this.startDay = startDay;
         }
 
         @Override
+        public String getNazov() {
+            return predloha.getNazov();
+        }
+
+        @Override
         public Shift vygenerujOd(LocalDate datum) {
+
             LocalDate posunutyDatum = datum.plus(startDay);
-            return super.vygenerujOd(posunutyDatum);
+            return predloha.vygenerujOd(posunutyDatum);
+        }
+
+        public void setPredloha(PredlohaSmeny predloha) {
+            this.predloha = predloha;
+        }
+
+        public PredlohaSmeny getPredloha() {
+            return predloha;
         }
 
         public Period getStartDay() {

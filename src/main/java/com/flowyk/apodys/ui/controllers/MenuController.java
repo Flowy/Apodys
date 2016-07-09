@@ -5,8 +5,6 @@ import com.flowyk.apodys.bussiness.controller.Messages;
 import com.flowyk.apodys.bussiness.controller.RuleInvestigatorManager;
 import com.flowyk.apodys.bussiness.entity.PredlohaSmienPreObdobie;
 import com.flowyk.apodys.csv.TimeOverview;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableObjectValue;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -141,15 +139,15 @@ public class MenuController {
         shiftDialog.getDialogPane().getButtonTypes().addAll(continueButton, cancelButton);
 
         HBox shiftsBox = new HBox(10);
-//        List<PredlohaSmienPreObdobie> shiftPatterns = new ArrayList<>();
-//        List<ObservableObjectValue<PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie>> week = new ArrayList<>();
-//
-//        for (int i = 0; i<7; i++) {
-//            ObservableObjectValue<PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie> predloha = new SimpleObjectProperty<>();
-//            tyzden.add(new PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie(predlohaR2P, Period.ofDays(0)));
-//        }
-//        VBox weekBox = new VBox(10);
-//        weekBox.getChildren().add(new Label("Týždeň"));
+        List<PredlohaSmienPreObdobie> shiftPatterns = new ArrayList<>();
+        List<PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie> week = new ArrayList<>();
+
+        for (int i = 0; i < 7; i++) {
+            PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie predloha = new PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie(null, Period.ofDays(1));
+            week.add(predloha);
+        }
+        VBox weekBox = new VBox(10);
+        weekBox.getChildren().add(new Label("Týždeň"));
 //        weekBox.getChildren().add(new ChoiceBox())
 
         shiftDialog.getDialogPane().setContent(shiftsBox);

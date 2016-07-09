@@ -20,7 +20,7 @@ public class PredlohaSmenyTest {
 
     @Test
     public void spravnyKoncovyCas() {
-        Shift smena = td.predlohaR2P.vygenerujOd(LocalDate.now(td.testovanaZona), td.testovanaZona);
+        Shift smena = td.predlohaR2P.vygenerujOd(LocalDate.now(td.testovanaZona));
         assertEquals(td.predlohaR2P.endTime, smena.getKoniec().toLocalTime());
     }
 
@@ -30,7 +30,7 @@ public class PredlohaSmenyTest {
      */
     @Test
     public void dlzkaSmenyPriPrechodeNaDST() {
-        Shift smena = td.predlohaN2P.vygenerujOd(LocalDate.of(2015, 3, 28), td.testovanaZona);
+        Shift smena = td.predlohaN2P.vygenerujOd(LocalDate.of(2015, 3, 28));
         assertEquals(
                 Duration.ofHours(11L),
                 Duration.between(smena.getZaciatok(), smena.getKoniec()));
@@ -42,7 +42,7 @@ public class PredlohaSmenyTest {
      */
     @Test
     public void dlzkaSmenyPriPrechodeZDST() {
-        Shift smena = td.predlohaN2P.vygenerujOd(LocalDate.of(2015, 10, 24), td.testovanaZona);
+        Shift smena = td.predlohaN2P.vygenerujOd(LocalDate.of(2015, 10, 24));
         assertEquals(
                 Duration.ofHours(13L),
                 Duration.between(smena.getZaciatok(), smena.getKoniec()));
@@ -50,7 +50,7 @@ public class PredlohaSmenyTest {
 
     @Test
     public void dlzkaSmenyVBeznyDen() {
-        Shift smena = td.predlohaP1C.vygenerujOd(LocalDate.of(2015, 1, 1), td.testovanaZona);
+        Shift smena = td.predlohaP1C.vygenerujOd(LocalDate.of(2015, 1, 1));
         assertEquals(
                 Duration.between(td.predlohaP1C.startTime, td.predlohaP1C.endTime),
                 Duration.between(smena.getZaciatok(), smena.getKoniec()));

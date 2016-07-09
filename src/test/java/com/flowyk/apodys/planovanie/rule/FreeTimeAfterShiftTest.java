@@ -31,8 +31,8 @@ public class FreeTimeAfterShiftTest {
     public void freeTime() {
         EmployeeShifts planSmien = combine(
                 td.zamestnanci.get(0),
-                td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona),
-                td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 2), td.testovanaZona)
+                td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1)),
+                td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 2))
         );
         assertValid(investigator.findOffenders(Collections.singletonList(planSmien)));
     }
@@ -40,8 +40,8 @@ public class FreeTimeAfterShiftTest {
     @Test
     public void overloaded() {
         EmployeeShifts planSmien = combine(td.zamestnanci.get(0),
-                td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona),
-                td.predlohaR2P.vygenerujOd(LocalDate.of(2016, 5, 2), td.testovanaZona)
+                td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1)),
+                td.predlohaR2P.vygenerujOd(LocalDate.of(2016, 5, 2))
         );
         assertBroken(investigator.findOffenders(Collections.singletonList(planSmien)));
     }
@@ -51,9 +51,9 @@ public class FreeTimeAfterShiftTest {
     @Test
     public void freeTime2() {
         EmployeeShifts planSmien = combine(td.zamestnanci.get(0),
-                td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona),
-                td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 2), td.testovanaZona),
-                td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 4), td.testovanaZona)
+                td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1)),
+                td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 2)),
+                td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 4))
         );
         assertValid(investigator2.findOffenders(Collections.singletonList(planSmien)));
     }
@@ -61,9 +61,9 @@ public class FreeTimeAfterShiftTest {
     @Test
     public void overloaded2() {
         EmployeeShifts planSmien = combine(td.zamestnanci.get(0),
-                td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1), td.testovanaZona),
-                td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 2), td.testovanaZona),
-                td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 3), td.testovanaZona)
+                td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 1)),
+                td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 2)),
+                td.predlohaN2P.vygenerujOd(LocalDate.of(2016, 5, 3))
         );
         assertBroken(investigator2.findOffenders(Collections.singletonList(planSmien)));
     }

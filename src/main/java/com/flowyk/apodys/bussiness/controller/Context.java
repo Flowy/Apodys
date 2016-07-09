@@ -21,7 +21,7 @@ public class Context {
     private final Export export;
 
     private ObservableList<EmployeeShifts> employeeShifts = FXCollections.observableArrayList();
-    private ObservableList<PredlohaSmeny> shiftTemplates = FXCollections.observableArrayList();
+    private ObservableList<PredlohaSmenyImpl> shiftTemplates = FXCollections.observableArrayList();
 
     @Inject
     public Context(Export export) {
@@ -33,7 +33,7 @@ public class Context {
         return employeeShifts;
     }
 
-    public ObservableList<PredlohaSmeny> getShiftTemplates() {
+    public ObservableList<PredlohaSmenyImpl> getShiftTemplates() {
         return shiftTemplates;
     }
 
