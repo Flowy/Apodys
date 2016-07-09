@@ -3,22 +3,25 @@ package com.flowyk.apodys.ui.controllers;
 import com.flowyk.apodys.bussiness.controller.Context;
 import com.flowyk.apodys.bussiness.controller.Messages;
 import com.flowyk.apodys.bussiness.controller.RuleInvestigatorManager;
+import com.flowyk.apodys.bussiness.entity.PredlohaSmienPreObdobie;
 import com.flowyk.apodys.csv.TimeOverview;
-import com.flowyk.apodys.ui.ErrorsChangedListener;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableObjectValue;
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.io.File;
 import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class MenuController {
@@ -127,6 +130,55 @@ public class MenuController {
         if (file != null) {
             timeOverview.export(file, context.getEmployeeShifts(), result.get().getStartDate(), result.get().getEndDate());
         }
+    }
+
+    public void planShifts(ActionEvent event) {
+        Dialog<ButtonType> shiftDialog = new Dialog<>();
+        shiftDialog.setTitle(messages.getString("planning_patterns"));
+
+        ButtonType continueButton = new ButtonType(messages.getString("continue"), ButtonBar.ButtonData.NEXT_FORWARD);
+        ButtonType cancelButton = new ButtonType(messages.getString("cancel"), ButtonBar.ButtonData.CANCEL_CLOSE);
+        shiftDialog.getDialogPane().getButtonTypes().addAll(continueButton, cancelButton);
+
+        HBox shiftsBox = new HBox(10);
+//        List<PredlohaSmienPreObdobie> shiftPatterns = new ArrayList<>();
+//        List<ObservableObjectValue<PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie>> week = new ArrayList<>();
+//
+//        for (int i = 0; i<7; i++) {
+//            ObservableObjectValue<PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie> predloha = new SimpleObjectProperty<>();
+//            tyzden.add(new PredlohaSmienPreObdobie.PredlohaSmenyPreObdobie(predlohaR2P, Period.ofDays(0)));
+//        }
+//        VBox weekBox = new VBox(10);
+//        weekBox.getChildren().add(new Label("Týždeň"));
+//        weekBox.getChildren().add(new ChoiceBox())
+
+        shiftDialog.getDialogPane().setContent(shiftsBox);
+
+        ButtonType pressedButton = shiftDialog.showAndWait().orElse(cancelButton);
+        if (pressedButton == cancelButton) {
+            return;
+        }
+
+        Dialog<ButtonType> timeDialog = new Dialog<>();
+        shiftDialog.setTitle(messages.getString("planning_time"));
+
+        ButtonType planButton = new ButtonType(messages.getString("start_planning"), ButtonBar.ButtonData.OK_DONE);
+        timeDialog.getDialogPane().getButtonTypes().addAll(planButton, cancelButton);
+
+        DatePicker startDate = new DatePicker(LocalDate.now());
+        startDate.setShowWeekNumbers(true);
+
+        DatePicker endDate = new DatePicker(LocalDate.now());
+        endDate.setShowWeekNumbers(true);
+
+        timeDialog.getDialogPane().setContent(new HBox(10));
+
+        pressedButton = timeDialog.showAndWait().orElse(cancelButton);
+        if (pressedButton == cancelButton) {
+            return;
+        }
+        //TODO: plan shifts with given data
+
     }
 
     private static class CsvExportTimes {

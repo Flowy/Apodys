@@ -9,6 +9,9 @@
     <Menu text="%employees">
         <MenuItem text="%create_new_employee" onAction="#createNewEmployee"/>
     </Menu>
+    <Menu text="%planning">
+        <MenuItem text="%plan_pattern" onAction="#planShifts"/>
+    </Menu>
     <Menu text="%error_finding">
         <MenuItem text="%check_errors" onAction="#findErrors"/>
     </Menu>
